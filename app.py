@@ -8,7 +8,35 @@ st.set_page_config(
     page_icon="🌱",
     layout="wide"
 )
+st.markdown("""
+<style>
+/* Fundo geral */
+body {
+    background-color: #0e1117;
+}
 
+/* Botão */
+.stButton>button {
+    background-color: #2e7d32;
+    color: white;
+    border-radius: 10px;
+    height: 3em;
+    width: 100%;
+    font-size: 16px;
+}
+
+/* Selectbox */
+.stSelectbox>div>div {
+    background-color: #1e1e1e;
+    border-radius: 10px;
+}
+
+/* Sidebar */
+.css-1d391kg {
+    background-color: #111;
+}
+</style>
+""", unsafe_allow_html=True)
 # ==============================
 # SIDEBAR
 # ==============================
