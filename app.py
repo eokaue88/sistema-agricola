@@ -8,11 +8,17 @@ st.set_page_config(
     page_icon="🌱",
     layout="wide"
 )
+
 st.markdown("""
 <style>
-/* Fundo geral */
 body {
     background-color: #0e1117;
+}
+
+/* Centralizar conteúdo */
+.block-container {
+    max-width: 900px;
+    margin: auto;
 }
 
 /* Botão */
@@ -30,25 +36,14 @@ body {
     background-color: #1e1e1e;
     border-radius: 10px;
 }
-
-/* Sidebar */
-.css-1d391kg {
-    background-color: #111;
-}
 </style>
 """, unsafe_allow_html=True)
+
 # ==============================
 # SIDEBAR
 # ==============================
 st.sidebar.title("🌱 AgroSmart PRO")
-st.sidebar.markdown("Sistema inteligente de recomendação agrícola")
-
-st.sidebar.markdown("### ℹ️ Sobre")
-st.sidebar.info("Este sistema analisa solo, clima e região para recomendar culturas com base em compatibilidade.")
-
-# Histórico
-if "historico" not in st.session_state:
-    st.session_state.historico = []
+st.sidebar.info("Sistema inteligente de recomendação agrícola")
 
 # ==============================
 # TÍTULO
@@ -60,38 +55,15 @@ st.caption("Tecnologia aplicada ao agronegócio")
 # BASE DE DADOS
 # ==============================
 dados = [
-    # GRÃOS (principais do Brasil)
     {"solo": "argiloso", "clima": "quente", "regiao": "centro-oeste", "cultura": "soja"},
     {"solo": "argiloso", "clima": "quente", "regiao": "centro-oeste", "cultura": "milho"},
     {"solo": "argiloso", "clima": "umido", "regiao": "sul", "cultura": "arroz"},
     {"solo": "argiloso", "clima": "frio", "regiao": "sul", "cultura": "trigo"},
-    {"solo": "argiloso", "clima": "ameno", "regiao": "sul", "cultura": "aveia"},
     {"solo": "misto", "clima": "quente", "regiao": "sudeste", "cultura": "feijao"},
-
-    # CULTURAS COMERCIAIS
-    {"solo": "argiloso", "clima": "quente", "regiao": "nordeste", "cultura": "cana"},
     {"solo": "argiloso", "clima": "ameno", "regiao": "sudeste", "cultura": "cafe"},
     {"solo": "arenoso", "clima": "quente", "regiao": "nordeste", "cultura": "algodao"},
-
-    # FRUTAS (Brasil tropical)
-    {"solo": "misto", "clima": "tropical", "regiao": "sudeste", "cultura": "laranja"},
-    {"solo": "argiloso", "clima": "quente", "regiao": "norte", "cultura": "banana"},
-    {"solo": "misto", "clima": "tropical", "regiao": "norte", "cultura": "manga"},
-    {"solo": "arenoso", "clima": "quente", "regiao": "nordeste", "cultura": "abacaxi"},
-
-    # CULTURAS SECAS (semiárido)
     {"solo": "arenoso", "clima": "seco", "regiao": "nordeste", "cultura": "mandioca"},
-    {"solo": "arenoso", "clima": "seco", "regiao": "nordeste", "cultura": "sorgo"},
-    {"solo": "arenoso", "clima": "seco", "regiao": "nordeste", "cultura": "milheto"},
-
-    # HORTALIÇAS
     {"solo": "argiloso", "clima": "umido", "regiao": "sudeste", "cultura": "tomate"},
-    {"solo": "misto", "clima": "ameno", "regiao": "sudeste", "cultura": "batata"},
-    {"solo": "argiloso", "clima": "tropical", "regiao": "norte", "cultura": "pimenta"},
-
-    # ROTAÇÃO (base científica)
-    {"solo": "argiloso", "clima": "quente", "regiao": "centro-oeste", "cultura": "milho_safrinha"},
-    {"solo": "argiloso", "clima": "quente", "regiao": "centro-oeste", "cultura": "soja_rotacao"}
 ]
 
 # ==============================
@@ -110,7 +82,11 @@ with col2:
 with col3:
     regiao = st.selectbox("📍 Região", ["nordeste", "sul", "sudeste", "norte", "centro-oeste"])
 
-# if st.button("🚀 Gerar recomendação"):
+# ==============================
+# BOTÃO (CORRIGIDO)
+# ==============================
+if st.button("🚀 Gerar recomendação"):
+
     resultados = []
 
     for item in dados:
@@ -130,7 +106,7 @@ with col3:
     melhor = resultados[0]
 
     # ==============================
-    # 🎯 DESTAQUE PRINCIPAL (NOVO)
+    # 🎯 DESTAQUE PRINCIPAL
     # ==============================
     st.markdown("## 🎯 Melhor escolha para sua fazenda")
 
@@ -153,7 +129,7 @@ with col3:
     st.divider()
 
     # ==============================
-    # CARDS
+    # CARDS (ESTILO NETFLIX)
     # ==============================
     st.markdown("## 🍿 Recomendações para você")
 
@@ -170,11 +146,10 @@ with col3:
                 border-radius: 15px;
                 color: white;
                 text-align: center;
-                box-shadow: 0 4px 10px rgba(0,0,0,0.2);
             ">
                 <h3>{cultura.upper()}</h3>
-                <p style="font-size: 20px;">{porc:.0f}% compatível</p>
-                <p>#{i+1} recomendação</p>
+                <p>{porc:.0f}% compatível</p>
+                <p>#{i+1}</p>
             </div>
             """, unsafe_allow_html=True)
 
@@ -185,28 +160,21 @@ with col3:
     # ==============================
     # RANKING
     # ==============================
-    st.subheader("🏆 Ranking de culturas")
+    st.subheader("🏆 Ranking")
 
     for i, (cultura, porc) in enumerate(resultados[:5], start=1):
-        if i == 1:
-            st.success(f"🥇 {cultura} — {porc:.0f}%")
-        elif i == 2:
-            st.info(f"🥈 {cultura} — {porc:.0f}%")
-        elif i == 3:
-            st.warning(f"🥉 {cultura} — {porc:.0f}%")
-        else:
-            st.write(f"{i}º lugar — {cultura} ({porc:.0f}%)")
+        st.write(f"{i}º — {cultura} ({porc:.0f}%)")
 
     st.divider()
 
     # ==============================
-    # EXPLICAÇÃO
+    # ANÁLISE
     # ==============================
-    st.subheader("🧠 Análise inteligente")
+    st.subheader("🧠 Análise")
 
-    if melhor[1] == 100:
-        st.success("Condições perfeitas para essa cultura. Alto potencial produtivo.")
-    elif melhor[1] >= 66:
-        st.info("Boa compatibilidade. Com manejo adequado, pode gerar bons resultados.")
+    if melhor[1] >= 75:
+        st.success("Alta compatibilidade")
+    elif melhor[1] >= 50:
+        st.info("Compatibilidade média")
     else:
-        st.warning("Baixa compatibilidade. Considere ajustar fatores ou escolher outra cultura.")
+        st.warning("Baixa compatibilidade")
