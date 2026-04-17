@@ -1,6 +1,53 @@
 import streamlit as st
 
-# Base de dados
+# ==============================
+# CONFIGURAÇÃO DA PÁGINA
+# ==============================
+st.set_page_config(
+    page_title="AgroSmart",
+    page_icon="🌱",
+    layout="wide"
+)
+
+# ==============================
+# ESTILO (CSS)
+# ==============================
+st.markdown("""
+<style>
+body {
+    background-color: #f5f7fa;
+}
+.main-title {
+    font-size: 40px;
+    font-weight: bold;
+    color: #2e7d32;
+}
+.subtitle {
+    color: gray;
+    margin-bottom: 20px;
+}
+.card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+}
+.metric {
+    font-size: 25px;
+    font-weight: bold;
+}
+</style>
+""", unsafe_allow_html=True)
+
+# ==============================
+# HEADER
+# ==============================
+st.markdown('<p class="main-title">🌱 AgroSmart</p>', unsafe_allow_html=True)
+st.markdown('<p class="subtitle">Sistema inteligente de recomendação agrícola</p>', unsafe_allow_html=True)
+
+# ==============================
+# BASE DE DADOS
+# ==============================
 dados = [
     {"solo": "arenoso", "clima": "quente", "regiao": "nordeste", "cultura": "milho"},
     {"solo": "argiloso", "clima": "umido", "regiao": "sul", "cultura": "arroz"},
@@ -15,13 +62,26 @@ dados = [
     {"solo": "argiloso", "clima": "umido", "regiao": "norte", "cultura": "cacau"}
 ]
 
-st.title("🌱 Sistema Agrícola Inteligente")
+# ==============================
+# INPUTS
+# ==============================
+st.markdown("### 📥 Dados da propriedade")
 
-solo = st.selectbox("Escolha o solo", ["arenoso", "argiloso", "misto"])
-clima = st.selectbox("Escolha o clima", ["quente", "umido", "seco", "frio", "ameno", "tropical"])
-regiao = st.selectbox("Escolha a região", ["nordeste", "sul", "sudeste", "norte", "centro-oeste"])
+col1, col2, col3 = st.columns(3)
 
-if st.button("Recomendar"):
+with col1:
+    solo = st.selectbox("🌍 Solo", ["arenoso", "argiloso", "misto"])
+
+with col2:
+    clima = st.selectbox("☁️ Clima", ["quente", "umido", "seco", "frio", "ameno", "tropical"])
+
+with col3:
+    regiao = st.selectbox("📍 Região", ["nordeste", "sul", "sudeste", "norte", "centro-oeste"])
+
+# ==============================
+# BOTÃO
+# ==============================
+if st.button("🚀 Gerar recomendação"):
     resultados = []
 
     for item in dados:
@@ -38,12 +98,54 @@ if st.button("Recomendar"):
         resultados.append((item["cultura"], porcentagem))
 
     resultados.sort(key=lambda x: x[1], reverse=True)
-
     melhor = resultados[0]
 
-    st.success(f"🌱 Melhor cultura: {melhor[0]}")
-    st.info(f"📊 Compatibilidade: {melhor[1]:.0f}%")
+    # ==============================
+    # MÉTRICAS (DASHBOARD)
+    # ==============================
+    st.markdown("### 📊 Resultado da análise")
 
-    st.subheader("📋 Ranking")
-    for cultura, porc in resultados:
-        st.write(f"{cultura} → {porc:.0f}%")
+    m1, m2 = st.columns(2)
+
+    with m1:
+        st.metric("🌱 Melhor cultura", melhor[0])
+
+    with m2:
+        st.metric("📊 Compatibilidade", f"{melhor[1]:.0f}%")
+
+    # ==============================
+    # GRÁFICO
+    # ==============================
+    st.markdown("### 📈 Comparação das culturas")
+
+    culturas = [c[0] for c in resultados]
+    valores = [c[1] for c in resultados]
+
+    st.bar_chart(valores)
+
+    # ==============================
+    # RANKING
+    # ==============================
+    st.markdown("### 🏆 Ranking")
+
+    for i, (cultura, porc) in enumerate(resultados, start=1):
+        if i == 1:
+            st.success(f"🥇 {cultura} — {porc:.0f}%")
+        elif i == 2:
+            st.info(f"🥈 {cultura} — {porc:.0f}%")
+        elif i == 3:
+            st.warning(f"🥉 {cultura} — {porc:.0f}%")
+        else:
+            st.write(f"{i}º {cultura} — {porc:.0f}%")
+
+    # ==============================
+    # EXPLICAÇÃO AUTOMÁTICA
+    # ==============================
+    st.markdown("### 🧠 Análise do sistema")
+
+    if melhor[1] == 100:
+        st.success("Condições ideais para essa cultura. Alto potencial de produtividade.")
+    elif melhor[1] >= 66:
+        st.info("Boa compatibilidade. Pode gerar bons resultados com manejo adequado.")
+    else:
+        st.warning("Baixa compatibilidade. Recomendado revisar condições ou considerar outra cultura.")
