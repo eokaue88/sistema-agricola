@@ -137,6 +137,21 @@ if st.button("🚀 Gerar recomendação"):
     valores = [c[1] for c in resultados]
 
     st.bar_chart(valores)
+    # ==============================
+# RANKING
+# ==============================
+st.subheader("🏆 Ranking de culturas")
+
+for i, (cultura, porc) in enumerate(resultados[:5], start=1):
+    if i == 1:
+        st.success(f"🥇 {cultura} — {porc:.0f}%")
+    elif i == 2:
+        st.info(f"🥈 {cultura} — {porc:.0f}%")
+    elif i == 3:
+        st.warning(f"🥉 {cultura} — {porc:.0f}%")
+    else:
+        st.write(f"{i}º lugar — {cultura} ({porc:.0f}%)")
+        
 
     # ==============================
     # EXPLICAÇÃO INTELIGENTE
@@ -158,6 +173,3 @@ st.subheader("📜 Histórico de análises")
 if st.session_state.historico:
     for item in reversed(st.session_state.historico[-5:]):
         st.write(f"{item['solo']} | {item['clima']} | {item['regiao']} → 🌱 {item['resultado']}")
-else:
-    st.write("Nenhuma análise realizada ainda.")
-    
