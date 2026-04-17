@@ -47,13 +47,13 @@ body {
 # ==============================
 # SIDEBAR
 # ==============================
-st.sidebar.title("🌱 AgroSmart PRO")
+st.sidebar.title(" AgroSmart PRO")
 st.sidebar.info("Sistema inteligente de recomendação agrícola")
 
 # ==============================
 # TÍTULO
 # ==============================
-st.title("🌱 AgroSmart PRO")
+st.title(" AgroSmart PRO")
 st.caption("Tecnologia aplicada ao agronegócio")
 
 # ==============================
