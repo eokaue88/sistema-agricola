@@ -110,10 +110,7 @@ with col2:
 with col3:
     regiao = st.selectbox("📍 Região", ["nordeste", "sul", "sudeste", "norte", "centro-oeste"])
 
-# # ==============================
-# PROCESSAMENTO
-# ==============================
-if st.button("🚀 Gerar recomendação"):
+# if st.button("🚀 Gerar recomendação"):
     resultados = []
 
     for item in dados:
@@ -133,6 +130,19 @@ if st.button("🚀 Gerar recomendação"):
     melhor = resultados[0]
 
     # ==============================
+    # 🎯 DESTAQUE PRINCIPAL (NOVO)
+    # ==============================
+    st.markdown("## 🎯 Melhor escolha para sua fazenda")
+
+    st.success(f"""
+    🌱 **{melhor[0].upper()}**
+
+    📊 Compatibilidade: **{melhor[1]:.0f}%**
+    """)
+
+    st.divider()
+
+    # ==============================
     # GRÁFICO
     # ==============================
     st.subheader("📈 Comparação")
@@ -140,8 +150,10 @@ if st.button("🚀 Gerar recomendação"):
     valores = [c[1] for c in resultados]
     st.bar_chart(valores)
 
+    st.divider()
+
     # ==============================
-    # CARDS (AGORA NO LUGAR CERTO)
+    # CARDS
     # ==============================
     st.markdown("## 🍿 Recomendações para você")
 
@@ -168,6 +180,8 @@ if st.button("🚀 Gerar recomendação"):
 
             st.progress(int(porc))
 
+    st.divider()
+
     # ==============================
     # RANKING
     # ==============================
@@ -183,8 +197,10 @@ if st.button("🚀 Gerar recomendação"):
         else:
             st.write(f"{i}º lugar — {cultura} ({porc:.0f}%)")
 
+    st.divider()
+
     # ==============================
-    # EXPLICAÇÃO INTELIGENTE
+    # EXPLICAÇÃO
     # ==============================
     st.subheader("🧠 Análise inteligente")
 
