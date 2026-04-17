@@ -103,31 +103,6 @@ if st.button("🚀 Gerar recomendação"):
     resultados.sort(key=lambda x: x[1], reverse=True)
     melhor = resultados[0]
 
-    # Salvar no histórico
-    st.session_state.historico.append({
-        "solo": solo,
-        "clima": clima,
-        "regiao": regiao,
-        "resultado": melhor[0]
-    })
-
-    # ==============================
-    # DASHBOARD
-    # ==============================
-    st.subheader("📊 Resultado")
-
-    c1, c2, c3 = st.columns(3)
-
-    with c1:
-        st.metric("🌱 Cultura recomendada", melhor[0])
-
-    with c2:
-        st.metric("📊 Compatibilidade", f"{melhor[1]:.0f}%")
-
-    with c3:
-        nivel = "Alta" if melhor[1] >= 66 else "Baixa"
-        st.metric("📈 Nível", nivel)
-
     # ==============================
     # GRÁFICO
     # ==============================
@@ -137,21 +112,21 @@ if st.button("🚀 Gerar recomendação"):
     valores = [c[1] for c in resultados]
 
     st.bar_chart(valores)
-    # ==============================
-# RANKING
-# ==============================
-st.subheader("🏆 Ranking de culturas")
 
-for i, (cultura, porc) in enumerate(resultados[:5], start=1):
-    if i == 1:
-        st.success(f"🥇 {cultura} — {porc:.0f}%")
-    elif i == 2:
-        st.info(f"🥈 {cultura} — {porc:.0f}%")
-    elif i == 3:
-        st.warning(f"🥉 {cultura} — {porc:.0f}%")
-    else:
-        st.write(f"{i}º lugar — {cultura} ({porc:.0f}%)")
-        
+    # ==============================
+    # RANKING (AGORA NO LUGAR CERTO)
+    # ==============================
+    st.subheader("🏆 Ranking de culturas")
+
+    for i, (cultura, porc) in enumerate(resultados[:5], start=1):
+        if i == 1:
+            st.success(f"🥇 {cultura} — {porc:.0f}%")
+        elif i == 2:
+            st.info(f"🥈 {cultura} — {porc:.0f}%")
+        elif i == 3:
+            st.warning(f"🥉 {cultura} — {porc:.0f}%")
+        else:
+            st.write(f"{i}º lugar — {cultura} ({porc:.0f}%)")
 
     # ==============================
     # EXPLICAÇÃO INTELIGENTE
