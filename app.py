@@ -112,6 +112,7 @@ if st.button("🚀 Gerar recomendação"):
     valores = [c[1] for c in resultados]
 
     st.bar_chart(valores)
+    
     st.markdown("## 🍿 Recomendações para você")
 
 cols = st.columns(3)
