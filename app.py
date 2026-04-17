@@ -8,7 +8,7 @@ st.set_page_config(
     page_icon="🌱",
     layout="wide"
 )
-st.image("logo.png", width=150)
+
 st.markdown("""
 <style>
 body {
