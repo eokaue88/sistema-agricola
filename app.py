@@ -42,17 +42,7 @@ body {
 }
 </style>
 """, unsafe_allow_html=True)
-st.markdown("""
-<div style="
-    background-color: #111;
-    padding: 20px;
-    border-radius: 20px;
-    text-align: center;
-    margin-bottom: 20px;
-">
-    <img src="logo.png" width="200">
-</div>
-""", unsafe_allow_html=True)
+
 
 # ==============================
 # SIDEBAR
@@ -193,3 +183,4 @@ if st.button("🚀 Gerar recomendação"):
         st.info("Compatibilidade média")
     else:
         st.warning("Baixa compatibilidade")
+        
