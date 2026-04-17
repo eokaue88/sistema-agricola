@@ -46,10 +46,20 @@ st.sidebar.title("🌱 AgroSmart PRO")
 st.sidebar.info("Sistema inteligente de recomendação agrícola")
 
 # ==============================
-# TÍTULO
+# LOGO CENTRALIZADA (NOVO)
 # ==============================
-st.title("🌱 AgroSmart PRO")
-st.caption("Tecnologia aplicada ao agronegócio")
+col1, col2, col3 = st.columns([1,2,1])
+
+with col2:
+    st.image("logo.png", width=180)
+
+# ==============================
+# TÍTULO (CENTRALIZADO)
+# ==============================
+st.markdown("<h1 style='text-align: center;'>AgroSmart PRO</h1>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center;'>Tecnologia aplicada ao agronegócio</p>", unsafe_allow_html=True)
+
+st.divider()
 
 # ==============================
 # BASE DE DADOS
@@ -83,7 +93,7 @@ with col3:
     regiao = st.selectbox("📍 Região", ["nordeste", "sul", "sudeste", "norte", "centro-oeste"])
 
 # ==============================
-# BOTÃO (CORRIGIDO)
+# BOTÃO
 # ==============================
 if st.button("🚀 Gerar recomendação"):
 
@@ -106,7 +116,7 @@ if st.button("🚀 Gerar recomendação"):
     melhor = resultados[0]
 
     # ==============================
-    # 🎯 DESTAQUE PRINCIPAL
+    # 🎯 DESTAQUE
     # ==============================
     st.markdown("## 🎯 Melhor escolha para sua fazenda")
 
@@ -129,7 +139,7 @@ if st.button("🚀 Gerar recomendação"):
     st.divider()
 
     # ==============================
-    # CARDS (ESTILO NETFLIX)
+    # CARDS
     # ==============================
     st.markdown("## 🍿 Recomendações para você")
 
