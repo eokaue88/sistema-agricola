@@ -112,6 +112,30 @@ if st.button("🚀 Gerar recomendação"):
     valores = [c[1] for c in resultados]
 
     st.bar_chart(valores)
+    st.markdown("## 🍿 Recomendações para você")
+
+cols = st.columns(3)
+
+for i, (cultura, porc) in enumerate(resultados[:6]):
+    with cols[i % 3]:
+        cor = "#2e7d32" if i == 0 else "#333"
+
+        st.markdown(f"""
+        <div style="
+            background-color: {cor};
+            padding: 15px;
+            border-radius: 15px;
+            color: white;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        ">
+            <h3>{cultura.upper()}</h3>
+            <p style="font-size: 20px;">{porc:.0f}% compatível</p>
+            <p>#{i+1} recomendação</p>
+        </div>
+        """, unsafe_allow_html=True)
+
+        st.progress(int(porc))
 
     # ==============================
     # RANKING (AGORA NO LUGAR CERTO)
