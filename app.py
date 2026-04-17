@@ -32,19 +32,39 @@ st.caption("Tecnologia aplicada ao agronegócio")
 # BASE DE DADOS
 # ==============================
 dados = [
-    {"solo": "arenoso", "clima": "quente", "regiao": "nordeste", "cultura": "milho"},
+    # GRÃOS (principais do Brasil)
+    {"solo": "argiloso", "clima": "quente", "regiao": "centro-oeste", "cultura": "soja"},
+    {"solo": "argiloso", "clima": "quente", "regiao": "centro-oeste", "cultura": "milho"},
     {"solo": "argiloso", "clima": "umido", "regiao": "sul", "cultura": "arroz"},
+    {"solo": "argiloso", "clima": "frio", "regiao": "sul", "cultura": "trigo"},
+    {"solo": "argiloso", "clima": "ameno", "regiao": "sul", "cultura": "aveia"},
     {"solo": "misto", "clima": "quente", "regiao": "sudeste", "cultura": "feijao"},
-    {"solo": "arenoso", "clima": "seco", "regiao": "nordeste", "cultura": "mandioca"},
+
+    # CULTURAS COMERCIAIS
     {"solo": "argiloso", "clima": "quente", "regiao": "nordeste", "cultura": "cana"},
     {"solo": "argiloso", "clima": "ameno", "regiao": "sudeste", "cultura": "cafe"},
     {"solo": "arenoso", "clima": "quente", "regiao": "nordeste", "cultura": "algodao"},
-    {"solo": "arenoso", "clima": "frio", "regiao": "sul", "cultura": "trigo"},
-    {"solo": "arenoso", "clima": "seco", "regiao": "centro-oeste", "cultura": "sorgo"},
-    {"solo": "arenoso", "clima": "tropical", "regiao": "sudeste", "cultura": "amendoim"},
-    {"solo": "argiloso", "clima": "umido", "regiao": "norte", "cultura": "cacau"}
-]
 
+    # FRUTAS (Brasil tropical)
+    {"solo": "misto", "clima": "tropical", "regiao": "sudeste", "cultura": "laranja"},
+    {"solo": "argiloso", "clima": "quente", "regiao": "norte", "cultura": "banana"},
+    {"solo": "misto", "clima": "tropical", "regiao": "norte", "cultura": "manga"},
+    {"solo": "arenoso", "clima": "quente", "regiao": "nordeste", "cultura": "abacaxi"},
+
+    # CULTURAS SECAS (semiárido)
+    {"solo": "arenoso", "clima": "seco", "regiao": "nordeste", "cultura": "mandioca"},
+    {"solo": "arenoso", "clima": "seco", "regiao": "nordeste", "cultura": "sorgo"},
+    {"solo": "arenoso", "clima": "seco", "regiao": "nordeste", "cultura": "milheto"},
+
+    # HORTALIÇAS
+    {"solo": "argiloso", "clima": "umido", "regiao": "sudeste", "cultura": "tomate"},
+    {"solo": "misto", "clima": "ameno", "regiao": "sudeste", "cultura": "batata"},
+    {"solo": "argiloso", "clima": "tropical", "regiao": "norte", "cultura": "pimenta"},
+
+    # ROTAÇÃO (base científica)
+    {"solo": "argiloso", "clima": "quente", "regiao": "centro-oeste", "cultura": "milho_safrinha"},
+    {"solo": "argiloso", "clima": "quente", "regiao": "centro-oeste", "cultura": "soja_rotacao"}
+]
 # ==============================
 # INPUTS
 # ==============================
@@ -140,3 +160,4 @@ if st.session_state.historico:
         st.write(f"{item['solo']} | {item['clima']} | {item['regiao']} → 🌱 {item['resultado']}")
 else:
     st.write("Nenhuma análise realizada ainda.")
+    
