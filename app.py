@@ -81,7 +81,7 @@ with col2:
 with col3:
     regiao = st.selectbox("📍 Região", ["nordeste", "sul", "sudeste", "norte", "centro-oeste"])
 
-# ==============================
+# # ==============================
 # PROCESSAMENTO
 # ==============================
 if st.button("🚀 Gerar recomendação"):
@@ -108,38 +108,39 @@ if st.button("🚀 Gerar recomendação"):
     # ==============================
     st.subheader("📈 Comparação")
 
-    nomes = [c[0] for c in resultados]
     valores = [c[1] for c in resultados]
-
     st.bar_chart(valores)
-    
-    st.markdown("## 🍿 Recomendações para você")
-
-cols = st.columns(3)
-
-for i, (cultura, porc) in enumerate(resultados[:6]):
-    with cols[i % 3]:
-        cor = "#2e7d32" if i == 0 else "#333"
-
-        st.markdown(f"""
-        <div style="
-            background-color: {cor};
-            padding: 15px;
-            border-radius: 15px;
-            color: white;
-            text-align: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        ">
-            <h3>{cultura.upper()}</h3>
-            <p style="font-size: 20px;">{porc:.0f}% compatível</p>
-            <p>#{i+1} recomendação</p>
-        </div>
-        """, unsafe_allow_html=True)
-
-        st.progress(int(porc))
 
     # ==============================
-    # RANKING (AGORA NO LUGAR CERTO)
+    # CARDS (AGORA NO LUGAR CERTO)
+    # ==============================
+    st.markdown("## 🍿 Recomendações para você")
+
+    cols = st.columns(3)
+
+    for i, (cultura, porc) in enumerate(resultados[:6]):
+        with cols[i % 3]:
+            cor = "#2e7d32" if i == 0 else "#333"
+
+            st.markdown(f"""
+            <div style="
+                background-color: {cor};
+                padding: 15px;
+                border-radius: 15px;
+                color: white;
+                text-align: center;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            ">
+                <h3>{cultura.upper()}</h3>
+                <p style="font-size: 20px;">{porc:.0f}% compatível</p>
+                <p>#{i+1} recomendação</p>
+            </div>
+            """, unsafe_allow_html=True)
+
+            st.progress(int(porc))
+
+    # ==============================
+    # RANKING
     # ==============================
     st.subheader("🏆 Ranking de culturas")
 
@@ -164,12 +165,3 @@ for i, (cultura, porc) in enumerate(resultados[:6]):
         st.info("Boa compatibilidade. Com manejo adequado, pode gerar bons resultados.")
     else:
         st.warning("Baixa compatibilidade. Considere ajustar fatores ou escolher outra cultura.")
-
-# ==============================
-# HISTÓRICO
-# ==============================
-st.subheader("📜 Histórico de análises")
-
-if st.session_state.historico:
-    for item in reversed(st.session_state.historico[-5:]):
-        st.write(f"{item['solo']} | {item['clima']} | {item['regiao']} → 🌱 {item['resultado']}")
