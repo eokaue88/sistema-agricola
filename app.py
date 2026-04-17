@@ -1,49 +1,32 @@
 import streamlit as st
 
 # ==============================
-# CONFIGURAÇÃO DA PÁGINA
+# CONFIG
 # ==============================
 st.set_page_config(
-    page_title="AgroSmart",
+    page_title="AgroSmart PRO",
     page_icon="🌱",
     layout="wide"
 )
 
 # ==============================
-# ESTILO (CSS)
+# SIDEBAR
 # ==============================
-st.markdown("""
-<style>
-body {
-    background-color: #f5f7fa;
-}
-.main-title {
-    font-size: 40px;
-    font-weight: bold;
-    color: #2e7d32;
-}
-.subtitle {
-    color: gray;
-    margin-bottom: 20px;
-}
-.card {
-    background-color: white;
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
-}
-.metric {
-    font-size: 25px;
-    font-weight: bold;
-}
-</style>
-""", unsafe_allow_html=True)
+st.sidebar.title("🌱 AgroSmart PRO")
+st.sidebar.markdown("Sistema inteligente de recomendação agrícola")
+
+st.sidebar.markdown("### ℹ️ Sobre")
+st.sidebar.info("Este sistema analisa solo, clima e região para recomendar culturas com base em compatibilidade.")
+
+# Histórico
+if "historico" not in st.session_state:
+    st.session_state.historico = []
 
 # ==============================
-# HEADER
+# TÍTULO
 # ==============================
-st.markdown('<p class="main-title">🌱 AgroSmart</p>', unsafe_allow_html=True)
-st.markdown('<p class="subtitle">Sistema inteligente de recomendação agrícola</p>', unsafe_allow_html=True)
+st.title("🌱 AgroSmart PRO")
+st.caption("Tecnologia aplicada ao agronegócio")
 
 # ==============================
 # BASE DE DADOS
@@ -65,7 +48,7 @@ dados = [
 # ==============================
 # INPUTS
 # ==============================
-st.markdown("### 📥 Dados da propriedade")
+st.subheader("📥 Dados da propriedade")
 
 col1, col2, col3 = st.columns(3)
 
@@ -79,7 +62,7 @@ with col3:
     regiao = st.selectbox("📍 Região", ["nordeste", "sul", "sudeste", "norte", "centro-oeste"])
 
 # ==============================
-# BOTÃO
+# PROCESSAMENTO
 # ==============================
 if st.button("🚀 Gerar recomendação"):
     resultados = []
@@ -100,52 +83,60 @@ if st.button("🚀 Gerar recomendação"):
     resultados.sort(key=lambda x: x[1], reverse=True)
     melhor = resultados[0]
 
+    # Salvar no histórico
+    st.session_state.historico.append({
+        "solo": solo,
+        "clima": clima,
+        "regiao": regiao,
+        "resultado": melhor[0]
+    })
+
     # ==============================
-    # MÉTRICAS (DASHBOARD)
+    # DASHBOARD
     # ==============================
-    st.markdown("### 📊 Resultado da análise")
+    st.subheader("📊 Resultado")
 
-    m1, m2 = st.columns(2)
+    c1, c2, c3 = st.columns(3)
 
-    with m1:
-        st.metric("🌱 Melhor cultura", melhor[0])
+    with c1:
+        st.metric("🌱 Cultura recomendada", melhor[0])
 
-    with m2:
+    with c2:
         st.metric("📊 Compatibilidade", f"{melhor[1]:.0f}%")
+
+    with c3:
+        nivel = "Alta" if melhor[1] >= 66 else "Baixa"
+        st.metric("📈 Nível", nivel)
 
     # ==============================
     # GRÁFICO
     # ==============================
-    st.markdown("### 📈 Comparação das culturas")
+    st.subheader("📈 Comparação")
 
-    culturas = [c[0] for c in resultados]
+    nomes = [c[0] for c in resultados]
     valores = [c[1] for c in resultados]
 
     st.bar_chart(valores)
 
     # ==============================
-    # RANKING
+    # EXPLICAÇÃO INTELIGENTE
     # ==============================
-    st.markdown("### 🏆 Ranking")
-
-    for i, (cultura, porc) in enumerate(resultados, start=1):
-        if i == 1:
-            st.success(f"🥇 {cultura} — {porc:.0f}%")
-        elif i == 2:
-            st.info(f"🥈 {cultura} — {porc:.0f}%")
-        elif i == 3:
-            st.warning(f"🥉 {cultura} — {porc:.0f}%")
-        else:
-            st.write(f"{i}º {cultura} — {porc:.0f}%")
-
-    # ==============================
-    # EXPLICAÇÃO AUTOMÁTICA
-    # ==============================
-    st.markdown("### 🧠 Análise do sistema")
+    st.subheader("🧠 Análise inteligente")
 
     if melhor[1] == 100:
-        st.success("Condições ideais para essa cultura. Alto potencial de produtividade.")
+        st.success("Condições perfeitas para essa cultura. Alto potencial produtivo.")
     elif melhor[1] >= 66:
-        st.info("Boa compatibilidade. Pode gerar bons resultados com manejo adequado.")
+        st.info("Boa compatibilidade. Com manejo adequado, pode gerar bons resultados.")
     else:
-        st.warning("Baixa compatibilidade. Recomendado revisar condições ou considerar outra cultura.")
+        st.warning("Baixa compatibilidade. Considere ajustar fatores ou escolher outra cultura.")
+
+# ==============================
+# HISTÓRICO
+# ==============================
+st.subheader("📜 Histórico de análises")
+
+if st.session_state.historico:
+    for item in reversed(st.session_state.historico[-5:]):
+        st.write(f"{item['solo']} | {item['clima']} | {item['regiao']} → 🌱 {item['resultado']}")
+else:
+    st.write("Nenhuma análise realizada ainda.")
