@@ -65,29 +65,7 @@ dados = [
     {"solo": "argiloso", "clima": "quente", "regiao": "centro-oeste", "cultura": "milho_safrinha"},
     {"solo": "argiloso", "clima": "quente", "regiao": "centro-oeste", "cultura": "soja_rotacao"}
 ]
-# ==============================
-# IMAGENS DAS CULTURAS
-# ==============================
-imagens = {
-    "soja": "https://cdn.pixabay.com/photo/2016/03/05/19/02/soybean-1238252_1280.jpg",
-    "milho": "https://cdn.pixabay.com/photo/2017/07/11/11/30/corn-2493131_1280.jpg",
-    "arroz": "https://cdn.pixabay.com/photo/2016/11/29/09/08/rice-1867841_1280.jpg",
-    "trigo": "https://cdn.pixabay.com/photo/2016/07/20/11/49/wheat-1529967_1280.jpg",
-    "feijao": "https://cdn.pixabay.com/photo/2016/08/11/23/17/beans-1585499_1280.jpg",
-    "cana": "https://cdn.pixabay.com/photo/2017/01/20/00/30/sugarcane-1995056_1280.jpg",
-    "cafe": "https://cdn.pixabay.com/photo/2016/11/29/04/17/coffee-1869598_1280.jpg",
-    "algodao": "https://cdn.pixabay.com/photo/2017/01/06/19/15/cotton-1959508_1280.jpg",
-    "banana": "https://cdn.pixabay.com/photo/2018/06/03/14/00/banana-3453442_1280.jpg",
-    "manga": "https://cdn.pixabay.com/photo/2017/01/20/15/06/mango-1995059_1280.jpg",
-    "laranja": "https://cdn.pixabay.com/photo/2016/03/05/19/02/oranges-1238253_1280.jpg",
-    "abacaxi": "https://cdn.pixabay.com/photo/2016/03/05/19/02/pineapple-1238254_1280.jpg",
-    "mandioca": "https://cdn.pixabay.com/photo/2017/09/02/23/00/cassava-2706487_1280.jpg",
-    "sorgo": "https://cdn.pixabay.com/photo/2016/11/18/13/47/grain-1837013_1280.jpg",
-    "milheto": "https://cdn.pixabay.com/photo/2017/06/02/18/24/millet-2366348_1280.jpg",
-    "tomate": "https://cdn.pixabay.com/photo/2016/03/05/19/02/tomatoes-1238255_1280.jpg",
-    "batata": "https://cdn.pixabay.com/photo/2016/03/05/19/02/potatoes-1238256_1280.jpg",
-    "pimenta": "https://cdn.pixabay.com/photo/2016/11/29/09/08/chili-1867842_1280.jpg"
-}
+
 # ==============================
 # INPUTS
 # ==============================
@@ -134,36 +112,34 @@ if st.button("🚀 Gerar recomendação"):
     valores = [c[1] for c in resultados]
     st.bar_chart(valores)
 
-    ## ==============================
-# CARDS COM IMAGEM (ESTILO NETFLIX)
-# ==============================
-st.markdown("## 🍿 Recomendações para você")
+    # ==============================
+    # CARDS (AGORA NO LUGAR CERTO)
+    # ==============================
+    st.markdown("## 🍿 Recomendações para você")
 
-cols = st.columns(3)
+    cols = st.columns(3)
 
-for i, (cultura, porc) in enumerate(resultados[:6]):
-    with cols[i % 3]:
-        cor = "#2e7d32" if i == 0 else "#1e1e1e"
+    for i, (cultura, porc) in enumerate(resultados[:6]):
+        with cols[i % 3]:
+            cor = "#2e7d32" if i == 0 else "#333"
 
-        imagem = imagens.get(cultura, "https://via.placeholder.com/300")
+            st.markdown(f"""
+            <div style="
+                background-color: {cor};
+                padding: 15px;
+                border-radius: 15px;
+                color: white;
+                text-align: center;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            ">
+                <h3>{cultura.upper()}</h3>
+                <p style="font-size: 20px;">{porc:.0f}% compatível</p>
+                <p>#{i+1} recomendação</p>
+            </div>
+            """, unsafe_allow_html=True)
 
-        st.markdown(f"""
-        <div style="
-            background-color: {cor};
-            padding: 10px;
-            border-radius: 15px;
-            color: white;
-            text-align: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        ">
-            <img src="{imagem}" style="width:100%; border-radius:10px;">
-            <h3>{cultura.upper()}</h3>
-            <p style="font-size: 18px;">{porc:.0f}% compatível</p>
-            <p>#{i+1} recomendação</p>
-        </div>
-        """, unsafe_allow_html=True)
+            st.progress(int(porc))
 
-        st.progress(int(porc))
     # ==============================
     # RANKING
     # ==============================
