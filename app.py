@@ -42,7 +42,8 @@ body {
 }
 </style>
 """, unsafe_allow_html=True)
-
+st.markdown("<h1 style='text-align:center;'>AgroSmart PRO</h1>", unsafe_allow_html=True)
+st.markdown("<p style='text-align:center; color: gray;'>Tecnologia aplicada ao agronegócio</p>", unsafe_allow_html=True)
 
 # ==============================
 # SIDEBAR
@@ -183,4 +184,3 @@ if st.button("🚀 Gerar recomendação"):
         st.info("Compatibilidade média")
     else:
         st.warning("Baixa compatibilidade")
-        
