@@ -15,8 +15,25 @@ with col2:
 
 st.markdown("""
 <style>
-body {
-    background-color: #0e1117;
+
+/* FUNDO COM IMAGEM */
+.stApp {
+   background-image: url("https://raw.githubusercontent.com/eokaue88/sistema-agricola/main/Simbolo_Verde.png");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+/* Camada escura por cima (melhora leitura) */
+.stApp::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.75);
+    z-index: -1;
 }
 
 /* Centralizar conteúdo */
@@ -40,9 +57,9 @@ body {
     background-color: #1e1e1e;
     border-radius: 10px;
 }
+
 </style>
 """, unsafe_allow_html=True)
-
 
 # ==============================
 # SIDEBAR
