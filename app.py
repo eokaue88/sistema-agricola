@@ -96,23 +96,24 @@ html, body, [class*="css"] {
 </style>
 """, unsafe_allow_html=True)
 
-
-# ==============================
+# # ==============================
 # LOGO + NOME (CENTRALIZADO 🔥)
 # ==============================
 col1, col2, col3 = st.columns([1,2,1])
 
 with col2:
+    st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
 
-    # 🔥 Centraliza a imagem corretamente
-    st.image("logo.png", st.image("logo.png", width=220))
+    # ✅ Logo (forma correta)
+    st.image("logo.png", width=220)
 
-    # 🔥 Centraliza nome
-    st.markdown('<div class="titulo-agro" style="text-align:center;">AgroSmart PRO</div>', unsafe_allow_html=True)
+    # ✅ Nome
+    st.markdown('<div class="titulo-agro">AgroSmart PRO</div>', unsafe_allow_html=True)
 
-    # 🔥 Centraliza subtítulo
-    st.markdown('<div class="subtitulo-agro" style="text-align:center;">Tecnologia aplicada ao agronegócio</div>', unsafe_allow_html=True)
+    # ✅ Subtítulo
+    st.markdown('<div class="subtitulo-agro">Tecnologia aplicada ao agronegócio</div>', unsafe_allow_html=True)
 
+    st.markdown("</div>", unsafe_allow_html=True)
     st.markdown("<br>", unsafe_allow_html=True)
 
 # ==============================
