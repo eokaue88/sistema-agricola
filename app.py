@@ -24,11 +24,6 @@ st.markdown("""
 .stApp {
     background-color: #171B48;
 }
-            img {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
 
 /* Camada escura */
 .stApp::before {
