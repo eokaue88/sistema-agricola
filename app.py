@@ -103,14 +103,16 @@ col1, col2, col3 = st.columns([1,2,1])
 
 with col2:
 
-    # 🔥 Centraliza a imagem corretamente
-    st.image("logo.png", use_column_width=True)
+    # 🔥 Logo menor e centralizada corretamente
+    st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
+    st.image("logo.png", width=180)  # 👈 diminui aqui (ajuste entre 150–200 se quiser)
+    st.markdown("</div>", unsafe_allow_html=True)
 
-    # 🔥 Centraliza nome
-    st.markdown('<div class="titulo-agro" style="text-align:center;">AgroSmart PRO</div>', unsafe_allow_html=True)
+    # 🔥 Nome centralizado
+    st.markdown('<div class="titulo-agro">AgroSmart PRO</div>', unsafe_allow_html=True)
 
-    # 🔥 Centraliza subtítulo
-    st.markdown('<div class="subtitulo-agro" style="text-align:center;">Tecnologia aplicada ao agronegócio</div>', unsafe_allow_html=True)
+    # 🔥 Subtítulo centralizado
+    st.markdown('<div class="subtitulo-agro">Tecnologia aplicada ao agronegócio</div>', unsafe_allow_html=True)
 
     st.markdown("<br>", unsafe_allow_html=True)
 
