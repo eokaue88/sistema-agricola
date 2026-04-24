@@ -96,25 +96,25 @@ html, body, [class*="css"] {
 </style>
 """, unsafe_allow_html=True)
 
-# ==============================
+# # ==============================
 # LOGO + NOME (CENTRALIZADO 🔥)
 # ==============================
-st.markdown("""
-<div style="text-align: center;">
+col1, col2, col3 = st.columns([1,2,1])
 
-    <img src="logo.png" width="220">
+with col2:
+    st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
 
-    <div class="titulo-agro">
-        AgroSmart PRO
-    </div>
+    # ✅ Logo (forma correta)
+    st.image("logo.png", width=220)
 
-    <div class="subtitulo-agro">
-        Tecnologia aplicada ao agronegócio
-    </div>
+    # ✅ Nome
+    st.markdown('<div class="titulo-agro">AgroSmart PRO</div>', unsafe_allow_html=True)
 
-</div>
-<br>
-""", unsafe_allow_html=True)
+    # ✅ Subtítulo
+    st.markdown('<div class="subtitulo-agro">Tecnologia aplicada ao agronegócio</div>', unsafe_allow_html=True)
+
+    st.markdown("</div>", unsafe_allow_html=True)
+    st.markdown("<br>", unsafe_allow_html=True)
 
 # ==============================
 # SIDEBAR (MENU)
