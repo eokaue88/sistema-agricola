@@ -1,5 +1,4 @@
 import streamlit as st
-import base64
 
 # ==============================
 # CONFIG
@@ -10,15 +9,6 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
-
-# ==============================
-# FUNÇÃO LOGO (🔥 evita sumir)
-# ==============================
-def carregar_logo(path):
-    with open(path, "rb") as f:
-        return base64.b64encode(f.read()).decode()
-
-logo_base64 = carregar_logo("logo.png")
 
 # ==============================
 # CSS + RESPONSIVIDADE 🔥
@@ -83,6 +73,13 @@ html, body, [class*="css"] {
     font-size: 15px;
 }
 
+/* 🔥 CENTRALIZA IMAGEM */
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 /* 🔥 RESPONSIVO */
 @media (max-width: 768px) {
 
@@ -98,35 +95,31 @@ html, body, [class*="css"] {
         font-size: 14px;
     }
 
+    img {
+        max-width: 140px !important;
+    }
 }
 
 </style>
 """, unsafe_allow_html=True)
 
 # ==============================
-# LOGO RESPONSIVA CENTRALIZADA 🔥🔥🔥
+# LOGO CENTRALIZADA 🔥
 # ==============================
-st.markdown(f"""
-<div style="text-align: center;">
+st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
 
-    <img src="data:image/png;base64,{logo_base64}" 
-         style="
-            width: 180px;
-            max-width: 60%;
-            display: block;
-            margin: 0 auto;
-         ">
+st.image("logo.png", width=160)
 
-    <div class="titulo-agro">
-        AgroSmart PRO
-    </div>
+st.markdown("""
+<div class="titulo-agro">
+    AgroSmart PRO
+</div>
 
-    <div class="subtitulo-agro">
-        Tecnologia aplicada ao agronegócio
-    </div>
+<div class="subtitulo-agro">
+    Tecnologia aplicada ao agronegócio
+</div>
 
-    <br>
-
+<br>
 </div>
 """, unsafe_allow_html=True)
 
