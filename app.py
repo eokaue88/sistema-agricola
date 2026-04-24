@@ -1,9 +1,3 @@
-st.set_page_config(
-    page_title="AgroSmart PRO",
-    page_icon="🌱",
-    layout="wide",
-    initial_sidebar_state="expanded"
-)
 import streamlit as st
 
 # ==============================
@@ -12,7 +6,8 @@ import streamlit as st
 st.set_page_config(
     page_title="AgroSmart PRO",
     page_icon="🌱",
-    layout="wide"
+    layout="wide",
+    initial_sidebar_state="expanded"  # 🔥 garante menu visível
 )
 
 # ==============================
@@ -48,7 +43,7 @@ st.markdown("""
     margin: auto;
 }
 
-/* FONTE GLOBAL (AUMENTADA) */
+/* FONTE GLOBAL */
 html, body, [class*="css"] {
     font-family: 'Oxanium', sans-serif;
     font-size: 16px;
@@ -62,6 +57,7 @@ html, body, [class*="css"] {
     color: white;
     letter-spacing: 2px;
     text-shadow: 0 0 10px rgba(0,255,200,0.5);
+    margin-top: 10px;
 }
 
 /* SUBTÍTULO */
@@ -101,20 +97,31 @@ html, body, [class*="css"] {
 """, unsafe_allow_html=True)
 
 # ==============================
-# LOGO + NOME
+# LOGO + NOME (CENTRALIZADO 🔥)
 # ==============================
-col1, col2, col3 = st.columns([1,2,1])  # 🔥 melhor proporção
+st.markdown("""
+<div style="text-align: center;">
 
-with col2:
-    st.markdown("<br>", unsafe_allow_html=True)
+    <img src="logo.png" width="220">
 
-    st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
-    st.image("logo.png", width=240)  # 🔥 menor e mais proporcional
-    st.markdown("</div>", unsafe_allow_html=True)
+    <div class="titulo-agro">
+        AgroSmart PRO
+    </div>
 
-    st.markdown('<div class="titulo-agro">AgroSmart PRO</div>', unsafe_allow_html=True)
-    st.markdown('<div class="subtitulo-agro">Tecnologia aplicada ao agronegócio</div>', unsafe_allow_html=True)
-    st.markdown("<br>", unsafe_allow_html=True)
+    <div class="subtitulo-agro">
+        Tecnologia aplicada ao agronegócio
+    </div>
+
+    <br>
+
+</div>
+""", unsafe_allow_html=True)
+
+# ==============================
+# SIDEBAR (MENU)
+# ==============================
+st.sidebar.title("🌱 AgroSmart PRO")
+st.sidebar.info("Sistema inteligente de recomendação agrícola")
 
 # ==============================
 # BASE DE DADOS
