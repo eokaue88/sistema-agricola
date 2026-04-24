@@ -7,16 +7,16 @@ st.set_page_config(
     page_title="AgroSmart PRO",
     page_icon="🌱",
     layout="wide",
-    initial_sidebar_state="expanded"  # 🔥 garante menu visível
+    initial_sidebar_state="expanded"
 )
 
 # ==============================
-# CSS + FONTES
+# CSS + RESPONSIVIDADE 🔥
 # ==============================
 st.markdown("""
 <style>
 
-/* IMPORTAR FONTES */
+/* FONTES */
 @import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Oxanium:wght@300;400;600&display=swap');
 
@@ -25,19 +25,16 @@ st.markdown("""
     background-color: #171B48;
 }
 
-/* Camada escura */
 .stApp::before {
     content: "";
     position: fixed;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(0,0,0,0.3);
     z-index: -1;
 }
 
-/* CENTRALIZAÇÃO */
+/* CONTAINER */
 .block-container {
     max-width: 900px;
     margin: auto;
@@ -55,14 +52,10 @@ html, body, [class*="css"] {
     font-size: 38px;
     text-align: center;
     color: white;
-    letter-spacing: 2px;
-    text-shadow: 0 0 10px rgba(0,255,200,0.5);
-    margin-top: 10px;
 }
 
 /* SUBTÍTULO */
 .subtitulo-agro {
-    font-family: 'Oxanium', sans-serif;
     font-size: 20px;
     text-align: center;
     color: #cccccc;
@@ -70,60 +63,68 @@ html, body, [class*="css"] {
 
 /* BOTÃO */
 .stButton>button {
-    font-family: 'Oxanium', sans-serif;
     font-size: 15px;
-    background-color: #2e7d32;
-    color: white;
     border-radius: 10px;
-    height: 3em;
     width: 100%;
-}
-
-/* SELECTBOX */
-.stSelectbox>div>div {
-    font-family: 'Oxanium', sans-serif;
-    font-size: 15px;
-    background-color: #1e1e1e;
-    border-radius: 10px;
 }
 
 /* CARDS */
 .card-agro {
-    font-family: 'Oxanium', sans-serif;
     font-size: 15px;
+}
+
+/* 🔥 RESPONSIVO CELULAR */
+@media (max-width: 768px) {
+
+    .titulo-agro {
+        font-size: 26px;
+    }
+
+    .subtitulo-agro {
+        font-size: 16px;
+    }
+
+    html, body {
+        font-size: 14px;
+    }
+
+    /* logo menor */
+    img {
+        max-width: 140px !important;
+        margin: auto;
+        display: block;
+    }
+
+    /* força colunas virarem bloco */
+    .row-widget.stHorizontal {
+        flex-direction: column !important;
+    }
+
 }
 
 </style>
 """, unsafe_allow_html=True)
 
 # ==============================
-# LOGO + NOME (CENTRALIZADO 🔥)
+# LOGO CENTRALIZADA RESPONSIVA
 # ==============================
-col1, col2, col3 = st.columns([1,2,1])
-
-with col2:
-
-    # 🔥 Centralização perfeita usando colunas internas
-    c1, c2, c3 = st.columns([1,2,1])
-    with c2:
-        st.image("logo.png", width=180)
-
-    # Nome
-    st.markdown('<div class="titulo-agro">AgroSmart PRO</div>', unsafe_allow_html=True)
-
-    # Subtítulo
-    st.markdown('<div class="subtitulo-agro">Tecnologia aplicada ao agronegócio</div>', unsafe_allow_html=True)
-
-    st.markdown("<br>", unsafe_allow_html=True)
+st.markdown("""
+<div style="text-align: center;">
+    <img src="logo.png" width="180">
+    <div class="titulo-agro">AgroSmart PRO</div>
+    <div class="subtitulo-agro">Tecnologia aplicada ao agronegócio</div>
+    <br>
+</div>
+""", unsafe_allow_html=True)
 
 # ==============================
-# SIDEBAR (MENU)
+# SIDEBAR
 # ==============================
 st.sidebar.title("🌱 AgroSmart PRO")
 st.sidebar.info("Sistema inteligente de recomendação agrícola")
 
 # ==============================
-# BASE DE DADOS
+# BASE
 # ==============================
 dados = [
     {"solo": "argiloso", "clima": "quente", "regiao": "centro-oeste", "cultura": "soja"},
@@ -138,10 +139,11 @@ dados = [
 ]
 
 # ==============================
-# INPUTS
+# INPUTS (RESPONSIVO)
 # ==============================
 st.subheader("📥 Dados da propriedade")
 
+# 🔥 adapta automático (coluna vira 1 no celular)
 col1, col2, col3 = st.columns(3)
 
 with col1:
@@ -180,7 +182,6 @@ if st.button("🚀 Gerar recomendação"):
 
     st.success(f"""
     🌱 **{melhor[0].upper()}**
-
     📊 Compatibilidade: **{melhor[1]:.0f}%**
     """)
 
@@ -192,24 +193,24 @@ if st.button("🚀 Gerar recomendação"):
 
     st.divider()
 
-    st.markdown("## 🍿 Recomendações para você")
+    st.markdown("## 🍿 Recomendações")
+
+    # 🔥 cards responsivos
     cols = st.columns(3)
 
     for i, (cultura, porc) in enumerate(resultados[:6]):
         with cols[i % 3]:
-            cor = "#2e7d32" if i == 0 else "#333"
 
             st.markdown(f"""
             <div class="card-agro" style="
-                background-color: {cor};
-                padding: 15px;
-                border-radius: 15px;
-                color: white;
+                background-color: {'#2e7d32' if i == 0 else '#333'};
+                padding: 12px;
+                border-radius: 12px;
                 text-align: center;
+                color: white;
             ">
-                <h3 style="font-size:20px;">{cultura.upper()}</h3>
-                <p style="font-size:16px;">{porc:.0f}% compatível</p>
-                <p style="font-size:13px;">#{i+1}</p>
+                <h3>{cultura.upper()}</h3>
+                <p>{porc:.0f}%</p>
             </div>
             """, unsafe_allow_html=True)
 
