@@ -16,15 +16,12 @@ with col2:
 st.markdown("""
 <style>
 
-/* FUNDO COM IMAGEM */
+/* FUNDO COM COR */
 .stApp {
-    background-image: url("https://raw.githubusercontent.com/SEU-USUARIO/sistema-agricola/main/Simbolo_Verde.png");
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
+    background-color: #11A17E;
 }
 
-/* Camada escura por cima (melhora leitura) */
+/* Camada escura opcional (pode tirar se quiser mais claro) */
 .stApp::before {
     content: "";
     position: fixed;
@@ -32,7 +29,7 @@ st.markdown("""
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.75);
+    background: rgba(0, 0, 0, 0.4);
     z-index: -1;
 }
 
@@ -44,7 +41,7 @@ st.markdown("""
 
 /* Botão */
 .stButton>button {
-    background-color: #2e7d32;
+    background-color: #0b6b57;
     color: white;
     border-radius: 10px;
     height: 3em;
