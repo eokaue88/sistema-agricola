@@ -40,15 +40,14 @@ st.markdown("""
     margin: auto;
 }
 
-/* FONTE GLOBAL */
-html, body, [class*="css"] {
-    font-family: 'Oxanium', sans-serif;
-    font-size: 16px;
+/* 🔥 FONTE GLOBAL FORÇADA */
+* {
+    font-family: 'Oxanium', sans-serif !important;
 }
 
 /* TÍTULO */
 .titulo-agro {
-    font-family: 'Audiowide', sans-serif;
+    font-family: 'Audiowide', sans-serif !important;
     font-size: 38px;
     text-align: center;
     color: white;
@@ -73,10 +72,6 @@ html, body, [class*="css"] {
     font-size: 15px;
 }
 
-/* 🔥 CENTRALIZA IMAGEM */
-
-}
-
 /* 🔥 RESPONSIVO */
 @media (max-width: 768px) {
 
@@ -88,12 +83,8 @@ html, body, [class*="css"] {
         font-size: 16px;
     }
 
-    html, body {
-        font-size: 14px;
-    }
-
     img {
-        max-width: 140px !important;
+        width: 120px !important;
     }
 }
 
@@ -101,17 +92,31 @@ html, body, [class*="css"] {
 """, unsafe_allow_html=True)
 
 # ==============================
-# LOGO CENTRALIZADA (CORRETA)
+# LOGO + TÍTULO (PERFEITO 🔥)
 # ==============================
-col1, col2, col3 = st.columns([1,2,1])
+st.markdown("""
+<div style="text-align:center;">
 
-with col2:
-    st.image("logo.png", width=160)
+    <img src="logo.png" style="
+        width:160px;
+        display:block;
+        margin-left:auto;
+        margin-right:auto;
+    ">
 
-    st.markdown('<div class="titulo-agro">AgroSmart PRO</div>', unsafe_allow_html=True)
-    st.markdown('<div class="subtitulo-agro">Tecnologia aplicada ao agronegócio</div>', unsafe_allow_html=True)
+    <div class="titulo-agro">
+        AgroSmart PRO
+    </div>
 
-    st.markdown("<br>", unsafe_allow_html=True)
+    <div class="subtitulo-agro">
+        Tecnologia aplicada ao agronegócio
+    </div>
+
+    <br>
+
+</div>
+""", unsafe_allow_html=True)
+
 # ==============================
 # SIDEBAR
 # ==============================
