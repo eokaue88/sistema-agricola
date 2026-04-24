@@ -1,4 +1,5 @@
 import streamlit as st
+import base64
 
 # ==============================
 # CONFIG
@@ -9,6 +10,15 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
+
+# ==============================
+# FUNÇÃO LOGO (🔥 evita sumir)
+# ==============================
+def carregar_logo(path):
+    with open(path, "rb") as f:
+        return base64.b64encode(f.read()).decode()
+
+logo_base64 = carregar_logo("logo.png")
 
 # ==============================
 # CSS + RESPONSIVIDADE 🔥
@@ -73,7 +83,7 @@ html, body, [class*="css"] {
     font-size: 15px;
 }
 
-/* 🔥 RESPONSIVO CELULAR */
+/* 🔥 RESPONSIVO */
 @media (max-width: 768px) {
 
     .titulo-agro {
@@ -88,36 +98,37 @@ html, body, [class*="css"] {
         font-size: 14px;
     }
 
-    /* logo menor */
-    img {
-        max-width: 140px !important;
-        margin: auto;
-        display: block;
-    }
-
-    /* força colunas virarem bloco */
-    .row-widget.stHorizontal {
-        flex-direction: column !important;
-    }
-
 }
 
 </style>
 """, unsafe_allow_html=True)
 
 # ==============================
-# LOGO CENTRALIZADA RESPONSIVA
+# LOGO RESPONSIVA CENTRALIZADA 🔥🔥🔥
 # ==============================
-col1, col2, col3 = st.columns([1,2,1])
+st.markdown(f"""
+<div style="text-align: center;">
 
-with col2:
-    c1, c2, c3 = st.columns([1,2,1])
-    with c2:
-        st.image("logo.png", width=160)  # 🔥 funciona sempre
+    <img src="data:image/png;base64,{logo_base64}" 
+         style="
+            width: 180px;
+            max-width: 60%;
+            display: block;
+            margin: 0 auto;
+         ">
 
-    st.markdown('<div class="titulo-agro">AgroSmart PRO</div>', unsafe_allow_html=True)
-    st.markdown('<div class="subtitulo-agro">Tecnologia aplicada ao agronegócio</div>', unsafe_allow_html=True)
-    st.markdown("<br>", unsafe_allow_html=True)
+    <div class="titulo-agro">
+        AgroSmart PRO
+    </div>
+
+    <div class="subtitulo-agro">
+        Tecnologia aplicada ao agronegócio
+    </div>
+
+    <br>
+
+</div>
+""", unsafe_allow_html=True)
 
 # ==============================
 # SIDEBAR
@@ -141,11 +152,10 @@ dados = [
 ]
 
 # ==============================
-# INPUTS (RESPONSIVO)
+# INPUTS
 # ==============================
 st.subheader("📥 Dados da propriedade")
 
-# 🔥 adapta automático (coluna vira 1 no celular)
 col1, col2, col3 = st.columns(3)
 
 with col1:
@@ -197,7 +207,6 @@ if st.button("🚀 Gerar recomendação"):
 
     st.markdown("## 🍿 Recomendações")
 
-    # 🔥 cards responsivos
     cols = st.columns(3)
 
     for i, (cultura, porc) in enumerate(resultados[:6]):
