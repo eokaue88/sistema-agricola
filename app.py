@@ -18,10 +18,10 @@ st.markdown("""
 
 /* FUNDO COM COR */
 .stApp {
-    background-color: #11A17E;
+    background-color: #171B48;
 }
 
-/* Camada escura opcional (pode tirar se quiser mais claro) */
+/* Camada escura (opcional, deixa mais sofisticado) */
 .stApp::before {
     content: "";
     position: fixed;
@@ -29,7 +29,7 @@ st.markdown("""
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.4);
+    background: rgba(0, 0, 0, 0.3);
     z-index: -1;
 }
 
@@ -41,7 +41,7 @@ st.markdown("""
 
 /* Botão */
 .stButton>button {
-    background-color: #0b6b57;
+    background-color: #2e7d32;
     color: white;
     border-radius: 10px;
     height: 3em;
