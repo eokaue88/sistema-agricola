@@ -40,7 +40,7 @@ st.markdown("""
     margin: auto;
 }
 
-/* 🔥 FONTE GLOBAL */
+/* FONTE GLOBAL */
 * {
     font-family: 'Oxanium', sans-serif !important;
 }
@@ -67,6 +67,12 @@ st.markdown("""
     width: 100%;
 }
 
+/* 🔥 CENTRALIZA LOGO (PC + MOBILE) */
+[data-testid="stImage"] {
+    display: flex;
+    justify-content: center;
+}
+
 /* RESPONSIVO */
 @media (max-width: 768px) {
 
@@ -78,49 +84,20 @@ st.markdown("""
         font-size: 16px;
     }
 }
-            /* 🔥 CORREÇÃO FINAL MOBILE */
-.logo-area {
-    width: 100%;
-    text-align: center;
-}
-
-.logo-agro {
-    width: 140px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-/* ajuste fino só no celular */
-@media (max-width: 768px) {
-    .logo-agro {
-        transform: translateX(55px);
-    }
-}
 
 </style>
 """, unsafe_allow_html=True)
 
 # ==============================
-# LOGO + TÍTULO (CORRIGIDO 🔥)
+# LOGO + TÍTULO (CORRETO 🔥)
 # ==============================
-st.markdown("""
-<div class="logo-area">
+st.image("logo.png", width=140)
 
-    <img src="logo.png" class="logo-agro">
+st.markdown('<div class="titulo-agro">AgroSmart PRO</div>', unsafe_allow_html=True)
+st.markdown('<div class="subtitulo-agro">Tecnologia aplicada ao agronegócio</div>', unsafe_allow_html=True)
 
-    <div class="titulo-agro">
-        AgroSmart PRO
-    </div>
+st.markdown("<br>", unsafe_allow_html=True)
 
-    <div class="subtitulo-agro">
-        Tecnologia aplicada ao agronegócio
-    </div>
-
-    <br>
-
-</div>
-""", unsafe_allow_html=True)
 # ==============================
 # SIDEBAR
 # ==============================
