@@ -74,10 +74,7 @@ html, body, [class*="css"] {
 }
 
 /* 🔥 CENTRALIZA IMAGEM */
-img {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+
 }
 
 /* 🔥 RESPONSIVO */
@@ -104,25 +101,17 @@ img {
 """, unsafe_allow_html=True)
 
 # ==============================
-# LOGO CENTRALIZADA 🔥
+# LOGO CENTRALIZADA (CORRETA)
 # ==============================
-st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
+col1, col2, col3 = st.columns([1,2,1])
 
-st.image("logo.png", width=160)
+with col2:
+    st.image("logo.png", width=160)
 
-st.markdown("""
-<div class="titulo-agro">
-    AgroSmart PRO
-</div>
+    st.markdown('<div class="titulo-agro">AgroSmart PRO</div>', unsafe_allow_html=True)
+    st.markdown('<div class="subtitulo-agro">Tecnologia aplicada ao agronegócio</div>', unsafe_allow_html=True)
 
-<div class="subtitulo-agro">
-    Tecnologia aplicada ao agronegócio
-</div>
-
-<br>
-</div>
-""", unsafe_allow_html=True)
-
+    st.markdown("<br>", unsafe_allow_html=True)
 # ==============================
 # SIDEBAR
 # ==============================
