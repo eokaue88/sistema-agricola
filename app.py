@@ -8,15 +8,10 @@ st.set_page_config(
     page_icon="🌱",
     layout="wide"
 )
-# ==============================
-# LOGO CENTRAL (MELHORADA)
-# ==============================
-col1, col2, col3 = st.columns([1,3,1])
+col1, col2, col3 = st.columns([1,2,1])
 
 with col2:
-    st.markdown("<br>", unsafe_allow_html=True)  # espaço em cima
-    st.image("logo.png", width=420)
-    st.markdown("<br>", unsafe_allow_html=True)  # espaço embaixo
+    st.image("logo.png", width=260)
 
 st.markdown("""
 <style>
