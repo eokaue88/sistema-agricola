@@ -78,6 +78,11 @@ st.markdown("""
         font-size: 16px;
     }
 }
+            /* 🔥 CORREÇÃO FINAL DA LOGO (mobile + pc) */
+[data-testid="stImage"] {
+    display: flex;
+    justify-content: center;
+}
 
 </style>
 """, unsafe_allow_html=True)
