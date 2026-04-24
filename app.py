@@ -97,20 +97,18 @@ html, body, [class*="css"] {
 # ==============================
 # LOGO + NOME
 # ==============================
-col1, col2, col3 = st.columns([1,3,1])
+col1, col2, col3 = st.columns([1,2,1])  # 🔥 melhor proporção
 
 with col2:
     st.markdown("<br>", unsafe_allow_html=True)
-    st.image("logo.png", width=300)  # 🔥 DIMINUÍDA
+
+    st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
+    st.image("logo.png", width=240)  # 🔥 menor e mais proporcional
+    st.markdown("</div>", unsafe_allow_html=True)
+
     st.markdown('<div class="titulo-agro">AgroSmart PRO</div>', unsafe_allow_html=True)
     st.markdown('<div class="subtitulo-agro">Tecnologia aplicada ao agronegócio</div>', unsafe_allow_html=True)
     st.markdown("<br>", unsafe_allow_html=True)
-
-# ==============================
-# SIDEBAR
-# ==============================
-st.sidebar.title("🌱 AgroSmart PRO")
-st.sidebar.info("Sistema inteligente de recomendação agrícola")
 
 # ==============================
 # BASE DE DADOS
