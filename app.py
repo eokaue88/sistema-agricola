@@ -40,7 +40,7 @@ st.markdown("""
     margin: auto;
 }
 
-/* 🔥 FONTE GLOBAL FORÇADA */
+/* 🔥 FONTE GLOBAL */
 * {
     font-family: 'Oxanium', sans-serif !important;
 }
@@ -67,12 +67,7 @@ st.markdown("""
     width: 100%;
 }
 
-/* CARDS */
-.card-agro {
-    font-size: 15px;
-}
-
-/* 🔥 RESPONSIVO */
+/* RESPONSIVO */
 @media (max-width: 768px) {
 
     .titulo-agro {
@@ -82,40 +77,27 @@ st.markdown("""
     .subtitulo-agro {
         font-size: 16px;
     }
-
-    img {
-        width: 120px !important;
-    }
 }
 
 </style>
 """, unsafe_allow_html=True)
 
 # ==============================
-# LOGO + TÍTULO (PERFEITO 🔥)
+# LOGO + TÍTULO (100% CENTRALIZADO 🔥)
 # ==============================
-st.markdown("""
-<div style="text-align:center;">
+col1, col2, col3 = st.columns([1,2,1])
 
-    <img src="logo.png" style="
-        width:160px;
-        display:block;
-        margin-left:auto;
-        margin-right:auto;
-    ">
+with col2:
 
-    <div class="titulo-agro">
-        AgroSmart PRO
-    </div>
+    # 🔥 centralização perfeita (logo alinhada com texto)
+    c1, c2, c3 = st.columns([1,2,1])
+    with c2:
+        st.image("logo.png", width=140)
 
-    <div class="subtitulo-agro">
-        Tecnologia aplicada ao agronegócio
-    </div>
+    st.markdown('<div class="titulo-agro">AgroSmart PRO</div>', unsafe_allow_html=True)
+    st.markdown('<div class="subtitulo-agro">Tecnologia aplicada ao agronegócio</div>', unsafe_allow_html=True)
 
-    <br>
-
-</div>
-""", unsafe_allow_html=True)
+    st.markdown("<br>", unsafe_allow_html=True)
 
 # ==============================
 # SIDEBAR
@@ -213,20 +195,3 @@ if st.button("🚀 Gerar recomendação"):
             """, unsafe_allow_html=True)
 
             st.progress(int(porc))
-
-    st.divider()
-
-    st.subheader("🏆 Ranking")
-    for i, (cultura, porc) in enumerate(resultados[:5], start=1):
-        st.write(f"{i}º — {cultura} ({porc:.0f}%)")
-
-    st.divider()
-
-    st.subheader("🧠 Análise")
-
-    if melhor[1] >= 75:
-        st.success("Alta compatibilidade")
-    elif melhor[1] >= 50:
-        st.info("Compatibilidade média")
-    else:
-        st.warning("Baixa compatibilidade")
