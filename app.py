@@ -89,14 +89,17 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ==============================
-# LOGO + TÍTULO (CORRETO 🔥)
+# LOGO + TÍTULO (ALINHADOS 🔥)
 # ==============================
-st.image("logo.png", width=140)
+col1, col2, col3 = st.columns([1,2,1])
 
-st.markdown('<div class="titulo-agro">AgroSmart PRO</div>', unsafe_allow_html=True)
-st.markdown('<div class="subtitulo-agro">Tecnologia aplicada ao agronegócio</div>', unsafe_allow_html=True)
+with col2:
+    st.image("logo.png", width=140)
 
-st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown('<div class="titulo-agro">AgroSmart PRO</div>', unsafe_allow_html=True)
+    st.markdown('<div class="subtitulo-agro">Tecnologia aplicada ao agronegócio</div>', unsafe_allow_html=True)
+
+    st.markdown("<br>", unsafe_allow_html=True)
 
 # ==============================
 # SIDEBAR
