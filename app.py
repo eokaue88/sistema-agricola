@@ -112,9 +112,8 @@ st.markdown("""
         Tecnologia aplicada ao agronegócio
     </div>
 
-    <br>
-
 </div>
+<br>
 """, unsafe_allow_html=True)
 
 # ==============================
