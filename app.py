@@ -24,6 +24,11 @@ st.markdown("""
 .stApp {
     background-color: #171B48;
 }
+            img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
 
 /* Camada escura */
 .stApp::before {
@@ -96,6 +101,7 @@ html, body, [class*="css"] {
 </style>
 """, unsafe_allow_html=True)
 
+
 # ==============================
 # LOGO + NOME (CENTRALIZADO 🔥)
 # ==============================
@@ -104,7 +110,7 @@ col1, col2, col3 = st.columns([1,2,1])
 with col2:
 
     # 🔥 Centraliza a imagem corretamente
-    st.image("logo.png", use_column_width=True)
+    st.image("logo.png", st.image("logo.png", width=220))
 
     # 🔥 Centraliza nome
     st.markdown('<div class="titulo-agro" style="text-align:center;">AgroSmart PRO</div>', unsafe_allow_html=True)
