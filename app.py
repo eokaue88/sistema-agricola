@@ -108,14 +108,16 @@ html, body, [class*="css"] {
 # ==============================
 # LOGO CENTRALIZADA RESPONSIVA
 # ==============================
-st.markdown("""
-<div style="text-align: center;">
-    <img src="logo.png" width="180">
-    <div class="titulo-agro">AgroSmart PRO</div>
-    <div class="subtitulo-agro">Tecnologia aplicada ao agronegócio</div>
-    <br>
-</div>
-""", unsafe_allow_html=True)
+col1, col2, col3 = st.columns([1,2,1])
+
+with col2:
+    c1, c2, c3 = st.columns([1,2,1])
+    with c2:
+        st.image("logo.png", width=160)  # 🔥 funciona sempre
+
+    st.markdown('<div class="titulo-agro">AgroSmart PRO</div>', unsafe_allow_html=True)
+    st.markdown('<div class="subtitulo-agro">Tecnologia aplicada ao agronegócio</div>', unsafe_allow_html=True)
+    st.markdown("<br>", unsafe_allow_html=True)
 
 # ==============================
 # SIDEBAR
