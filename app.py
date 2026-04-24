@@ -78,6 +78,25 @@ st.markdown("""
         font-size: 16px;
     }
 }
+            /* 🔥 CORREÇÃO FINAL MOBILE */
+.logo-area {
+    width: 100%;
+    text-align: center;
+}
+
+.logo-agro {
+    width: 140px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ajuste fino só no celular */
+@media (max-width: 768px) {
+    .logo-agro {
+        transform: translateX(55px);
+    }
+}
 
 </style>
 """, unsafe_allow_html=True)
@@ -86,15 +105,9 @@ st.markdown("""
 # LOGO + TÍTULO (CORRIGIDO 🔥)
 # ==============================
 st.markdown("""
-<div style="display:flex; flex-direction:column; align-items:center;">
+<div class="logo-area">
 
-    <img src="logo.png" style="
-        width:140px;
-        max-width:40vw;
-        height:auto;
-        margin: 0 auto 10px auto;
-        display:block;
-    ">
+    <img src="logo.png" class="logo-agro">
 
     <div class="titulo-agro">
         AgroSmart PRO
@@ -108,7 +121,6 @@ st.markdown("""
 
 </div>
 """, unsafe_allow_html=True)
-
 # ==============================
 # SIDEBAR
 # ==============================
