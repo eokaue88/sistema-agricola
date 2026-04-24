@@ -8,20 +8,22 @@ st.set_page_config(
     page_icon="🌱",
     layout="wide"
 )
-col1, col2, col3 = st.columns([1,2,1])
 
-with col2:
-    st.image("logo.png", width=260)
-
+# ==============================
+# CSS + FONTE
+# ==============================
 st.markdown("""
 <style>
 
-/* FUNDO COM COR */
+/* IMPORTAR FONTE */
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
+
+/* FUNDO */
 .stApp {
     background-color: #171B48;
 }
 
-/* Camada escura (opcional, deixa mais sofisticado) */
+/* Camada escura */
 .stApp::before {
     content: "";
     position: fixed;
@@ -33,13 +35,23 @@ st.markdown("""
     z-index: -1;
 }
 
-/* Centralizar conteúdo */
+/* CENTRALIZAÇÃO */
 .block-container {
     max-width: 900px;
     margin: auto;
 }
 
-/* Botão */
+/* TÍTULO PERSONALIZADO */
+.titulo-agro {
+    font-family: 'Audiowide', sans-serif;
+    font-size: 48px;
+    text-align: center;
+    color: white;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(0,255,200,0.5);
+}
+
+/* BOTÃO */
 .stButton>button {
     background-color: #2e7d32;
     color: white;
@@ -49,7 +61,7 @@ st.markdown("""
     font-size: 16px;
 }
 
-/* Selectbox */
+/* SELECTBOX */
 .stSelectbox>div>div {
     background-color: #1e1e1e;
     border-radius: 10px;
@@ -59,16 +71,22 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ==============================
+# LOGO + NOME
+# ==============================
+col1, col2, col3 = st.columns([1,3,1])
+
+with col2:
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.image("logo.png", width=420)
+    st.markdown('<div class="titulo-agro">AgroSmart PRO</div>', unsafe_allow_html=True)
+    st.caption("Tecnologia aplicada ao agronegócio")
+    st.markdown("<br>", unsafe_allow_html=True)
+
+# ==============================
 # SIDEBAR
 # ==============================
-st.sidebar.title(" AgroSmart PRO")
+st.sidebar.title("🌱 AgroSmart PRO")
 st.sidebar.info("Sistema inteligente de recomendação agrícola")
-
-# ==============================
-# TÍTULO
-# ==============================
-
-st.caption("Tecnologia aplicada ao agronegócio")
 
 # ==============================
 # BASE DE DADOS
@@ -102,7 +120,7 @@ with col3:
     regiao = st.selectbox("📍 Região", ["nordeste", "sul", "sudeste", "norte", "centro-oeste"])
 
 # ==============================
-# BOTÃO (CORRIGIDO)
+# BOTÃO
 # ==============================
 if st.button("🚀 Gerar recomendação"):
 
@@ -124,9 +142,6 @@ if st.button("🚀 Gerar recomendação"):
     resultados.sort(key=lambda x: x[1], reverse=True)
     melhor = resultados[0]
 
-    # ==============================
-    # 🎯 DESTAQUE PRINCIPAL
-    # ==============================
     st.markdown("## 🎯 Melhor escolha para sua fazenda")
 
     st.success(f"""
@@ -137,21 +152,13 @@ if st.button("🚀 Gerar recomendação"):
 
     st.divider()
 
-    # ==============================
-    # GRÁFICO
-    # ==============================
     st.subheader("📈 Comparação")
-
     valores = [c[1] for c in resultados]
     st.bar_chart(valores)
 
     st.divider()
 
-    # ==============================
-    # CARDS (ESTILO NETFLIX)
-    # ==============================
     st.markdown("## 🍿 Recomendações para você")
-
     cols = st.columns(3)
 
     for i, (cultura, porc) in enumerate(resultados[:6]):
@@ -176,19 +183,12 @@ if st.button("🚀 Gerar recomendação"):
 
     st.divider()
 
-    # ==============================
-    # RANKING
-    # ==============================
     st.subheader("🏆 Ranking")
-
     for i, (cultura, porc) in enumerate(resultados[:5], start=1):
         st.write(f"{i}º — {cultura} ({porc:.0f}%)")
 
     st.divider()
 
-    # ==============================
-    # ANÁLISE
-    # ==============================
     st.subheader("🧠 Análise")
 
     if melhor[1] >= 75:
