@@ -67,12 +67,6 @@ st.markdown("""
     width: 100%;
 }
 
-/* 🔥 CENTRALIZA LOGO (PC + MOBILE) */
-[data-testid="stImage"] {
-    display: flex;
-    justify-content: center;
-}
-
 /* RESPONSIVO */
 @media (max-width: 768px) {
 
@@ -89,17 +83,33 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ==============================
-# LOGO + TÍTULO (ALINHADOS 🔥)
+# LOGO + TÍTULO (CORREÇÃO FINAL 🔥)
 # ==============================
 col1, col2, col3 = st.columns([1,2,1])
 
 with col2:
-    st.image("logo.png", width=140)
+    st.markdown("""
+    <div style="text-align:center;">
 
-    st.markdown('<div class="titulo-agro">AgroSmart PRO</div>', unsafe_allow_html=True)
-    st.markdown('<div class="subtitulo-agro">Tecnologia aplicada ao agronegócio</div>', unsafe_allow_html=True)
+        <img src="logo.png" style="
+            width:140px;
+            display:block;
+            margin-left:auto;
+            margin-right:auto;
+        ">
 
-    st.markdown("<br>", unsafe_allow_html=True)
+        <div class="titulo-agro">
+            AgroSmart PRO
+        </div>
+
+        <div class="subtitulo-agro">
+            Tecnologia aplicada ao agronegócio
+        </div>
+
+        <br>
+
+    </div>
+    """, unsafe_allow_html=True)
 
 # ==============================
 # SIDEBAR
