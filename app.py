@@ -18,7 +18,7 @@ st.markdown("""
 
 /* FUNDO COM IMAGEM */
 .stApp {
-   background-image: url("https://raw.githubusercontent.com/eokaue88/sistema-agricola/main/Simbolo_Verde.png");
+    background-image: url("https://raw.githubusercontent.com/SEU-USUARIO/sistema-agricola/main/Simbolo_Verde.png");
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
