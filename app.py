@@ -10,13 +10,14 @@ st.set_page_config(
 )
 
 # ==============================
-# CSS + FONTE
+# CSS + FONTES
 # ==============================
 st.markdown("""
 <style>
 
-/* IMPORTAR FONTE */
+/* IMPORTAR FONTES */
 @import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oxanium:wght@300;500;700&display=swap');
 
 /* FUNDO */
 .stApp {
@@ -41,14 +42,24 @@ st.markdown("""
     margin: auto;
 }
 
-/* TÍTULO PERSONALIZADO */
+/* TÍTULO */
 .titulo-agro {
     font-family: 'Audiowide', sans-serif;
-    font-size: 48px;
+    font-size: 40px; /* diminuído */
     text-align: center;
     color: white;
     letter-spacing: 2px;
     text-shadow: 0 0 10px rgba(0,255,200,0.5);
+}
+
+/* SUBTÍTULO */
+.subtitulo-agro {
+    font-family: 'Oxanium', sans-serif;
+    font-size: 20px; /* aumentado */
+    text-align: center;
+    color: #cccccc;
+    letter-spacing: 1px;
+    text-shadow: 0 0 6px rgba(255,255,255,0.2);
 }
 
 /* BOTÃO */
@@ -79,7 +90,7 @@ with col2:
     st.markdown("<br>", unsafe_allow_html=True)
     st.image("logo.png", width=420)
     st.markdown('<div class="titulo-agro">AgroSmart PRO</div>', unsafe_allow_html=True)
-    st.caption("Tecnologia aplicada ao agronegócio")
+    st.markdown('<div class="subtitulo-agro">Tecnologia aplicada ao agronegócio</div>', unsafe_allow_html=True)
     st.markdown("<br>", unsafe_allow_html=True)
 
 # ==============================
