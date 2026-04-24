@@ -17,7 +17,7 @@ st.markdown("""
 
 /* IMPORTAR FONTES */
 @import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Oxanium:wght@300;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oxanium:wght@300;400;600&display=swap');
 
 /* FUNDO */
 .stApp {
@@ -42,10 +42,16 @@ st.markdown("""
     margin: auto;
 }
 
+/* APLICA FONTE GLOBAL */
+html, body, [class*="css"] {
+    font-family: 'Oxanium', sans-serif;
+    font-size: 14px; /* fonte menor */
+}
+
 /* TÍTULO */
 .titulo-agro {
     font-family: 'Audiowide', sans-serif;
-    font-size: 40px; /* diminuído */
+    font-size: 38px;
     text-align: center;
     color: white;
     letter-spacing: 2px;
@@ -55,7 +61,7 @@ st.markdown("""
 /* SUBTÍTULO */
 .subtitulo-agro {
     font-family: 'Oxanium', sans-serif;
-    font-size: 20px; /* aumentado */
+    font-size: 20px;
     text-align: center;
     color: #cccccc;
     letter-spacing: 1px;
@@ -64,18 +70,32 @@ st.markdown("""
 
 /* BOTÃO */
 .stButton>button {
+    font-family: 'Oxanium', sans-serif;
+    font-size: 14px;
     background-color: #2e7d32;
     color: white;
     border-radius: 10px;
     height: 3em;
     width: 100%;
-    font-size: 16px;
 }
 
 /* SELECTBOX */
 .stSelectbox>div>div {
+    font-family: 'Oxanium', sans-serif;
+    font-size: 14px;
     background-color: #1e1e1e;
     border-radius: 10px;
+}
+
+/* TEXTOS GERAIS */
+h1, h2, h3, h4, h5, h6, p, span {
+    font-family: 'Oxanium', sans-serif;
+}
+
+/* CARDS */
+.card-agro {
+    font-family: 'Oxanium', sans-serif;
+    font-size: 13px;
 }
 
 </style>
