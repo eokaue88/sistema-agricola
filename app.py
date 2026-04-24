@@ -8,10 +8,15 @@ st.set_page_config(
     page_icon="🌱",
     layout="wide"
 )
-col1, col2, col3 = st.columns([1,2,1])
+# ==============================
+# LOGO CENTRAL (MELHORADA)
+# ==============================
+col1, col2, col3 = st.columns([1,3,1])
 
 with col2:
-    st.image("logo.png", width=260)
+    st.markdown("<br>", unsafe_allow_html=True)  # espaço em cima
+    st.image("logo.png", width=420)
+    st.markdown("<br>", unsafe_allow_html=True)  # espaço embaixo
 
 st.markdown("""
 <style>
@@ -67,7 +72,7 @@ st.sidebar.info("Sistema inteligente de recomendação agrícola")
 # ==============================
 # TÍTULO
 # ==============================
-st.title(" AgroSmart PRO")
+
 st.caption("Tecnologia aplicada ao agronegócio")
 
 # ==============================
