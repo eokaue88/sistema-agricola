@@ -54,32 +54,42 @@ st.markdown("""
     width: 100%;
 }
 
+/* ESCONDE TEXTO BUGADO DO BOTÃO DA SIDEBAR */
+button[kind="header"] span,
+button[kind="header"] p {
+    display: none !important;
+}
+
+button[kind="header"] {
+    color: white !important;
+}
+
 /* ==============================
 SIDEBAR CUSTOM 🔥
 ============================== */
 
-/* Fundo da sidebar */
 section[data-testid="stSidebar"] {
     background-color: #11A17E !important;
 }
 
-/* Textos da sidebar */
 section[data-testid="stSidebar"] * {
+    font-family: 'Oxanium', sans-serif !important;
     color: white !important;
 }
 
-/* Título da sidebar */
 section[data-testid="stSidebar"] h2 {
+    font-family: 'Audiowide', sans-serif !important;
     font-size: 22px !important;
-    font-weight: 600 !important;
+    letter-spacing: 1px;
     text-align: center !important;
 }
 
-/* Caixa de informação */
 section[data-testid="stSidebar"] .stAlert {
     background-color: rgba(0,0,0,0.22) !important;
     border-radius: 12px !important;
     border: none !important;
+    font-size: 16px !important;
+    line-height: 1.6 !important;
 }
 
 </style>
