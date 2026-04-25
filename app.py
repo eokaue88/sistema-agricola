@@ -85,6 +85,23 @@ st.markdown("""
     transform: translateX(-50%);
 }
 }
+            @media (max-width: 768px) {
+
+    /* 🔥 remove o deslocamento causado pelas colunas */
+    div[data-testid="column"] {
+        width: 100% !important;
+        flex: 1 1 100% !important;
+        display: block !important;
+        text-align: center;
+    }
+
+    /* 🔥 garante que a imagem fique centralizada de verdade */
+    [data-testid="stImage"] {
+        display: flex;
+        justify-content: center;
+    }
+
+}
 
 </style>
 """, unsafe_allow_html=True)
