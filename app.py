@@ -49,25 +49,23 @@ st.markdown("""
     width: 100%;
 }
 
-/* 🔥 BOTÃO DO MENU: remove keyboard_... e mostra ☰ */
-button[kind="header"] {
-    font-size: 0 !important;
-    background-color: #11A17E !important;
-    color: white !important;
-    border-radius: 10px !important;
-    padding: 8px 12px !important;
-    transition: 0.3s;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.25) !important;
+/* REMOVE SÓ O TEXTO BUGADO, MANTÉM O BOTÃO */
+button[kind="header"] span,
+button[kind="header"] p {
+    display: none !important;
 }
 
-button[kind="header"]::after {
-    content: "☰";
-    font-size: 26px !important;
+/* DEIXA O BOTÃO VISÍVEL */
+button[kind="header"] {
+    background: transparent !important;
     color: white !important;
+    border-radius: 8px !important;
+    padding: 6px !important;
+    transition: 0.3s;
 }
 
 button[kind="header"]:hover {
-    background-color: #0d8a6a !important;
+    background-color: rgba(255,255,255,0.2) !important;
 }
 
 /* ==============================
