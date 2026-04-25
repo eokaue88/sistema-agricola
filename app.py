@@ -80,8 +80,10 @@ st.markdown("""
 
     /* 🔥 Corrige somente a logo no celular */
     [data-testid="stImage"] {
-        transform: translateX(130px);
-    }
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
 }
 
 </style>
