@@ -55,6 +55,9 @@ div[data-testid="collapsedControl"],
 header [data-testid="stToolbar"] {
     display: none !important;
 }
+            header {
+    visibility: hidden;
+}
 
 /* ==============================
 SIDEBAR CUSTOM 🔥
