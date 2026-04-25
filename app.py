@@ -49,14 +49,23 @@ st.markdown("""
     width: 100%;
 }
 
-/* 🔥 REMOVE COMPLETAMENTE O BOTÃO + TEXTO BUGADO */
-button[kind="header"],
-div[data-testid="collapsedControl"],
-header [data-testid="stToolbar"] {
+/* REMOVE SÓ O TEXTO BUGADO, MANTÉM O BOTÃO */
+button[kind="header"] span,
+button[kind="header"] p {
     display: none !important;
 }
-            header {
-    visibility: hidden;
+
+/* DEIXA O BOTÃO VISÍVEL */
+button[kind="header"] {
+    background: transparent !important;
+    color: white !important;
+    border-radius: 8px !important;
+    padding: 6px !important;
+    transition: 0.3s;
+}
+
+button[kind="header"]:hover {
+    background-color: rgba(255,255,255,0.2) !important;
 }
 
 /* ==============================
