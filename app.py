@@ -79,10 +79,29 @@ st.markdown("""
     }
 
     /* 🔥 Corrige somente a logo no celular */
+    @media (max-width: 768px) {
+
+    .titulo-agro {
+        font-size: 26px;
+    }
+
+    .subtitulo-agro {
+        font-size: 16px;
+    }
+
+    /* 🔥 remove efeito de colunas no mobile */
+    div[data-testid="column"] {
+        width: 100% !important;
+        flex: 1 1 100% !important;
+        display: block !important;
+        text-align: center;
+    }
+
+    /* 🔥 centralização REAL da logo */
     [data-testid="stImage"] {
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
+        display: flex;
+        justify-content: center;
+    }
 }
 }
             @media (max-width: 768px) {
