@@ -49,8 +49,10 @@ st.markdown("""
     width: 100%;
 }
 
-/* REMOVE TOTALMENTE O BOTÃO BUGADO */
-button[kind="header"] {
+/* 🔥 REMOVE COMPLETAMENTE O BOTÃO + TEXTO BUGADO */
+button[kind="header"],
+div[data-testid="collapsedControl"],
+header [data-testid="stToolbar"] {
     display: none !important;
 }
 
