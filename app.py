@@ -67,6 +67,12 @@ st.markdown("""
     width: 100%;
 }
 
+/* CENTRALIZA LOGO */
+[data-testid="stImage"] {
+    display: flex;
+    justify-content: center;
+}
+
 /* RESPONSIVO */
 @media (max-width: 768px) {
 
@@ -77,71 +83,21 @@ st.markdown("""
     .subtitulo-agro {
         font-size: 16px;
     }
-
-    /* 🔥 Corrige somente a logo no celular */
-    @media (max-width: 768px) {
-
-    .titulo-agro {
-        font-size: 26px;
-    }
-
-    .subtitulo-agro {
-        font-size: 16px;
-    }
-
-    /* 🔥 remove efeito de colunas no mobile */
-    div[data-testid="column"] {
-        width: 100% !important;
-        flex: 1 1 100% !important;
-        display: block !important;
-        text-align: center;
-    }
-
-    /* 🔥 centralização REAL da logo */
-    [data-testid="stImage"] {
-        display: flex;
-        justify-content: center;
-    }
-}
-}
-            @media (max-width: 768px) {
-
-    /* 🔥 remove o deslocamento causado pelas colunas */
-    div[data-testid="column"] {
-        width: 100% !important;
-        flex: 1 1 100% !important;
-        display: block !important;
-        text-align: center;
-    }
-
-    /* 🔥 garante que a imagem fique centralizada de verdade */
-    [data-testid="stImage"] {
-        display: flex;
-        justify-content: center;
-    }
-
 }
 
 </style>
 """, unsafe_allow_html=True)
 
 # ==============================
-# LOGO + TÍTULO (CORREÇÃO FINAL 🔥)
+# LOGO + TÍTULO
 # ==============================
-col1, col2, col3 = st.columns([1,2,1])
+st.image("logo.png", width=140)
 
-with col2:
+st.markdown('<div class="titulo-agro">AgroSmart PRO</div>', unsafe_allow_html=True)
+st.markdown('<div class="subtitulo-agro">Tecnologia aplicada ao agronegócio</div>', unsafe_allow_html=True)
 
-    # 🔥 centralização REAL (PC + celular)
-    c1, c2, c3 = st.columns([1.3, 1, 1.3])
+st.markdown("<br>", unsafe_allow_html=True)
 
-    with c2:
-        st.image("logo.png", width=140)
-
-    st.markdown('<div class="titulo-agro">AgroSmart PRO</div>', unsafe_allow_html=True)
-    st.markdown('<div class="subtitulo-agro">Tecnologia aplicada ao agronegócio</div>', unsafe_allow_html=True)
-
-    st.markdown("<br>", unsafe_allow_html=True)
 # ==============================
 # SIDEBAR
 # ==============================
