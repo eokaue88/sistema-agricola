@@ -1,4 +1,6 @@
 import streamlit as st
+import base64
+import streamlit.components.v1 as components
 
 # ==============================
 # CONFIG
@@ -45,21 +47,6 @@ st.markdown("""
     font-family: 'Oxanium', sans-serif !important;
 }
 
-/* TÍTULO */
-.titulo-agro {
-    font-family: 'Audiowide', sans-serif !important;
-    font-size: 38px;
-    text-align: center;
-    color: white;
-}
-
-/* SUBTÍTULO */
-.subtitulo-agro {
-    font-size: 20px;
-    text-align: center;
-    color: #cccccc;
-}
-
 /* BOTÃO */
 .stButton>button {
     font-size: 15px;
@@ -67,36 +54,68 @@ st.markdown("""
     width: 100%;
 }
 
-/* CENTRALIZA LOGO */
-[data-testid="stImage"] {
-    display: flex;
-    justify-content: center;
-}
-
-/* RESPONSIVO */
-@media (max-width: 768px) {
-
-    .titulo-agro {
-        font-size: 26px;
-    }
-
-    .subtitulo-agro {
-        font-size: 16px;
-    }
-}
-
 </style>
 """, unsafe_allow_html=True)
 
 # ==============================
-# LOGO + TÍTULO
+# LOGO + TÍTULO CENTRALIZADOS
 # ==============================
-st.image("logo.png", width=140)
+def carregar_logo(path):
+    with open(path, "rb") as img:
+        return base64.b64encode(img.read()).decode()
 
-st.markdown('<div class="titulo-agro">AgroSmart PRO</div>', unsafe_allow_html=True)
-st.markdown('<div class="subtitulo-agro">Tecnologia aplicada ao agronegócio</div>', unsafe_allow_html=True)
+logo_base64 = carregar_logo("logo.png")
 
-st.markdown("<br>", unsafe_allow_html=True)
+components.html(f"""
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oxanium:wght@300;400;600&display=swap');
+
+.header-agro {{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}}
+
+.logo-agro {{
+    width: 140px;
+    height: auto;
+    margin-bottom: 12px;
+}}
+
+.titulo-agro {{
+    font-family: 'Audiowide', sans-serif;
+    font-size: 38px;
+    color: white;
+    text-align: center;
+}}
+
+.subtitulo-agro {{
+    font-family: 'Oxanium', sans-serif;
+    font-size: 20px;
+    color: #cccccc;
+    text-align: center;
+}}
+
+@media (max-width: 768px) {{
+    .titulo-agro {{
+        font-size: 26px;
+    }}
+
+    .subtitulo-agro {{
+        font-size: 16px;
+    }}
+}}
+</style>
+
+<div class="header-agro">
+    <img class="logo-agro" src="data:image/png;base64,{logo_base64}">
+    <div class="titulo-agro">AgroSmart PRO</div>
+    <div class="subtitulo-agro">Tecnologia aplicada ao agronegócio</div>
+</div>
+""", height=240)
 
 # ==============================
 # SIDEBAR
