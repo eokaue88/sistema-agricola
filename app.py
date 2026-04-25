@@ -49,23 +49,38 @@ st.markdown("""
     width: 100%;
 }
 
-/* REMOVE SÓ O TEXTO BUGADO, MANTÉM O BOTÃO */
+/* ==============================
+BOTÃO HAMBÚRGUER DO MENU ☰
+============================== */
+
+/* Esconde textos/ícones bugados */
 button[kind="header"] span,
-button[kind="header"] p {
+button[kind="header"] p,
+button[kind="header"] svg {
     display: none !important;
 }
 
-/* DEIXA O BOTÃO VISÍVEL */
+/* Mantém o botão funcionando */
 button[kind="header"] {
-    background: transparent !important;
+    background-color: #11A17E !important;
     color: white !important;
-    border-radius: 8px !important;
-    padding: 6px !important;
-    transition: 0.3s;
+    border-radius: 10px !important;
+    padding: 8px 12px !important;
+    width: 44px !important;
+    height: 42px !important;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.25) !important;
+}
+
+/* Coloca o ícone ☰ */
+button[kind="header"]::before {
+    content: "☰";
+    font-size: 24px;
+    color: white;
+    line-height: 1;
 }
 
 button[kind="header"]:hover {
-    background-color: rgba(255,255,255,0.2) !important;
+    background-color: #0d8a6a !important;
 }
 
 /* ==============================
