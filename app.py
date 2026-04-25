@@ -18,11 +18,9 @@ st.set_page_config(
 st.markdown("""
 <style>
 
-/* FONTES */
 @import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Oxanium:wght@300;400;600&display=swap');
 
-/* FUNDO */
 .stApp {
     background-color: #171B48;
 }
@@ -36,32 +34,24 @@ st.markdown("""
     z-index: -1;
 }
 
-/* CONTAINER */
 .block-container {
     max-width: 900px;
     margin: auto;
 }
 
-/* FONTE GLOBAL */
 * {
     font-family: 'Oxanium', sans-serif !important;
 }
 
-/* BOTÃO */
 .stButton>button {
     font-size: 15px;
     border-radius: 10px;
     width: 100%;
 }
 
-/* ESCONDE TEXTO BUGADO DO BOTÃO DA SIDEBAR */
-button[kind="header"] span,
-button[kind="header"] p {
-    display: none !important;
-}
-
+/* REMOVE TOTALMENTE O BOTÃO BUGADO */
 button[kind="header"] {
-    color: white !important;
+    display: none !important;
 }
 
 /* ==============================
