@@ -54,6 +54,34 @@ st.markdown("""
     width: 100%;
 }
 
+/* ==============================
+SIDEBAR CUSTOM 🔥
+============================== */
+
+/* Fundo da sidebar */
+section[data-testid="stSidebar"] {
+    background-color: #11A17E !important;
+}
+
+/* Textos da sidebar */
+section[data-testid="stSidebar"] * {
+    color: white !important;
+}
+
+/* Título da sidebar */
+section[data-testid="stSidebar"] h2 {
+    font-size: 22px !important;
+    font-weight: 600 !important;
+    text-align: center !important;
+}
+
+/* Caixa de informação */
+section[data-testid="stSidebar"] .stAlert {
+    background-color: rgba(0,0,0,0.22) !important;
+    border-radius: 12px !important;
+    border: none !important;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
@@ -120,7 +148,7 @@ components.html(f"""
 # ==============================
 # SIDEBAR
 # ==============================
-st.sidebar.title("🌱 AgroSmart PRO")
+st.sidebar.markdown("## 🌱 AgroSmart PRO")
 st.sidebar.info("Sistema inteligente de recomendação agrícola")
 
 # ==============================
