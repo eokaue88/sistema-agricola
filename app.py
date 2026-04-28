@@ -49,23 +49,27 @@ st.markdown("""
     width: 100%;
 }
 
-/* REMOVE SÓ O TEXTO BUGADO, MANTÉM O BOTÃO */
+/* 🔥 TROCAR keyboard_... por Menu */
+
+/* esconde texto original */
 button[kind="header"] span,
 button[kind="header"] p {
-    display: none !important;
+    visibility: hidden !important;
 }
 
-/* DEIXA O BOTÃO VISÍVEL */
+/* adiciona "Menu" */
+button[kind="header"]::after {
+    content: "Menu";
+    visibility: visible;
+    font-size: 16px;
+    color: white;
+}
+
+/* estilo botão */
 button[kind="header"] {
-    background: transparent !important;
-    color: white !important;
-    border-radius: 8px !important;
-    padding: 6px !important;
-    transition: 0.3s;
-}
-
-button[kind="header"]:hover {
-    background-color: rgba(255,255,255,0.2) !important;
+    background-color: #11A17E !important;
+    border-radius: 10px !important;
+    padding: 6px 12px !important;
 }
 
 /* ==============================
@@ -100,7 +104,7 @@ section[data-testid="stSidebar"] .stAlert {
 """, unsafe_allow_html=True)
 
 # ==============================
-# LOGO + TÍTULO CENTRALIZADOS
+# LOGO + TÍTULO
 # ==============================
 def carregar_logo(path):
     with open(path, "rb") as img:
@@ -164,94 +168,3 @@ components.html(f"""
 # ==============================
 st.sidebar.markdown("## 🌱 AgroSmart PRO")
 st.sidebar.info("Sistema inteligente de recomendação agrícola")
-
-# ==============================
-# BASE
-# ==============================
-dados = [
-    {"solo": "argiloso", "clima": "quente", "regiao": "centro-oeste", "cultura": "soja"},
-    {"solo": "argiloso", "clima": "quente", "regiao": "centro-oeste", "cultura": "milho"},
-    {"solo": "argiloso", "clima": "umido", "regiao": "sul", "cultura": "arroz"},
-    {"solo": "argiloso", "clima": "frio", "regiao": "sul", "cultura": "trigo"},
-    {"solo": "misto", "clima": "quente", "regiao": "sudeste", "cultura": "feijao"},
-    {"solo": "argiloso", "clima": "ameno", "regiao": "sudeste", "cultura": "cafe"},
-    {"solo": "arenoso", "clima": "quente", "regiao": "nordeste", "cultura": "algodao"},
-    {"solo": "arenoso", "clima": "seco", "regiao": "nordeste", "cultura": "mandioca"},
-    {"solo": "argiloso", "clima": "umido", "regiao": "sudeste", "cultura": "tomate"},
-]
-
-# ==============================
-# INPUTS
-# ==============================
-st.subheader("📥 Dados da propriedade")
-
-col1, col2, col3 = st.columns(3)
-
-with col1:
-    solo = st.selectbox("🌍 Solo", ["arenoso", "argiloso", "misto"])
-
-with col2:
-    clima = st.selectbox("☁️ Clima", ["quente", "umido", "seco", "frio", "ameno", "tropical"])
-
-with col3:
-    regiao = st.selectbox("📍 Região", ["nordeste", "sul", "sudeste", "norte", "centro-oeste"])
-
-# ==============================
-# BOTÃO
-# ==============================
-if st.button("🚀 Gerar recomendação"):
-
-    resultados = []
-
-    for item in dados:
-        pontuacao = 0
-
-        if item["solo"] == solo:
-            pontuacao += 1
-        if item["clima"] == clima:
-            pontuacao += 2
-        if item["regiao"] == regiao:
-            pontuacao += 1
-
-        porcentagem = (pontuacao / 4) * 100
-        resultados.append((item["cultura"], porcentagem))
-
-    resultados.sort(key=lambda x: x[1], reverse=True)
-    melhor = resultados[0]
-
-    st.markdown("## 🎯 Melhor escolha para sua fazenda")
-
-    st.success(f"""
-    🌱 **{melhor[0].upper()}**
-    📊 Compatibilidade: **{melhor[1]:.0f}%**
-    """)
-
-    st.divider()
-
-    st.subheader("📈 Comparação")
-    valores = [c[1] for c in resultados]
-    st.bar_chart(valores)
-
-    st.divider()
-
-    st.markdown("## 🍿 Recomendações")
-
-    cols = st.columns(3)
-
-    for i, (cultura, porc) in enumerate(resultados[:6]):
-        with cols[i % 3]:
-
-            st.markdown(f"""
-            <div class="card-agro" style="
-                background-color: {'#2e7d32' if i == 0 else '#333'};
-                padding: 12px;
-                border-radius: 12px;
-                text-align: center;
-                color: white;
-            ">
-                <h3>{cultura.upper()}</h3>
-                <p>{porc:.0f}%</p>
-            </div>
-            """, unsafe_allow_html=True)
-
-            st.progress(int(porc))
