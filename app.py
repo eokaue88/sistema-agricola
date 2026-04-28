@@ -21,6 +21,9 @@ st.markdown("""
 @import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Oxanium:wght@300;400;600&display=swap');
 
+/* 🔥 IMPORTANTE: corrigir ícones */
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded');
+
 .stApp {
     background-color: #171B48;
 }
@@ -39,23 +42,43 @@ st.markdown("""
     margin: auto;
 }
 
+/* Fonte global */
 * {
     font-family: 'Oxanium', sans-serif !important;
 }
 
+/* 🔥 CORREÇÃO DOS ÍCONES (ESSENCIAL) */
+.material-symbols-rounded,
+.material-symbols-outlined,
+.material-icons {
+    font-family: 'Material Symbols Rounded' !important;
+    font-weight: normal !important;
+    font-style: normal !important;
+    font-size: 24px !important;
+    line-height: 1 !important;
+    letter-spacing: normal !important;
+    text-transform: none !important;
+    display: inline-block !important;
+    white-space: nowrap !important;
+    direction: ltr !important;
+    -webkit-font-feature-settings: 'liga' !important;
+    -webkit-font-smoothing: antialiased !important;
+}
+
+/* BOTÃO */
 .stButton>button {
     font-size: 15px;
     border-radius: 10px;
     width: 100%;
 }
 
-/* REMOVE SÓ O TEXTO BUGADO, MANTÉM O BOTÃO */
+/* REMOVE TEXTO BUGADO (keyboard...) */
 button[kind="header"] span,
 button[kind="header"] p {
     display: none !important;
 }
 
-/* DEIXA O BOTÃO VISÍVEL */
+/* BOTÃO NORMAL */
 button[kind="header"] {
     background: transparent !important;
     color: white !important;
@@ -68,10 +91,7 @@ button[kind="header"]:hover {
     background-color: rgba(255,255,255,0.2) !important;
 }
 
-/* ==============================
-SIDEBAR CUSTOM 🔥
-============================== */
-
+/* SIDEBAR */
 section[data-testid="stSidebar"] {
     background-color: #11A17E !important;
 }
