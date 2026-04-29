@@ -13,14 +13,13 @@ st.set_page_config(
 )
 
 # ==============================
-# CSS + RESPONSIVIDADE 🔥
+# CSS + RESPONSIVIDADE
 # ==============================
 st.markdown("""
 <style>
 
 @import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Oxanium:wght@300;400;600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded');
 
 .stApp {
     background-color: #171B48;
@@ -40,16 +39,20 @@ st.markdown("""
     margin: auto;
 }
 
-/* Fonte global */
-* {
+/* Fonte global sem quebrar ícones */
+.stApp,
+.stApp p,
+.stApp label,
+.stApp div,
+.stApp h1,
+.stApp h2,
+.stApp h3,
+.stApp h4,
+.stApp h5,
+.stApp h6,
+.stButton button,
+.stSelectbox * {
     font-family: 'Oxanium', sans-serif !important;
-}
-
-/* 🔥 EXCEÇÃO PARA ÍCONES */
-span[class*="material"],
-i[class*="material"],
-button[kind="header"] span {
-    font-family: 'Material Symbols Rounded' !important;
 }
 
 /* BOTÃO */
@@ -57,12 +60,6 @@ button[kind="header"] span {
     font-size: 15px;
     border-radius: 10px;
     width: 100%;
-}
-
-/* 🔥 NÃO MEXER MAIS NO HEADER (corrige bug) */
-button[kind="header"] {
-    background: transparent !important;
-    border-radius: 8px !important;
 }
 
 /* SIDEBAR */
