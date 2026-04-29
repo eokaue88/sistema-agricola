@@ -67,7 +67,13 @@ section[data-testid="stSidebar"] {
     background-color: #11A17E !important;
 }
 
-section[data-testid="stSidebar"] * {
+/* Sidebar sem quebrar ícones */
+section[data-testid="stSidebar"] p,
+section[data-testid="stSidebar"] label,
+section[data-testid="stSidebar"] h1,
+section[data-testid="stSidebar"] h2,
+section[data-testid="stSidebar"] h3,
+section[data-testid="stSidebar"] div[data-testid="stMarkdownContainer"] {
     font-family: 'Oxanium', sans-serif !important;
     color: white !important;
 }
