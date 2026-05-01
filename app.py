@@ -21,25 +21,19 @@ st.markdown("""
 @import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Oxanium:wght@300;400;600&display=swap');
 
+/* 🔥 FUNDO PREMIUM */
 .stApp {
-    background-color: #171B48;
+    background: radial-gradient(circle at top, #23306b 0%, #171B48 45%, #090b1f 100%);
 }
 
-.stApp::before {
-    content: "";
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.3);
-    z-index: -1;
-}
-
+/* CONTAINER */
 .block-container {
-    max-width: 900px;
+    max-width: 1050px;
     margin: auto;
+    padding-top: 2rem;
 }
 
-/* Fonte global sem quebrar ícones */
+/* FONTE GLOBAL */
 .stApp,
 .stApp p,
 .stApp label,
@@ -55,11 +49,28 @@ st.markdown("""
     font-family: 'Oxanium', sans-serif !important;
 }
 
-/* BOTÃO */
+/* BOTÃO PREMIUM */
 .stButton>button {
-    font-size: 15px;
-    border-radius: 10px;
-    width: 100%;
+    background: linear-gradient(90deg, #11A17E, #18d6a6);
+    color: white;
+    font-weight: 700;
+    border: none;
+    border-radius: 14px;
+    height: 3.4em;
+    box-shadow: 0 8px 22px rgba(17,161,126,0.35);
+    transition: 0.3s;
+}
+
+.stButton>button:hover {
+    transform: scale(1.03);
+    box-shadow: 0 12px 30px rgba(17,161,126,0.6);
+}
+
+/* SELECTBOX MODERNO */
+.stSelectbox>div>div {
+    background: rgba(255,255,255,0.08);
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.2);
 }
 
 /* SIDEBAR */
@@ -67,7 +78,7 @@ section[data-testid="stSidebar"] {
     background-color: #11A17E !important;
 }
 
-/* Sidebar sem quebrar ícones */
+/* Sidebar segura */
 section[data-testid="stSidebar"] p,
 section[data-testid="stSidebar"] label,
 section[data-testid="stSidebar"] h1,
@@ -81,51 +92,56 @@ section[data-testid="stSidebar"] div[data-testid="stMarkdownContainer"] {
 section[data-testid="stSidebar"] h2 {
     font-family: 'Audiowide', sans-serif !important;
     font-size: 22px !important;
-    letter-spacing: 1px;
     text-align: center !important;
 }
 
-section[data-testid="stSidebar"] .stAlert {
-    background-color: rgba(0,0,0,0.22) !important;
-    border-radius: 12px !important;
-    border: none !important;
-    font-size: 16px !important;
-    line-height: 1.6 !important;
-}
-
 /* ==============================
-CARDS ESTILO NETFLIX 🔥
+🔥 CARDS NÍVEL NETFLIX PRO
 ============================== */
 
 .card-agro {
-    background: linear-gradient(145deg, #222, #111);
-    padding: 18px;
-    border-radius: 18px;
+    background: linear-gradient(160deg, rgba(255,255,255,0.12), rgba(255,255,255,0.04));
+    backdrop-filter: blur(12px);
+    padding: 24px;
+    border-radius: 22px;
     color: white;
     text-align: center;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.35);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    min-height: 150px;
+    border: 1px solid rgba(255,255,255,0.18);
+    box-shadow: 0 12px 35px rgba(0,0,0,0.4);
+    transition: 0.35s;
+    min-height: 180px;
 }
 
 .card-agro:hover {
-    transform: scale(1.06);
-    box-shadow: 0 12px 30px rgba(17,161,126,0.45);
+    transform: translateY(-8px) scale(1.05);
+    box-shadow: 0 20px 50px rgba(17,161,126,0.5);
 }
 
+/* 🔥 TOP 1 DESTACADO */
 .card-top1 {
-    background: linear-gradient(145deg, #11A17E, #0b6b55);
-    border: 2px solid #ffffff55;
+    background: linear-gradient(160deg, #11A17E, #064c3e);
+    border: 2px solid rgba(255,255,255,0.5);
+    transform: scale(1.02);
 }
 
 .card-agro h3 {
-    font-size: 22px;
-    margin-bottom: 8px;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.card-agro h2 {
+    font-size: 34px;
+    margin: 8px 0;
 }
 
 .card-agro p {
-    font-size: 16px;
-    margin: 5px 0;
+    font-size: 15px;
+    opacity: 0.9;
+}
+
+/* ESPAÇAMENTO */
+[data-testid="stVerticalBlock"] {
+    gap: 1.2rem;
 }
 
 </style>
