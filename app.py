@@ -1,6 +1,7 @@
 import streamlit as st
 import base64
 import streamlit.components.v1 as components
+import pandas as pd
 
 st.set_page_config(
     page_title="AgroSmart PRO",
@@ -332,6 +333,21 @@ def classificar_recomendacao(porc):
 
 st.subheader("📥 Dados da propriedade")
 
+nome_prop = st.text_input("🏡 Nome da propriedade")
+
+col_est1, col_est2, col_est3 = st.columns(3)
+
+with col_est1:
+    st.metric("🌾 Culturas no banco", len(dados))
+
+with col_est2:
+    st.metric("⚙️ Critérios analisados", len(pesos))
+
+with col_est3:
+    st.metric("📜 Histórico", len(st.session_state.historico))
+
+st.info("Informe os dados da propriedade e clique em gerar recomendação para receber a melhor cultura indicada pelo sistema.")
+
 col1, col2, col3, col4 = st.columns(4)
 
 with col1:
@@ -374,6 +390,7 @@ if st.button("🚀 Gerar recomendação"):
     nivel = classificar_recomendacao(melhor[1])
 
     st.session_state.historico.append({
+        "propriedade": nome_prop if nome_prop else "Não informado",
         "solo": solo,
         "clima": clima,
         "regiao": regiao,
@@ -402,6 +419,7 @@ if st.button("🚀 Gerar recomendação"):
     relatorio = f"""
 RELATÓRIO AGROSMART PRO
 
+Nome da propriedade: {nome_prop if nome_prop else "Não informado"}
 Solo informado: {solo}
 Clima informado: {clima}
 Região informada: {regiao}
@@ -435,6 +453,7 @@ Este sistema possui finalidade educativa e não substitui uma análise agronômi
 """
 
     st.write(f"""
+    **Nome da propriedade:** {nome_prop if nome_prop else "Não informado"}  
     **Solo informado:** {solo}  
     **Clima informado:** {clima}  
     **Região informada:** {regiao}  
@@ -466,6 +485,22 @@ Este sistema possui finalidade educativa e não substitui uma análise agronômi
 
     Observação técnica: {observacoes.get(cultura_melhor, "Essa cultura pode exigir uma análise mais detalhada.")}
     """)
+
+    if st.button("📘 Ver metodologia do sistema"):
+        st.info(f"""
+        O sistema compara os dados informados com o banco de culturas.
+
+        Cada critério possui um peso:
+        - Solo: {pesos["solo"]} pontos
+        - Clima: {pesos["clima"]} pontos
+        - Região: {pesos["regiao"]} ponto
+        - Objetivo: {pesos["objetivo"]} pontos
+
+        A pontuação final é convertida em porcentagem de compatibilidade.
+
+        Fórmula usada:
+        compatibilidade = (pontuação obtida / pontuação máxima) × 100
+        """)
 
     st.markdown("### ✅ Pontos positivos e cuidados")
 
@@ -502,13 +537,19 @@ Este sistema possui finalidade educativa e não substitui uma análise agronômi
 
             st.progress(int(porc))
 
+    if st.checkbox("📋 Ver tabela completa"):
+        tabela = pd.DataFrame(resultados, columns=["Cultura", "Compatibilidade", "Objetivo"])
+        tabela["Compatibilidade"] = tabela["Compatibilidade"].map(lambda x: f"{x:.0f}%")
+        tabela["Nível"] = [classificar_recomendacao(porc) for _, porc, _ in resultados]
+        st.dataframe(tabela, use_container_width=True)
+
 if st.session_state.historico:
     st.divider()
     st.markdown("## 📜 Histórico de análises")
 
     for h in st.session_state.historico[-5:][::-1]:
         st.write(
-            f"🌍 **{h['solo']}** | ☁️ **{h['clima']}** | 📍 **{h['regiao']}** | "
-            f"🎯 **{h['objetivo']}** → 🌱 **{h['resultado'].upper()}** "
-            f"({h['compatibilidade']:.0f}%) - **{h['nivel']}**"
+            f"🏡 **{h['propriedade']}** | 🌍 **{h['solo']}** | ☁️ **{h['clima']}** | "
+            f"📍 **{h['regiao']}** | 🎯 **{h['objetivo']}** → "
+            f"🌱 **{h['resultado'].upper()}** ({h['compatibilidade']:.0f}%) - **{h['nivel']}**"
         )
