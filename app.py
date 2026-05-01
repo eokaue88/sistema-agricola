@@ -99,6 +99,7 @@ section[data-testid="stSidebar"] h2 {
     box-shadow: 0 12px 35px rgba(0,0,0,0.4);
     transition: 0.35s;
     min-height: 180px;
+    animation: fadeIn 0.6s ease-in-out;
 }
 
 .card-agro:hover {
@@ -129,6 +130,17 @@ section[data-testid="stSidebar"] h2 {
 
 [data-testid="stVerticalBlock"] {
     gap: 1.2rem;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 </style>
@@ -199,6 +211,13 @@ components.html(f"""
 # ==============================
 st.sidebar.markdown("## 🌱 AgroSmart PRO")
 st.sidebar.info("Sistema inteligente de recomendação agrícola")
+modo_celular = st.sidebar.checkbox("📱 Modo celular")
+
+# ==============================
+# HISTÓRICO
+# ==============================
+if "historico" not in st.session_state:
+    st.session_state.historico = []
 
 # ==============================
 # BASE
@@ -214,6 +233,24 @@ dados = [
     {"solo": "arenoso", "clima": "seco", "regiao": "nordeste", "cultura": "mandioca"},
     {"solo": "argiloso", "clima": "umido", "regiao": "sudeste", "cultura": "tomate"},
 ]
+
+icones = {
+    "soja": "🌱",
+    "milho": "🌽",
+    "arroz": "🍚",
+    "trigo": "🌾",
+    "feijao": "🫘",
+    "cafe": "☕",
+    "algodao": "🧵",
+    "mandioca": "🥔",
+    "tomate": "🍅"
+}
+
+pesos = {
+    "solo": 2,
+    "clima": 3,
+    "regiao": 1
+}
 
 # ==============================
 # INPUTS
@@ -242,22 +279,31 @@ if st.button("🚀 Gerar recomendação"):
         pontuacao = 0
 
         if item["solo"] == solo:
-            pontuacao += 1
+            pontuacao += pesos["solo"]
         if item["clima"] == clima:
-            pontuacao += 2
+            pontuacao += pesos["clima"]
         if item["regiao"] == regiao:
-            pontuacao += 1
+            pontuacao += pesos["regiao"]
 
-        porcentagem = (pontuacao / 4) * 100
+        porcentagem = (pontuacao / sum(pesos.values())) * 100
         resultados.append((item["cultura"], porcentagem))
 
     resultados.sort(key=lambda x: x[1], reverse=True)
     melhor = resultados[0]
+    icone_melhor = icones.get(melhor[0], "🌱")
+
+    st.session_state.historico.append({
+        "solo": solo,
+        "clima": clima,
+        "regiao": regiao,
+        "resultado": melhor[0],
+        "compatibilidade": melhor[1]
+    })
 
     st.markdown(f"""
     <div class="card-agro card-top1">
         <p>🎯 Melhor escolha para sua fazenda</p>
-        <h3>{melhor[0].upper()}</h3>
+        <h3>{icone_melhor} {melhor[0].upper()}</h3>
         <p>Compatibilidade geral</p>
         <h2>{melhor[1]:.0f}%</h2>
     </div>
@@ -265,22 +311,49 @@ if st.button("🚀 Gerar recomendação"):
 
     st.divider()
 
+    st.markdown("### 🧠 Por que essa recomendação?")
+
+    st.info(f"""
+    • Solo selecionado: **{solo}**  
+    • Clima selecionado: **{clima}**  
+    • Região selecionada: **{regiao}**  
+
+    A cultura **{melhor[0].upper()}** teve a maior compatibilidade considerando os pesos:
+    **solo = {pesos["solo"]}**, **clima = {pesos["clima"]}** e **região = {pesos["regiao"]}**.
+    """)
+
+    st.divider()
+
     st.markdown("## 🌾 Ranking de culturas recomendadas")
 
-    cols = st.columns(3)
+    cols = st.columns(2 if modo_celular else 3)
 
     for i, (cultura, porc) in enumerate(resultados[:6]):
-        with cols[i % 3]:
+        with cols[i % (2 if modo_celular else 3)]:
 
             classe_extra = "card-top1" if i == 0 else ""
+            icone = icones.get(cultura, "🌱")
 
             st.markdown(f"""
             <div class="card-agro {classe_extra}">
                 <p>#{i+1} recomendação</p>
-                <h3>{cultura.upper()}</h3>
+                <h3>{icone} {cultura.upper()}</h3>
                 <p>🌱 Compatibilidade</p>
                 <h2>{porc:.0f}%</h2>
             </div>
             """, unsafe_allow_html=True)
 
             st.progress(int(porc))
+
+# ==============================
+# HISTÓRICO VISUAL
+# ==============================
+if st.session_state.historico:
+    st.divider()
+    st.markdown("## 📜 Histórico de análises")
+
+    for h in st.session_state.historico[-5:][::-1]:
+        st.write(
+            f"🌍 **{h['solo']}** | ☁️ **{h['clima']}** | 📍 **{h['regiao']}** → "
+            f"🌱 **{h['resultado'].upper()}** ({h['compatibilidade']:.0f}%)"
+        )
