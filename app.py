@@ -93,6 +93,41 @@ section[data-testid="stSidebar"] .stAlert {
     line-height: 1.6 !important;
 }
 
+/* ==============================
+CARDS ESTILO NETFLIX 🔥
+============================== */
+
+.card-agro {
+    background: linear-gradient(145deg, #222, #111);
+    padding: 18px;
+    border-radius: 18px;
+    color: white;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    min-height: 150px;
+}
+
+.card-agro:hover {
+    transform: scale(1.06);
+    box-shadow: 0 12px 30px rgba(17,161,126,0.45);
+}
+
+.card-top1 {
+    background: linear-gradient(145deg, #11A17E, #0b6b55);
+    border: 2px solid #ffffff55;
+}
+
+.card-agro h3 {
+    font-size: 22px;
+    margin-bottom: 8px;
+}
+
+.card-agro p {
+    font-size: 16px;
+    margin: 5px 0;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
@@ -231,23 +266,21 @@ if st.button("🚀 Gerar recomendação"):
 
     st.divider()
 
-    st.markdown("## 🍿 Recomendações")
+    st.markdown("## 🍿 Recomendações para você")
 
     cols = st.columns(3)
 
     for i, (cultura, porc) in enumerate(resultados[:6]):
         with cols[i % 3]:
 
+            classe_extra = "card-top1" if i == 0 else ""
+
             st.markdown(f"""
-            <div class="card-agro" style="
-                background-color: {'#2e7d32' if i == 0 else '#333'};
-                padding: 12px;
-                border-radius: 12px;
-                text-align: center;
-                color: white;
-            ">
+            <div class="card-agro {classe_extra}">
+                <p>#{i+1} recomendação</p>
                 <h3>{cultura.upper()}</h3>
-                <p>{porc:.0f}%</p>
+                <p>🌱 Compatibilidade</p>
+                <h2>{porc:.0f}%</h2>
             </div>
             """, unsafe_allow_html=True)
 
