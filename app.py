@@ -21,19 +21,16 @@ st.markdown("""
 @import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Oxanium:wght@300;400;600&display=swap');
 
-/* 🔥 FUNDO PREMIUM */
 .stApp {
     background: radial-gradient(circle at top, #23306b 0%, #171B48 45%, #090b1f 100%);
 }
 
-/* CONTAINER */
 .block-container {
     max-width: 1050px;
     margin: auto;
     padding-top: 2rem;
 }
 
-/* FONTE GLOBAL */
 .stApp,
 .stApp p,
 .stApp label,
@@ -49,7 +46,6 @@ st.markdown("""
     font-family: 'Oxanium', sans-serif !important;
 }
 
-/* BOTÃO PREMIUM */
 .stButton>button {
     background: linear-gradient(90deg, #11A17E, #18d6a6);
     color: white;
@@ -66,19 +62,16 @@ st.markdown("""
     box-shadow: 0 12px 30px rgba(17,161,126,0.6);
 }
 
-/* SELECTBOX MODERNO */
 .stSelectbox>div>div {
     background: rgba(255,255,255,0.08);
     border-radius: 14px;
     border: 1px solid rgba(255,255,255,0.2);
 }
 
-/* SIDEBAR */
 section[data-testid="stSidebar"] {
     background-color: #11A17E !important;
 }
 
-/* Sidebar segura */
 section[data-testid="stSidebar"] p,
 section[data-testid="stSidebar"] label,
 section[data-testid="stSidebar"] h1,
@@ -94,10 +87,6 @@ section[data-testid="stSidebar"] h2 {
     font-size: 22px !important;
     text-align: center !important;
 }
-
-/* ==============================
-🔥 CARDS NÍVEL NETFLIX PRO
-============================== */
 
 .card-agro {
     background: linear-gradient(160deg, rgba(255,255,255,0.12), rgba(255,255,255,0.04));
@@ -117,7 +106,6 @@ section[data-testid="stSidebar"] h2 {
     box-shadow: 0 20px 50px rgba(17,161,126,0.5);
 }
 
-/* 🔥 TOP 1 DESTACADO */
 .card-top1 {
     background: linear-gradient(160deg, #11A17E, #064c3e);
     border: 2px solid rgba(255,255,255,0.5);
@@ -139,7 +127,6 @@ section[data-testid="stSidebar"] h2 {
     opacity: 0.9;
 }
 
-/* ESPAÇAMENTO */
 [data-testid="stVerticalBlock"] {
     gap: 1.2rem;
 }
@@ -170,7 +157,7 @@ components.html(f"""
 }}
 
 .logo-agro {{
-    width: 140px;
+    width: 110px;
     height: auto;
     margin-bottom: 12px;
 }}
@@ -205,7 +192,7 @@ components.html(f"""
     <div class="titulo-agro">AgroSmart PRO</div>
     <div class="subtitulo-agro">Tecnologia aplicada ao agronegócio</div>
 </div>
-""", height=240)
+""", height=190)
 
 # ==============================
 # SIDEBAR
@@ -267,22 +254,18 @@ if st.button("🚀 Gerar recomendação"):
     resultados.sort(key=lambda x: x[1], reverse=True)
     melhor = resultados[0]
 
-    st.markdown("## 🎯 Melhor escolha para sua fazenda")
-
-    st.success(f"""
-    🌱 **{melhor[0].upper()}**
-    📊 Compatibilidade: **{melhor[1]:.0f}%**
-    """)
-
-    st.divider()
-
-    st.subheader("📈 Comparação")
-    valores = [c[1] for c in resultados]
-    st.bar_chart(valores)
+    st.markdown(f"""
+    <div class="card-agro card-top1">
+        <p>🎯 Melhor escolha para sua fazenda</p>
+        <h3>{melhor[0].upper()}</h3>
+        <p>Compatibilidade geral</p>
+        <h2>{melhor[1]:.0f}%</h2>
+    </div>
+    """, unsafe_allow_html=True)
 
     st.divider()
 
-    st.markdown("## 🍿 Recomendações para você")
+    st.markdown("## 🌾 Ranking de culturas recomendadas")
 
     cols = st.columns(3)
 
