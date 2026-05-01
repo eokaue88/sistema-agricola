@@ -196,15 +196,31 @@ if st.sidebar.button("🗑️ Limpar histórico"):
     st.session_state.historico = []
 
 dados = [
-    {"solo": "argiloso", "clima": "quente", "regiao": "centro-oeste", "cultura": "soja"},
-    {"solo": "argiloso", "clima": "quente", "regiao": "centro-oeste", "cultura": "milho"},
-    {"solo": "argiloso", "clima": "umido", "regiao": "sul", "cultura": "arroz"},
-    {"solo": "argiloso", "clima": "frio", "regiao": "sul", "cultura": "trigo"},
-    {"solo": "misto", "clima": "quente", "regiao": "sudeste", "cultura": "feijao"},
-    {"solo": "argiloso", "clima": "ameno", "regiao": "sudeste", "cultura": "cafe"},
-    {"solo": "arenoso", "clima": "quente", "regiao": "nordeste", "cultura": "algodao"},
-    {"solo": "arenoso", "clima": "seco", "regiao": "nordeste", "cultura": "mandioca"},
-    {"solo": "argiloso", "clima": "umido", "regiao": "sudeste", "cultura": "tomate"},
+    {"solo": "argiloso", "clima": "quente", "regiao": "centro-oeste", "objetivo": "grãos", "cultura": "soja"},
+    {"solo": "argiloso", "clima": "quente", "regiao": "centro-oeste", "objetivo": "grãos", "cultura": "milho"},
+    {"solo": "argiloso", "clima": "umido", "regiao": "sul", "objetivo": "grãos", "cultura": "arroz"},
+    {"solo": "argiloso", "clima": "frio", "regiao": "sul", "objetivo": "grãos", "cultura": "trigo"},
+    {"solo": "misto", "clima": "quente", "regiao": "sudeste", "objetivo": "grãos", "cultura": "feijao"},
+
+    {"solo": "argiloso", "clima": "ameno", "regiao": "sudeste", "objetivo": "comercial", "cultura": "cafe"},
+    {"solo": "arenoso", "clima": "quente", "regiao": "nordeste", "objetivo": "comercial", "cultura": "algodao"},
+    {"solo": "argiloso", "clima": "quente", "regiao": "nordeste", "objetivo": "comercial", "cultura": "cana-de-açúcar"},
+
+    {"solo": "arenoso", "clima": "seco", "regiao": "nordeste", "objetivo": "alimentação", "cultura": "mandioca"},
+    {"solo": "arenoso", "clima": "seco", "regiao": "nordeste", "objetivo": "alimentação", "cultura": "sorgo"},
+    {"solo": "arenoso", "clima": "seco", "regiao": "nordeste", "objetivo": "alimentação", "cultura": "milheto"},
+
+    {"solo": "misto", "clima": "tropical", "regiao": "sudeste", "objetivo": "fruticultura", "cultura": "laranja"},
+    {"solo": "argiloso", "clima": "quente", "regiao": "norte", "objetivo": "fruticultura", "cultura": "banana"},
+    {"solo": "misto", "clima": "tropical", "regiao": "norte", "objetivo": "fruticultura", "cultura": "manga"},
+    {"solo": "arenoso", "clima": "quente", "regiao": "nordeste", "objetivo": "fruticultura", "cultura": "abacaxi"},
+
+    {"solo": "argiloso", "clima": "umido", "regiao": "sudeste", "objetivo": "hortaliças", "cultura": "tomate"},
+    {"solo": "misto", "clima": "ameno", "regiao": "sudeste", "objetivo": "hortaliças", "cultura": "batata"},
+    {"solo": "argiloso", "clima": "tropical", "regiao": "norte", "objetivo": "hortaliças", "cultura": "pimenta"},
+
+    {"solo": "argiloso", "clima": "quente", "regiao": "centro-oeste", "objetivo": "rotação", "cultura": "milho safrinha"},
+    {"solo": "argiloso", "clima": "quente", "regiao": "centro-oeste", "objetivo": "rotação", "cultura": "soja em rotação"},
 ]
 
 icones = {
@@ -216,7 +232,18 @@ icones = {
     "cafe": "☕",
     "algodao": "🧵",
     "mandioca": "🥔",
-    "tomate": "🍅"
+    "tomate": "🍅",
+    "cana-de-açúcar": "🎋",
+    "sorgo": "🌾",
+    "milheto": "🌾",
+    "laranja": "🍊",
+    "banana": "🍌",
+    "manga": "🥭",
+    "abacaxi": "🍍",
+    "batata": "🥔",
+    "pimenta": "🌶️",
+    "milho safrinha": "🌽",
+    "soja em rotação": "🌱"
 }
 
 observacoes = {
@@ -228,13 +255,71 @@ observacoes = {
     "cafe": "Prefere clima ameno e solos bem estruturados, comum no Sudeste.",
     "algodao": "Cultura comercial importante em regiões quentes, exigindo bom controle de pragas.",
     "mandioca": "É resistente à seca e indicada para solos arenosos, sendo forte no semiárido nordestino.",
-    "tomate": "Exige boa disponibilidade de água, manejo cuidadoso e solos bem preparados."
+    "tomate": "Exige boa disponibilidade de água, manejo cuidadoso e solos bem preparados.",
+    "cana-de-açúcar": "É uma cultura comercial forte em regiões quentes e solos bem manejados.",
+    "sorgo": "Tem boa resistência à seca e pode ser usado na alimentação animal e humana.",
+    "milheto": "É resistente ao clima seco e pode ajudar na cobertura do solo.",
+    "laranja": "É uma fruta de valor comercial, comum em regiões tropicais e subtropicais.",
+    "banana": "Adapta-se bem a clima quente e úmido, comum no Norte e Nordeste.",
+    "manga": "É uma fruta tropical resistente ao calor e muito cultivada em regiões quentes.",
+    "abacaxi": "Adapta-se bem a solos arenosos e clima quente.",
+    "batata": "Prefere clima ameno e solos bem preparados.",
+    "pimenta": "Cultura de bom valor comercial, adaptada a ambientes tropicais.",
+    "milho safrinha": "Boa opção para rotação após a soja em regiões agrícolas consolidadas.",
+    "soja em rotação": "Pode contribuir para planejamento agrícola em áreas de grãos."
+}
+
+pontos_positivos = {
+    "soja": "Alta demanda comercial e boa adaptação ao Centro-Oeste.",
+    "milho": "Versátil, usado para alimentação, ração e rotação.",
+    "arroz": "Boa produtividade em ambientes úmidos.",
+    "trigo": "Importante para regiões frias e para produção de farinha.",
+    "feijao": "Alimento básico e de grande importância no Brasil.",
+    "cafe": "Produto de alto valor comercial.",
+    "algodao": "Boa rentabilidade em sistemas comerciais.",
+    "mandioca": "Alta resistência à seca e fácil adaptação.",
+    "tomate": "Alto valor de mercado.",
+    "cana-de-açúcar": "Boa produtividade e uso industrial.",
+    "sorgo": "Resistente à seca.",
+    "milheto": "Ajuda na proteção e cobertura do solo.",
+    "laranja": "Boa aceitação no mercado de frutas.",
+    "banana": "Produção contínua e boa demanda.",
+    "manga": "Boa valorização em regiões tropicais.",
+    "abacaxi": "Boa adaptação ao calor.",
+    "batata": "Alimento de grande consumo.",
+    "pimenta": "Pode gerar boa rentabilidade em pequenas áreas.",
+    "milho safrinha": "Aproveita melhor o calendário agrícola.",
+    "soja em rotação": "Ajuda no planejamento produtivo da propriedade."
+}
+
+cuidados = {
+    "soja": "Exige manejo adequado do solo e controle de pragas.",
+    "milho": "Precisa de boa disponibilidade de nutrientes.",
+    "arroz": "Pode exigir bastante água.",
+    "trigo": "Sensível a temperaturas muito altas.",
+    "feijao": "Exige atenção com doenças e irrigação.",
+    "cafe": "Demanda manejo cuidadoso e tempo até boa produção.",
+    "algodao": "Exige controle rigoroso de pragas.",
+    "mandioca": "Pode ter ciclo mais longo de produção.",
+    "tomate": "Muito sensível a pragas e doenças.",
+    "cana-de-açúcar": "Exige planejamento de área e colheita.",
+    "sorgo": "Pode ter menor valor comercial em algumas regiões.",
+    "milheto": "Geralmente precisa ser bem planejado no sistema produtivo.",
+    "laranja": "Exige controle de doenças e pragas.",
+    "banana": "Precisa de boa disponibilidade de água.",
+    "manga": "Exige poda e manejo correto.",
+    "abacaxi": "Pode exigir controle de plantas daninhas.",
+    "batata": "Sensível a doenças de solo.",
+    "pimenta": "Precisa de manejo cuidadoso e irrigação.",
+    "milho safrinha": "Depende muito da janela de plantio.",
+    "soja em rotação": "Deve ser planejada para evitar desgaste do solo."
 }
 
 pesos = {
     "solo": 2,
     "clima": 3,
-    "regiao": 1
+    "regiao": 1,
+    "objetivo": 2
 }
 
 def classificar_recomendacao(porc):
@@ -247,7 +332,7 @@ def classificar_recomendacao(porc):
 
 st.subheader("📥 Dados da propriedade")
 
-col1, col2, col3 = st.columns(3)
+col1, col2, col3, col4 = st.columns(4)
 
 with col1:
     solo = st.selectbox("🌍 Solo", ["arenoso", "argiloso", "misto"])
@@ -257,6 +342,11 @@ with col2:
 
 with col3:
     regiao = st.selectbox("📍 Região", ["nordeste", "sul", "sudeste", "norte", "centro-oeste"])
+
+with col4:
+    objetivo = st.selectbox("🎯 Objetivo", ["grãos", "alimentação", "comercial", "fruticultura", "hortaliças", "rotação"])
+
+st.caption("⚠️ Este sistema possui finalidade educativa e não substitui uma análise agronômica profissional.")
 
 if st.button("🚀 Gerar recomendação"):
 
@@ -271,20 +361,24 @@ if st.button("🚀 Gerar recomendação"):
             pontuacao += pesos["clima"]
         if item["regiao"] == regiao:
             pontuacao += pesos["regiao"]
+        if item["objetivo"] == objetivo:
+            pontuacao += pesos["objetivo"]
 
         porcentagem = (pontuacao / sum(pesos.values())) * 100
-        resultados.append((item["cultura"], porcentagem))
+        resultados.append((item["cultura"], porcentagem, item["objetivo"]))
 
     resultados.sort(key=lambda x: x[1], reverse=True)
     melhor = resultados[0]
-    icone_melhor = icones.get(melhor[0], "🌱")
+    cultura_melhor = melhor[0]
+    icone_melhor = icones.get(cultura_melhor, "🌱")
     nivel = classificar_recomendacao(melhor[1])
 
     st.session_state.historico.append({
         "solo": solo,
         "clima": clima,
         "regiao": regiao,
-        "resultado": melhor[0],
+        "objetivo": objetivo,
+        "resultado": cultura_melhor,
         "compatibilidade": melhor[1],
         "nivel": nivel
     })
@@ -292,7 +386,7 @@ if st.button("🚀 Gerar recomendação"):
     st.markdown(f"""
     <div class="card-agro card-top1">
         <p>🎯 Melhor escolha para sua fazenda</p>
-        <h3>{icone_melhor} {melhor[0].upper()}</h3>
+        <h3>{icone_melhor} {cultura_melhor.upper()}</h3>
         <p>{nivel}</p>
         <h2>{melhor[1]:.0f}%</h2>
     </div>
@@ -305,29 +399,83 @@ if st.button("🚀 Gerar recomendação"):
 
     st.markdown("## 📄 Relatório da análise")
 
+    relatorio = f"""
+RELATÓRIO AGROSMART PRO
+
+Solo informado: {solo}
+Clima informado: {clima}
+Região informada: {regiao}
+Objetivo informado: {objetivo}
+
+Melhor cultura: {cultura_melhor.upper()}
+Compatibilidade: {melhor[1]:.0f}%
+Nível: {nivel}
+
+Explicação do cálculo:
+O sistema compara os dados informados pelo usuário com o banco de culturas.
+Pesos utilizados:
+- Solo: {pesos["solo"]}
+- Clima: {pesos["clima"]}
+- Região: {pesos["regiao"]}
+- Objetivo: {pesos["objetivo"]}
+
+Pontuação máxima possível: {sum(pesos.values())} pontos.
+
+Observação técnica:
+{observacoes.get(cultura_melhor, "Essa cultura pode exigir análise mais detalhada.")}
+
+Ponto positivo:
+{pontos_positivos.get(cultura_melhor, "Pode apresentar bom potencial produtivo.")}
+
+Cuidados:
+{cuidados.get(cultura_melhor, "É importante consultar orientação técnica antes do plantio.")}
+
+Aviso:
+Este sistema possui finalidade educativa e não substitui uma análise agronômica profissional.
+"""
+
     st.write(f"""
     **Solo informado:** {solo}  
     **Clima informado:** {clima}  
     **Região informada:** {regiao}  
-    **Melhor cultura:** {icone_melhor} {melhor[0].upper()}  
+    **Objetivo:** {objetivo}  
+    **Melhor cultura:** {icone_melhor} {cultura_melhor.upper()}  
     **Compatibilidade:** {melhor[1]:.0f}%  
     **Nível:** {nivel}
     """)
+
+    st.download_button(
+        label="📥 Baixar relatório da análise",
+        data=relatorio,
+        file_name="relatorio_agrosmart.txt",
+        mime="text/plain"
+    )
 
     st.divider()
 
     st.markdown("### 🧠 Por que essa recomendação?")
 
     st.info(f"""
-    A cultura **{melhor[0].upper()}** teve a maior compatibilidade com os dados informados.
+    A cultura **{cultura_melhor.upper()}** teve a maior compatibilidade com os dados informados.
 
     Pesos usados no cálculo:
     - Solo: {pesos["solo"]}
     - Clima: {pesos["clima"]}
     - Região: {pesos["regiao"]}
+    - Objetivo: {pesos["objetivo"]}
 
-    Observação técnica: {observacoes.get(melhor[0], "Essa cultura pode exigir uma análise mais detalhada.")}
+    Observação técnica: {observacoes.get(cultura_melhor, "Essa cultura pode exigir uma análise mais detalhada.")}
     """)
+
+    st.markdown("### ✅ Pontos positivos e cuidados")
+
+    col_pos, col_cuidado = st.columns(2)
+
+    with col_pos:
+        st.success(pontos_positivos.get(cultura_melhor, "Pode apresentar bom potencial produtivo."))
+
+    with col_cuidado:
+        st.warning(cuidados.get(cultura_melhor, "É importante consultar orientação técnica antes do plantio."))
 
     st.divider()
 
@@ -336,7 +484,7 @@ if st.button("🚀 Gerar recomendação"):
     qtd_colunas = 2 if modo_celular else 3
     cols = st.columns(qtd_colunas)
 
-    for i, (cultura, porc) in enumerate(resultados[:6]):
+    for i, (cultura, porc, obj) in enumerate(resultados[:6]):
         with cols[i % qtd_colunas]:
 
             classe_extra = "card-top1" if i == 0 else ""
@@ -360,6 +508,7 @@ if st.session_state.historico:
 
     for h in st.session_state.historico[-5:][::-1]:
         st.write(
-            f"🌍 **{h['solo']}** | ☁️ **{h['clima']}** | 📍 **{h['regiao']}** → "
-            f"🌱 **{h['resultado'].upper()}** ({h['compatibilidade']:.0f}%) - **{h['nivel']}**"
+            f"🌍 **{h['solo']}** | ☁️ **{h['clima']}** | 📍 **{h['regiao']}** | "
+            f"🎯 **{h['objetivo']}** → 🌱 **{h['resultado'].upper()}** "
+            f"({h['compatibilidade']:.0f}%) - **{h['nivel']}**"
         )
