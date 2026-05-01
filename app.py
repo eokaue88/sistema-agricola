@@ -2,9 +2,6 @@ import streamlit as st
 import base64
 import streamlit.components.v1 as components
 
-# ==============================
-# CONFIG
-# ==============================
 st.set_page_config(
     page_title="AgroSmart PRO",
     page_icon="🌱",
@@ -12,12 +9,8 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# ==============================
-# CSS + RESPONSIVIDADE
-# ==============================
 st.markdown("""
 <style>
-
 @import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Oxanium:wght@300;400;600&display=swap');
 
@@ -31,18 +24,8 @@ st.markdown("""
     padding-top: 2rem;
 }
 
-.stApp,
-.stApp p,
-.stApp label,
-.stApp div,
-.stApp h1,
-.stApp h2,
-.stApp h3,
-.stApp h4,
-.stApp h5,
-.stApp h6,
-.stButton button,
-.stSelectbox * {
+.stApp, .stApp p, .stApp label, .stApp div, .stApp h1, .stApp h2, .stApp h3,
+.stApp h4, .stApp h5, .stApp h6, .stButton button, .stSelectbox * {
     font-family: 'Oxanium', sans-serif !important;
 }
 
@@ -142,13 +125,9 @@ section[data-testid="stSidebar"] h2 {
         transform: translateY(0);
     }
 }
-
 </style>
 """, unsafe_allow_html=True)
 
-# ==============================
-# LOGO + TÍTULO CENTRALIZADOS
-# ==============================
 def carregar_logo(path):
     with open(path, "rb") as img:
         return base64.b64encode(img.read()).decode()
@@ -206,22 +185,16 @@ components.html(f"""
 </div>
 """, height=190)
 
-# ==============================
-# SIDEBAR
-# ==============================
 st.sidebar.markdown("## 🌱 AgroSmart PRO")
 st.sidebar.info("Sistema inteligente de recomendação agrícola")
 modo_celular = st.sidebar.checkbox("📱 Modo celular")
 
-# ==============================
-# HISTÓRICO
-# ==============================
 if "historico" not in st.session_state:
     st.session_state.historico = []
 
-# ==============================
-# BASE
-# ==============================
+if st.sidebar.button("🗑️ Limpar histórico"):
+    st.session_state.historico = []
+
 dados = [
     {"solo": "argiloso", "clima": "quente", "regiao": "centro-oeste", "cultura": "soja"},
     {"solo": "argiloso", "clima": "quente", "regiao": "centro-oeste", "cultura": "milho"},
@@ -246,15 +219,32 @@ icones = {
     "tomate": "🍅"
 }
 
+observacoes = {
+    "soja": "Indicada para regiões quentes e solos férteis, sendo muito comum no Centro-Oeste brasileiro.",
+    "milho": "Adapta-se bem a clima quente e pode ser usado tanto para grãos quanto para rotação de culturas.",
+    "arroz": "Tem melhor desempenho em ambientes úmidos e solos argilosos.",
+    "trigo": "É mais indicado para regiões de clima frio, especialmente no Sul do Brasil.",
+    "feijao": "Pode se adaptar bem a solos mistos e clima quente, dependendo do manejo.",
+    "cafe": "Prefere clima ameno e solos bem estruturados, comum no Sudeste.",
+    "algodao": "Cultura comercial importante em regiões quentes, exigindo bom controle de pragas.",
+    "mandioca": "É resistente à seca e indicada para solos arenosos, sendo forte no semiárido nordestino.",
+    "tomate": "Exige boa disponibilidade de água, manejo cuidadoso e solos bem preparados."
+}
+
 pesos = {
     "solo": 2,
     "clima": 3,
     "regiao": 1
 }
 
-# ==============================
-# INPUTS
-# ==============================
+def classificar_recomendacao(porc):
+    if porc >= 80:
+        return "Alta recomendação"
+    elif porc >= 50:
+        return "Recomendação média"
+    else:
+        return "Baixa recomendação"
+
 st.subheader("📥 Dados da propriedade")
 
 col1, col2, col3 = st.columns(3)
@@ -268,9 +258,6 @@ with col2:
 with col3:
     regiao = st.selectbox("📍 Região", ["nordeste", "sul", "sudeste", "norte", "centro-oeste"])
 
-# ==============================
-# BOTÃO
-# ==============================
 if st.button("🚀 Gerar recomendação"):
 
     resultados = []
@@ -291,63 +278,82 @@ if st.button("🚀 Gerar recomendação"):
     resultados.sort(key=lambda x: x[1], reverse=True)
     melhor = resultados[0]
     icone_melhor = icones.get(melhor[0], "🌱")
+    nivel = classificar_recomendacao(melhor[1])
 
     st.session_state.historico.append({
         "solo": solo,
         "clima": clima,
         "regiao": regiao,
         "resultado": melhor[0],
-        "compatibilidade": melhor[1]
+        "compatibilidade": melhor[1],
+        "nivel": nivel
     })
 
     st.markdown(f"""
     <div class="card-agro card-top1">
         <p>🎯 Melhor escolha para sua fazenda</p>
         <h3>{icone_melhor} {melhor[0].upper()}</h3>
-        <p>Compatibilidade geral</p>
+        <p>{nivel}</p>
         <h2>{melhor[1]:.0f}%</h2>
     </div>
     """, unsafe_allow_html=True)
+
+    if melhor[1] < 50:
+        st.warning("⚠️ Nenhuma cultura teve compatibilidade alta. Revise os dados informados ou amplie a base de culturas.")
+
+    st.divider()
+
+    st.markdown("## 📄 Relatório da análise")
+
+    st.write(f"""
+    **Solo informado:** {solo}  
+    **Clima informado:** {clima}  
+    **Região informada:** {regiao}  
+    **Melhor cultura:** {icone_melhor} {melhor[0].upper()}  
+    **Compatibilidade:** {melhor[1]:.0f}%  
+    **Nível:** {nivel}
+    """)
 
     st.divider()
 
     st.markdown("### 🧠 Por que essa recomendação?")
 
     st.info(f"""
-    • Solo selecionado: **{solo}**  
-    • Clima selecionado: **{clima}**  
-    • Região selecionada: **{regiao}**  
+    A cultura **{melhor[0].upper()}** teve a maior compatibilidade com os dados informados.
 
-    A cultura **{melhor[0].upper()}** teve a maior compatibilidade considerando os pesos:
-    **solo = {pesos["solo"]}**, **clima = {pesos["clima"]}** e **região = {pesos["regiao"]}**.
+    Pesos usados no cálculo:
+    - Solo: {pesos["solo"]}
+    - Clima: {pesos["clima"]}
+    - Região: {pesos["regiao"]}
+
+    Observação técnica: {observacoes.get(melhor[0], "Essa cultura pode exigir uma análise mais detalhada.")}
     """)
 
     st.divider()
 
     st.markdown("## 🌾 Ranking de culturas recomendadas")
 
-    cols = st.columns(2 if modo_celular else 3)
+    qtd_colunas = 2 if modo_celular else 3
+    cols = st.columns(qtd_colunas)
 
     for i, (cultura, porc) in enumerate(resultados[:6]):
-        with cols[i % (2 if modo_celular else 3)]:
+        with cols[i % qtd_colunas]:
 
             classe_extra = "card-top1" if i == 0 else ""
             icone = icones.get(cultura, "🌱")
+            nivel_card = classificar_recomendacao(porc)
 
             st.markdown(f"""
             <div class="card-agro {classe_extra}">
                 <p>#{i+1} recomendação</p>
                 <h3>{icone} {cultura.upper()}</h3>
-                <p>🌱 Compatibilidade</p>
+                <p>{nivel_card}</p>
                 <h2>{porc:.0f}%</h2>
             </div>
             """, unsafe_allow_html=True)
 
             st.progress(int(porc))
 
-# ==============================
-# HISTÓRICO VISUAL
-# ==============================
 if st.session_state.historico:
     st.divider()
     st.markdown("## 📜 Histórico de análises")
@@ -355,5 +361,5 @@ if st.session_state.historico:
     for h in st.session_state.historico[-5:][::-1]:
         st.write(
             f"🌍 **{h['solo']}** | ☁️ **{h['clima']}** | 📍 **{h['regiao']}** → "
-            f"🌱 **{h['resultado'].upper()}** ({h['compatibilidade']:.0f}%)"
+            f"🌱 **{h['resultado'].upper()}** ({h['compatibilidade']:.0f}%) - **{h['nivel']}**"
         )
