@@ -196,6 +196,8 @@ if "historico" not in st.session_state:
 if st.sidebar.button("🗑️ Limpar histórico"):
     st.session_state.historico = []
 
+if st.sidebar.button("🔄 Nova análise"):
+    st.rerun()
 dados = [
     {"solo": "argiloso", "clima": "quente", "regiao": "centro-oeste", "objetivo": "grãos", "cultura": "soja"},
     {"solo": "argiloso", "clima": "quente", "regiao": "centro-oeste", "objetivo": "grãos", "cultura": "milho"},
@@ -371,12 +373,25 @@ if st.button("🚀 Gerar recomendação"):
     for item in dados:
         pontuacao = 0
 
+        # SOLO
         if item["solo"] == solo:
             pontuacao += pesos["solo"]
+        elif solo == "misto" or item["solo"] == "misto":
+            pontuacao += pesos["solo"] * 0.5
+
+        # CLIMA
         if item["clima"] == clima:
             pontuacao += pesos["clima"]
+        elif (clima == "tropical" and item["clima"] == "quente") or (clima == "quente" and item["clima"] == "tropical"):
+            pontuacao += pesos["clima"] * 0.6
+        elif (clima == "ameno" and item["clima"] in ["frio", "umido"]) or (item["clima"] == "ameno" and clima in ["frio", "umido"]):
+            pontuacao += pesos["clima"] * 0.4
+
+        # REGIÃO
         if item["regiao"] == regiao:
             pontuacao += pesos["regiao"]
+
+        # OBJETIVO
         if item["objetivo"] == objetivo:
             pontuacao += pesos["objetivo"]
 
@@ -384,6 +399,7 @@ if st.button("🚀 Gerar recomendação"):
         resultados.append((item["cultura"], porcentagem, item["objetivo"]))
 
     resultados.sort(key=lambda x: x[1], reverse=True)
+
     melhor = resultados[0]
     cultura_melhor = melhor[0]
     icone_melhor = icones.get(cultura_melhor, "🌱")
@@ -522,12 +538,18 @@ Este sistema possui finalidade educativa e não substitui uma análise agronômi
     for i, (cultura, porc, obj) in enumerate(resultados[:6]):
         with cols[i % qtd_colunas]:
 
-            classe_extra = "card-top1" if i == 0 else ""
             icone = icones.get(cultura, "🌱")
             nivel_card = classificar_recomendacao(porc)
 
+            if nivel_card == "Alta recomendação":
+                cor_card = "linear-gradient(160deg, #11A17E, #064c3e)"
+            elif nivel_card == "Recomendação média":
+                cor_card = "linear-gradient(160deg, #c9a227, #6b5410)"
+            else:
+                cor_card = "linear-gradient(160deg, #b23a48, #5c1119)"
+
             st.markdown(f"""
-            <div class="card-agro {classe_extra}">
+            <div class="card-agro" style="background: {cor_card};">
                 <p>#{i+1} recomendação</p>
                 <h3>{icone} {cultura.upper()}</h3>
                 <p>{nivel_card}</p>
