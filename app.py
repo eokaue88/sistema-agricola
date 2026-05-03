@@ -559,10 +559,19 @@ Este sistema possui finalidade educativa e não substitui uma análise agronômi
 
             st.progress(int(porc))
 
-    with st.expander("📋 Ver tabela completa"):
-        tabela = pd.DataFrame(resultados, columns=["Cultura", "Compatibilidade", "Objetivo"])
-        tabela["Compatibilidade"] = tabela["Compatibilidade"].map(lambda x: f"{x:.0f}%")
-        tabela["Nível"] = [classificar_recomendacao(porc) for _, porc, _ in resultados]
+    # ==============================
+# CONTROLE DE EXIBIÇÃO DA TABELA
+# ==============================
+if "mostrar_tabela" not in st.session_state:
+    st.session_state.mostrar_tabela = False
+
+if st.button("📋 Ver tabela completa"):
+    st.session_state.mostrar_tabela = not st.session_state.mostrar_tabela
+
+if st.session_state.mostrar_tabela:
+    tabela = pd.DataFrame(resultados, columns=["Cultura", "Compatibilidade", "Objetivo"])
+    tabela["Compatibilidade"] = tabela["Compatibilidade"].map(lambda x: f"{x:.0f}%")
+    tabela["Nível"] = [classificar_recomendacao(porc) for _, porc, _ in resultados]
     st.dataframe(tabela, use_container_width=True)
 if st.session_state.historico:
     st.divider()
