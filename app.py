@@ -561,8 +561,8 @@ Este sistema possui finalidade educativa e não substitui uma análise agronômi
 
     with st.expander("📋 Ver tabela completa"):
         tabela = pd.DataFrame(resultados, columns=["Cultura", "Compatibilidade", "Objetivo"])
-    tabela["Compatibilidade"] = tabela["Compatibilidade"].map(lambda x: f"{x:.0f}%")
-    tabela["Nível"] = [classificar_recomendacao(porc) for _, porc, _ in resultados]
+        tabela["Compatibilidade"] = tabela["Compatibilidade"].map(lambda x: f"{x:.0f}%")
+        tabela["Nível"] = [classificar_recomendacao(porc) for _, porc, _ in resultados]
     st.dataframe(tabela, use_container_width=True)
 if st.session_state.historico:
     st.divider()
