@@ -644,15 +644,13 @@ if st.session_state.historico:
             f"🌱 **{h['resultado'].upper()}** ({h['compatibilidade']:.0f}%) - **{h['nivel']}**"
         )
 
-    st.markdown("###")
-
     st.markdown("""
-<div style="display: flex; justify-content: center; margin-top: 20px;">
-""", unsafe_allow_html=True)
+    <div style="display: flex; justify-content: center; margin-top: 20px;">
+    """, unsafe_allow_html=True)
 
-if st.button("🔄 Nova análise"):
-    st.session_state.resultados = []
-    st.session_state.mostrar_tabela = False
-    st.rerun()
+    if st.button("🔄 Nova análise"):
+        st.session_state.resultados = []
+        st.session_state.mostrar_tabela = False
+        st.rerun()
 
-st.markdown("</div>", unsafe_allow_html=True)
+    st.markdown("</div>", unsafe_allow_html=True)
