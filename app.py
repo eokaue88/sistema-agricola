@@ -20,13 +20,13 @@ st.markdown("""
 }
 
 .block-container {
-    max-width: 1050px;
+    max-width: 1100px;
     margin: auto;
     padding-top: 2rem;
 }
 
 .stApp, .stApp p, .stApp label, .stApp div, .stApp h1, .stApp h2, .stApp h3,
-.stApp h4, .stApp h5, .stApp h6, .stButton button, .stSelectbox * {
+.stApp h4, .stApp h5, .stApp h6, .stButton button, .stSelectbox *, .stTextInput * {
     font-family: 'Oxanium', sans-serif !important;
 }
 
@@ -46,10 +46,12 @@ st.markdown("""
     box-shadow: 0 12px 30px rgba(17,161,126,0.6);
 }
 
-.stSelectbox>div>div {
+.stSelectbox>div>div,
+.stTextInput>div>div>input {
     background: rgba(255,255,255,0.08);
     border-radius: 14px;
     border: 1px solid rgba(255,255,255,0.2);
+    color: white;
 }
 
 section[data-testid="stSidebar"] {
@@ -87,7 +89,7 @@ section[data-testid="stSidebar"] h2 {
 }
 
 .card-agro:hover {
-    transform: translateY(-8px) scale(1.05);
+    transform: translateY(-8px) scale(1.04);
     box-shadow: 0 20px 50px rgba(17,161,126,0.5);
 }
 
@@ -112,6 +114,36 @@ section[data-testid="stSidebar"] h2 {
     opacity: 0.9;
 }
 
+.top-card {
+    background: linear-gradient(160deg, rgba(255,255,255,0.13), rgba(255,255,255,0.05));
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 18px;
+    padding: 18px;
+    color: white;
+    text-align: center;
+    box-shadow: 0 10px 28px rgba(0,0,0,0.35);
+    min-height: 130px;
+}
+
+.top-card h3 {
+    margin: 8px 0;
+    font-size: 22px;
+}
+
+.top-card h2 {
+    margin: 8px 0;
+    font-size: 30px;
+}
+
+.info-box {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 18px;
+    padding: 18px;
+    color: white;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+}
+
 [data-testid="stVerticalBlock"] {
     gap: 1.2rem;
 }
@@ -130,10 +162,17 @@ section[data-testid="stSidebar"] h2 {
 """, unsafe_allow_html=True)
 
 def carregar_logo(path):
-    with open(path, "rb") as img:
-        return base64.b64encode(img.read()).decode()
+    try:
+        with open(path, "rb") as img:
+            return base64.b64encode(img.read()).decode()
+    except FileNotFoundError:
+        return None
 
 logo_base64 = carregar_logo("logo.png")
+
+logo_html = ""
+if logo_base64:
+    logo_html = f'<img class="logo-agro" src="data:image/png;base64,{logo_base64}">'
 
 components.html(f"""
 <style>
@@ -180,7 +219,7 @@ components.html(f"""
 </style>
 
 <div class="header-agro">
-    <img class="logo-agro" src="data:image/png;base64,{logo_base64}">
+    {logo_html}
     <div class="titulo-agro">AgroSmart PRO</div>
     <div class="subtitulo-agro">Tecnologia aplicada ao agronegócio</div>
 </div>
@@ -189,9 +228,14 @@ components.html(f"""
 st.sidebar.markdown("## 🌱 AgroSmart PRO")
 st.sidebar.info("Sistema inteligente de recomendação agrícola")
 
-
 if "historico" not in st.session_state:
     st.session_state.historico = []
+
+if "resultados" not in st.session_state:
+    st.session_state.resultados = []
+
+if "mostrar_tabela" not in st.session_state:
+    st.session_state.mostrar_tabela = False
 
 if st.sidebar.button("🗑️ Limpar histórico"):
     st.session_state.historico = []
@@ -364,11 +408,8 @@ with col4:
 
 st.caption("⚠️ Este sistema possui finalidade educativa e não substitui uma análise agronômica profissional.")
 
-if "resultados" not in st.session_state:
-    st.session_state.resultados = []
-
-if "mostrar_tabela" not in st.session_state:
-    st.session_state.mostrar_tabela = False
+if not st.session_state.resultados:
+    st.info("👉 Preencha os dados acima e clique em **Gerar recomendação** para iniciar a análise.")
 
 if st.button("🚀 Gerar recomendação"):
 
@@ -428,8 +469,18 @@ if st.button("🚀 Gerar recomendação"):
 
     st.markdown("## 🥇 Top 3 recomendações")
 
+    top_cols = st.columns(3)
+
     for i, (cultura, porc, _) in enumerate(resultados[:3]):
-        st.write(f"{i+1}º → {cultura.upper()} ({porc:.0f}%)")
+        with top_cols[i]:
+            icone_top = icones.get(cultura, "🌱")
+            st.markdown(f"""
+            <div class="top-card">
+                <p>#{i+1} colocação</p>
+                <h3>{icone_top} {cultura.upper()}</h3>
+                <h2>{porc:.0f}%</h2>
+            </div>
+            """, unsafe_allow_html=True)
 
     if melhor[1] < 50:
         st.warning("⚠️ Nenhuma cultura teve compatibilidade alta. Revise os dados informados ou amplie a base de culturas.")
@@ -474,19 +525,20 @@ Aviso:
 Este sistema possui finalidade educativa e não substitui uma análise agronômica profissional.
 """
 
-    st.write(f"""
-    **Nome da propriedade:** {nome_prop if nome_prop else "Não informado"}  
-    **Solo informado:** {solo}  
-    **Clima informado:** {clima}  
-    **Região informada:** {regiao}  
-    **Objetivo:** {objetivo}  
-    **Melhor cultura:** {icone_melhor} {cultura_melhor.upper()}  
-    **Compatibilidade:** {melhor[1]:.0f}%  
-    **Nível:** {nivel}
-    """)
-
-    st.write("📍 Análise baseada em padrões agrícolas brasileiros.")
-    st.write("📊 Dados simulados com base em condições ideais de cultivo.")
+    st.markdown(f"""
+    <div class="info-box">
+        <p><strong>Nome da propriedade:</strong> {nome_prop if nome_prop else "Não informado"}</p>
+        <p><strong>Solo informado:</strong> {solo}</p>
+        <p><strong>Clima informado:</strong> {clima}</p>
+        <p><strong>Região informada:</strong> {regiao}</p>
+        <p><strong>Objetivo:</strong> {objetivo}</p>
+        <p><strong>Melhor cultura:</strong> {icone_melhor} {cultura_melhor.upper()}</p>
+        <p><strong>Compatibilidade:</strong> {melhor[1]:.0f}%</p>
+        <p><strong>Nível:</strong> {nivel}</p>
+        <p>📍 Análise baseada em padrões agrícolas brasileiros.</p>
+        <p>📊 Dados simulados com base em condições ideais de cultivo.</p>
+    </div>
+    """, unsafe_allow_html=True)
 
     st.download_button(
         label="📥 Baixar relatório da análise",
@@ -583,6 +635,7 @@ if st.session_state.resultados:
         ]
 
         st.dataframe(tabela, use_container_width=True)
+
 if st.session_state.historico:
     st.divider()
     st.markdown("## 📜 Histórico de análises")
@@ -594,8 +647,12 @@ if st.session_state.historico:
             f"🌱 **{h['resultado'].upper()}** ({h['compatibilidade']:.0f}%) - **{h['nivel']}**"
         )
 
-    # 👇 BOTÃO AQUI DENTRO (INDENTADO)
-    if st.button("🔄 Nova análise"):
-        st.session_state.resultados = []
-        st.session_state.mostrar_tabela = False
-        st.rerun()
+    st.markdown("###")
+
+    col_btn1, col_btn2, col_btn3 = st.columns([1, 2, 1])
+
+    with col_btn2:
+        if st.button("🔄 Nova análise"):
+            st.session_state.resultados = []
+            st.session_state.mostrar_tabela = False
+            st.rerun()
