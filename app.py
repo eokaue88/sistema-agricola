@@ -1,3 +1,4 @@
+st.caption("Versão 1.0 • Sistema AgroSmart PRO")
 import streamlit as st
 import base64
 import streamlit.components.v1 as components
@@ -588,6 +589,9 @@ Este sistema possui finalidade educativa e não substitui uma análise agronômi
         st.warning(cuidados.get(cultura_melhor, "É importante consultar orientação técnica antes do plantio."))
 
     st.divider()
+    st.bar_chart({
+    cultura: porc for cultura, porc, _ in st.session_state.resultados[:5]
+})
 
     st.markdown("## 🌾 Ranking de culturas recomendadas")
 
