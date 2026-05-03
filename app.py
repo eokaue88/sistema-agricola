@@ -646,10 +646,13 @@ if st.session_state.historico:
 
     st.markdown("###")
 
-    col_btn1, col_btn2, col_btn3 = st.columns([1, 2, 1])
+    st.markdown("""
+<div style="display: flex; justify-content: center; margin-top: 20px;">
+""", unsafe_allow_html=True)
 
-    with col_btn2:
-        if st.button("🔄 Nova análise"):
-            st.session_state.resultados = []
-            st.session_state.mostrar_tabela = False
-            st.rerun()
+if st.button("🔄 Nova análise"):
+    st.session_state.resultados = []
+    st.session_state.mostrar_tabela = False
+    st.rerun()
+
+st.markdown("</div>", unsafe_allow_html=True)
