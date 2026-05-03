@@ -389,10 +389,10 @@ def gerar_pdf_relatorio(nome_prop, solo, clima, regiao, objetivo, cultura, compa
     doc = SimpleDocTemplate(
         buffer,
         pagesize=A4,
-        rightMargin=40,
-        leftMargin=40,
-        topMargin=40,
-        bottomMargin=40
+        rightMargin=45,
+        leftMargin=45,
+        topMargin=45,
+        bottomMargin=45
     )
 
     styles = getSampleStyleSheet()
@@ -400,9 +400,10 @@ def gerar_pdf_relatorio(nome_prop, solo, clima, regiao, objetivo, cultura, compa
     titulo = ParagraphStyle(
         "TituloAgro",
         parent=styles["Title"],
-        fontSize=22,
+        fontSize=26,
         textColor=colors.HexColor("#11A17E"),
-        spaceAfter=18
+        alignment=1,
+        spaceAfter=8
     )
 
     subtitulo = ParagraphStyle(
@@ -413,11 +414,47 @@ def gerar_pdf_relatorio(nome_prop, solo, clima, regiao, objetivo, cultura, compa
         spaceAfter=10
     )
 
+    texto = ParagraphStyle(
+        "TextoAgro",
+        parent=styles["BodyText"],
+        fontSize=10.5,
+        leading=15,
+        spaceAfter=8
+    )
+
+    aviso = ParagraphStyle(
+        "AvisoAgro",
+        parent=styles["BodyText"],
+        fontSize=9,
+        textColor=colors.HexColor("#555555"),
+        leading=13,
+        spaceBefore=12
+    )
+
     elementos = []
 
     elementos.append(Paragraph("AgroSmart PRO", titulo))
     elementos.append(Paragraph("Relatório profissional de recomendação agrícola", subtitulo))
-    elementos.append(Spacer(1, 12))
+    elementos.append(Spacer(1, 14))
+
+    resumo = Table([
+        ["Melhor cultura", cultura.upper()],
+        ["Compatibilidade", f"{compatibilidade:.0f}%"],
+        ["Nível", nivel],
+    ], colWidths=[150, 320])
+
+    resumo.setStyle(TableStyle([
+        ("BACKGROUND", (0, 0), (0, -1), colors.HexColor("#064c3e")),
+        ("BACKGROUND", (1, 0), (1, -1), colors.HexColor("#11A17E")),
+        ("TEXTCOLOR", (0, 0), (-1, -1), colors.white),
+        ("GRID", (0, 0), (-1, -1), 0.5, colors.white),
+        ("FONTNAME", (0, 0), (-1, -1), "Helvetica-Bold"),
+        ("FONTSIZE", (0, 0), (-1, -1), 12),
+        ("PADDING", (0, 0), (-1, -1), 10),
+    ]))
+
+    elementos.append(resumo)
+    elementos.append(Spacer(1, 18))
 
     dados_tabela = [
         ["Propriedade", nome_prop if nome_prop else "Não informado"],
@@ -425,9 +462,6 @@ def gerar_pdf_relatorio(nome_prop, solo, clima, regiao, objetivo, cultura, compa
         ["Clima", clima],
         ["Região", regiao],
         ["Objetivo", objetivo],
-        ["Melhor cultura", cultura.upper()],
-        ["Compatibilidade", f"{compatibilidade:.0f}%"],
-        ["Nível", nivel],
     ]
 
     tabela = Table(dados_tabela, colWidths=[140, 330])
@@ -436,19 +470,36 @@ def gerar_pdf_relatorio(nome_prop, solo, clima, regiao, objetivo, cultura, compa
         ("TEXTCOLOR", (0, 0), (0, -1), colors.white),
         ("BACKGROUND", (1, 0), (1, -1), colors.HexColor("#F4F7F5")),
         ("GRID", (0, 0), (-1, -1), 0.5, colors.HexColor("#CCCCCC")),
+        ("FONTNAME", (0, 0), (0, -1), "Helvetica-Bold"),
+        ("FONTNAME", (1, 0), (1, -1), "Helvetica"),
+        ("FONTSIZE", (0, 0), (-1, -1), 10),
+        ("PADDING", (0, 0), (-1, -1), 8),
     ]))
 
+    elementos.append(Paragraph("Dados da análise", subtitulo))
     elementos.append(tabela)
-    elementos.append(Spacer(1, 18))
+    elementos.append(Spacer(1, 16))
 
     elementos.append(Paragraph("Observação técnica", subtitulo))
-    elementos.append(Paragraph(observacao, styles["BodyText"]))
+    elementos.append(Paragraph(observacao, texto))
 
     elementos.append(Paragraph("Ponto positivo", subtitulo))
-    elementos.append(Paragraph(ponto_positivo, styles["BodyText"]))
+    elementos.append(Paragraph(ponto_positivo, texto))
 
-    elementos.append(Paragraph("Cuidados", subtitulo))
-    elementos.append(Paragraph(cuidado, styles["BodyText"]))
+    elementos.append(Paragraph("Cuidados recomendados", subtitulo))
+    elementos.append(Paragraph(cuidado, texto))
+
+    elementos.append(Spacer(1, 12))
+
+    elementos.append(Paragraph(
+        "Análise baseada em padrões agrícolas brasileiros e dados simulados com base em condições ideais de cultivo.",
+        texto
+    ))
+
+    elementos.append(Paragraph(
+        "Aviso: este sistema possui finalidade educativa e não substitui uma análise agronômica profissional.",
+        aviso
+    ))
 
     doc.build(elementos)
     buffer.seek(0)
