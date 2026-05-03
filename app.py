@@ -97,6 +97,7 @@ section[data-testid="stSidebar"] h2 {
     background: linear-gradient(160deg, #11A17E, #064c3e);
     border: 2px solid rgba(255,255,255,0.5);
     transform: scale(1.02);
+    animation: fadeIn 0.8s ease-in-out;
 }
 
 .card-agro h3 {
@@ -224,6 +225,7 @@ components.html(f"""
     <div class="subtitulo-agro">Tecnologia aplicada ao agronegócio</div>
 </div>
 """, height=190)
+st.markdown("### 🔬 Sistema inteligente de recomendação agrícola baseado em critérios técnicos")
 
 st.sidebar.markdown("## 🌱 AgroSmart PRO")
 st.sidebar.info("Sistema inteligente de recomendação agrícola")
@@ -480,8 +482,8 @@ if st.button("🚀 Gerar recomendação"):
             """, unsafe_allow_html=True)
 
     if melhor[1] < 50:
-        st.warning("⚠️ Nenhuma cultura teve compatibilidade alta. Revise os dados informados ou amplie a base de culturas.")
-
+        st.error("⚠️ Baixa compatibilidade detectada. Considere revisar clima, solo ou objetivo.")
+    
     st.divider()
 
     st.markdown("## 📄 Relatório da análise")
@@ -608,7 +610,7 @@ Este sistema possui finalidade educativa e não substitui uma análise agronômi
 
             st.markdown(f"""
             <div class="card-agro" style="background: {cor_card};">
-                <p>#{i+1} recomendação</p>
+                <p>🥇 #{i+1}</p>
                 <h3>{icone} {cultura.upper()}</h3>
                 <p>{nivel_card}</p>
                 <h2>{porc:.0f}%</h2>
