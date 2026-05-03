@@ -618,19 +618,6 @@ if st.button("🚀 Gerar recomendação", use_container_width=True):
         <h2>{melhor[1]:.0f}%</h2>
     </div>
     """, unsafe_allow_html=True)
-
-       # 🎯 ÂNCORA DO RESULTADO
-    st.markdown('<div id="resultado"></div>', unsafe_allow_html=True)
-
-    st.markdown(f"""
-    <div class="card-agro card-top1" style="animation: fadeIn 0.8s ease;">
-        <p>🎯 Melhor escolha para sua fazenda</p>
-        <h3>{icone_melhor} {cultura_melhor.upper()}</h3>
-        <p>{nivel}</p>
-        <h2>{melhor[1]:.0f}%</h2>
-    </div>
-    """, unsafe_allow_html=True)
-
     st.markdown("## 🥇 Top 3 recomendações")
 
     top_cols = st.columns(3)
