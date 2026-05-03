@@ -2,6 +2,11 @@ import streamlit as st
 import base64
 import streamlit.components.v1 as components
 import pandas as pd
+from io import BytesIO
+from reportlab.lib.pagesizes import A4
+from reportlab.lib import colors
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
 
 st.set_page_config(
     page_title="AgroSmart PRO",
@@ -377,6 +382,78 @@ def classificar_recomendacao(porc):
     else:
         return "Baixa recomendação"
 
+
+def gerar_pdf_relatorio(nome_prop, solo, clima, regiao, objetivo, cultura, compatibilidade, nivel, observacao, ponto_positivo, cuidado):
+    buffer = BytesIO()
+
+    doc = SimpleDocTemplate(
+        buffer,
+        pagesize=A4,
+        rightMargin=40,
+        leftMargin=40,
+        topMargin=40,
+        bottomMargin=40
+    )
+
+    styles = getSampleStyleSheet()
+
+    titulo = ParagraphStyle(
+        "TituloAgro",
+        parent=styles["Title"],
+        fontSize=22,
+        textColor=colors.HexColor("#11A17E"),
+        spaceAfter=18
+    )
+
+    subtitulo = ParagraphStyle(
+        "SubtituloAgro",
+        parent=styles["Heading2"],
+        fontSize=14,
+        textColor=colors.HexColor("#064c3e"),
+        spaceAfter=10
+    )
+
+    elementos = []
+
+    elementos.append(Paragraph("AgroSmart PRO", titulo))
+    elementos.append(Paragraph("Relatório profissional de recomendação agrícola", subtitulo))
+    elementos.append(Spacer(1, 12))
+
+    dados_tabela = [
+        ["Propriedade", nome_prop if nome_prop else "Não informado"],
+        ["Solo", solo],
+        ["Clima", clima],
+        ["Região", regiao],
+        ["Objetivo", objetivo],
+        ["Melhor cultura", cultura.upper()],
+        ["Compatibilidade", f"{compatibilidade:.0f}%"],
+        ["Nível", nivel],
+    ]
+
+    tabela = Table(dados_tabela, colWidths=[140, 330])
+    tabela.setStyle(TableStyle([
+        ("BACKGROUND", (0, 0), (0, -1), colors.HexColor("#11A17E")),
+        ("TEXTCOLOR", (0, 0), (0, -1), colors.white),
+        ("BACKGROUND", (1, 0), (1, -1), colors.HexColor("#F4F7F5")),
+        ("GRID", (0, 0), (-1, -1), 0.5, colors.HexColor("#CCCCCC")),
+    ]))
+
+    elementos.append(tabela)
+    elementos.append(Spacer(1, 18))
+
+    elementos.append(Paragraph("Observação técnica", subtitulo))
+    elementos.append(Paragraph(observacao, styles["BodyText"]))
+
+    elementos.append(Paragraph("Ponto positivo", subtitulo))
+    elementos.append(Paragraph(ponto_positivo, styles["BodyText"]))
+
+    elementos.append(Paragraph("Cuidados", subtitulo))
+    elementos.append(Paragraph(cuidado, styles["BodyText"]))
+
+    doc.build(elementos)
+    buffer.seek(0)
+    return buffer
+    
 st.subheader("📥 Dados da propriedade")
 
 nome_prop = st.text_input("🏡 Nome da propriedade")
@@ -539,12 +616,37 @@ Este sistema possui finalidade educativa e não substitui uma análise agronômi
     </div>
     """, unsafe_allow_html=True)
 
-    st.download_button(
-        label="📥 Baixar relatório da análise",
-        data=relatorio,
-        file_name="relatorio_agrosmart.txt",
-        mime="text/plain"
+    pdf_relatorio = gerar_pdf_relatorio(
+        nome_prop,
+        solo,
+        clima,
+        regiao,
+        objetivo,
+        cultura_melhor,
+        melhor[1],
+        nivel,
+        observacoes.get(cultura_melhor, "Essa cultura pode exigir análise mais detalhada."),
+        pontos_positivos.get(cultura_melhor, "Pode apresentar bom potencial produtivo."),
+        cuidados.get(cultura_melhor, "É importante consultar orientação técnica antes do plantio.")
     )
+
+    col_pdf, col_txt = st.columns(2)
+
+    with col_pdf:
+        st.download_button(
+            label="📄 Baixar relatório em PDF",
+            data=pdf_relatorio,
+            file_name="relatorio_agrosmart.pdf",
+            mime="application/pdf"
+        )
+
+    with col_txt:
+        st.download_button(
+            label="📥 Baixar relatório em TXT",
+            data=relatorio,
+            file_name="relatorio_agrosmart.txt",
+            mime="text/plain"
+        )
 
     st.divider()
 
@@ -597,7 +699,6 @@ Este sistema possui finalidade educativa e não substitui uma análise agronômi
 
     for i, (cultura, porc, obj) in enumerate(resultados[:6]):
         with cols[i % qtd_colunas]:
-
             icone = icones.get(cultura, "🌱")
             nivel_card = classificar_recomendacao(porc)
 
