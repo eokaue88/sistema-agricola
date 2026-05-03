@@ -366,6 +366,8 @@ with col4:
 
 st.caption("⚠️ Este sistema possui finalidade educativa e não substitui uma análise agronômica profissional.")
 
+if "resultados" not in st.session_state:
+    st.session_state.resultados = []
 if st.button("🚀 Gerar recomendação"):
 
     resultados = []
@@ -399,6 +401,7 @@ if st.button("🚀 Gerar recomendação"):
         resultados.append((item["cultura"], porcentagem, item["objetivo"]))
 
     resultados.sort(key=lambda x: x[1], reverse=True)
+    st.session_state.resultados = resultados
 
     melhor = resultados[0]
     cultura_melhor = melhor[0]
@@ -562,17 +565,25 @@ Este sistema possui finalidade educativa e não substitui uma análise agronômi
     # ==============================
 # CONTROLE DE EXIBIÇÃO DA TABELA
 # ==============================
-if "mostrar_tabela" not in st.session_state:
-    st.session_state.mostrar_tabela = False
+if st.session_state.resultados:
+    if "mostrar_tabela" not in st.session_state:
+        st.session_state.mostrar_tabela = False
 
-if st.button("📋 Ver tabela completa"):
-    st.session_state.mostrar_tabela = not st.session_state.mostrar_tabela
+    if st.button("📋 Ver tabela completa"):
+        st.session_state.mostrar_tabela = not st.session_state.mostrar_tabela
 
-if st.session_state.mostrar_tabela:
-    tabela = pd.DataFrame(resultados, columns=["Cultura", "Compatibilidade", "Objetivo"])
-    tabela["Compatibilidade"] = tabela["Compatibilidade"].map(lambda x: f"{x:.0f}%")
-    tabela["Nível"] = [classificar_recomendacao(porc) for _, porc, _ in resultados]
-    st.dataframe(tabela, use_container_width=True)
+    if st.session_state.mostrar_tabela:
+        tabela = pd.DataFrame(
+            st.session_state.resultados,
+            columns=["Cultura", "Compatibilidade", "Objetivo"]
+        )
+        tabela["Compatibilidade"] = tabela["Compatibilidade"].map(lambda x: f"{x:.0f}%")
+        tabela["Nível"] = [
+            classificar_recomendacao(porc)
+            for _, porc, _ in st.session_state.resultados
+        ]
+
+        st.dataframe(tabela, use_container_width=True)
 if st.session_state.historico:
     st.divider()
     st.markdown("## 📜 Histórico de análises")
