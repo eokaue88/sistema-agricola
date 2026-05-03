@@ -557,10 +557,12 @@ st.caption("⚠️ Este sistema possui finalidade educativa e não substitui uma
 
 if st.button("🚀 Gerar recomendação", use_container_width=True):
 
+    # 🔄 Loading
     with st.spinner("Analisando dados da propriedade... 🌱"):
         import time
         time.sleep(1.2)
-        st.success("✅ Análise concluída com sucesso!")
+
+    st.success("✅ Análise concluída com sucesso!")
 
     resultados = []
 
@@ -607,6 +609,7 @@ if st.button("🚀 Gerar recomendação", use_container_width=True):
         "nivel": nivel
     })
 
+    # 🎯 CARD PRINCIPAL
     st.markdown(f"""
     <div class="card-agro card-top1" style="animation: fadeIn 0.8s ease;">
         <p>🎯 Melhor escolha para sua fazenda</p>
@@ -615,11 +618,13 @@ if st.button("🚀 Gerar recomendação", use_container_width=True):
         <h2>{melhor[1]:.0f}%</h2>
     </div>
     """, unsafe_allow_html=True)
+
+    # 🚀 SCROLL AUTOMÁTICO (CORRIGIDO)
     components.html("""
-<script>
-window.scrollTo({ top: 500, behavior: 'smooth' });
-</script>
-""", height=0)
+    <script>
+    window.scrollTo({ top: 500, behavior: 'smooth' });
+    </script>
+    """, height=0)
 
     st.markdown("## 🥇 Top 3 recomendações")
 
