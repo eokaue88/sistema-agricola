@@ -408,9 +408,6 @@ with col4:
 
 st.caption("⚠️ Este sistema possui finalidade educativa e não substitui uma análise agronômica profissional.")
 
-if not st.session_state.resultados:
-    st.info("👉 Preencha os dados acima e clique em **Gerar recomendação** para iniciar a análise.")
-
 if st.button("🚀 Gerar recomendação"):
 
     resultados = []
