@@ -7,6 +7,31 @@ from reportlab.lib.pagesizes import A4
 from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
+# 🔐 SISTEMA DE LOGIN SIMPLES
+if "logado" not in st.session_state:
+    st.session_state.logado = False
+
+USUARIOS = {
+    "admin": "1234",
+    "kaua": "1234"
+}
+
+def tela_login():
+    st.title("🔐 Login - AgroSmart PRO")
+
+    usuario = st.text_input("Usuário")
+    senha = st.text_input("Senha", type="password")
+
+    if st.button("Entrar"):
+        if usuario in USUARIOS and USUARIOS[usuario] == senha:
+            st.session_state.logado = True
+            st.session_state.usuario = usuario
+            st.rerun()
+        else:
+            st.error("Usuário ou senha inválidos")
+if not st.session_state.logado:
+    tela_login()
+    st.stop()
 
 st.set_page_config(
     page_title="AgroSmart PRO",
@@ -231,9 +256,16 @@ components.html(f"""
 </div>
 """, height=190)
 st.caption("Versão 1.0")
+st.caption(f"👤 Usuário logado: {st.session_state.usuario}")
 
 st.sidebar.markdown("## 🌱 AgroSmart PRO")
 st.sidebar.info("Sistema inteligente de recomendação agrícola")
+st.sidebar.caption(f"👤 Usuário: {st.session_state.usuario}")
+
+if st.sidebar.button("🚪 Sair"):
+    st.session_state.logado = False
+    st.session_state.usuario = ""
+    st.rerun()
 
 if "historico" not in st.session_state:
     st.session_state.historico = []
