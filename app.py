@@ -619,12 +619,27 @@ if st.button("🚀 Gerar recomendação", use_container_width=True):
     </div>
     """, unsafe_allow_html=True)
 
-    # 🚀 SCROLL AUTOMÁTICO (CORRIGIDO)
-    components.html("""
+       # 🎯 ÂNCORA DO RESULTADO
+    st.markdown('<div id="resultado"></div>', unsafe_allow_html=True)
+
+    st.markdown(f"""
+    <div class="card-agro card-top1" style="animation: fadeIn 0.8s ease;">
+        <p>🎯 Melhor escolha para sua fazenda</p>
+        <h3>{icone_melhor} {cultura_melhor.upper()}</h3>
+        <p>{nivel}</p>
+        <h2>{melhor[1]:.0f}%</h2>
+    </div>
+    """, unsafe_allow_html=True)
+
+    # 🚀 SCROLL SUAVE FUNCIONAL
+    st.markdown("""
     <script>
-    window.scrollTo({ top: 500, behavior: 'smooth' });
+        const el = document.getElementById("resultado");
+        if (el) {
+            el.scrollIntoView({behavior: "smooth"});
+        }
     </script>
-    """, height=0)
+    """, unsafe_allow_html=True)
 
     st.markdown("## 🥇 Top 3 recomendações")
 
