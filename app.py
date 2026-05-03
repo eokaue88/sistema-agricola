@@ -230,7 +230,7 @@ components.html(f"""
     <div class="subtitulo-agro">Tecnologia aplicada ao agronegócio</div>
 </div>
 """, height=190)
-st.caption("Versão 1.0 • Sistema AgroSmart PRO")
+st.caption("Versão 1.0")
 
 st.sidebar.markdown("## 🌱 AgroSmart PRO")
 st.sidebar.info("Sistema inteligente de recomendação agrícola")
