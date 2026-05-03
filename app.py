@@ -631,16 +631,6 @@ if st.button("🚀 Gerar recomendação", use_container_width=True):
     </div>
     """, unsafe_allow_html=True)
 
-    # 🚀 SCROLL SUAVE FUNCIONAL
-    st.markdown("""
-    <script>
-        const el = document.getElementById("resultado");
-        if (el) {
-            el.scrollIntoView({behavior: "smooth"});
-        }
-    </script>
-    """, unsafe_allow_html=True)
-
     st.markdown("## 🥇 Top 3 recomendações")
 
     top_cols = st.columns(3)
