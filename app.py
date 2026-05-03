@@ -384,6 +384,9 @@ def classificar_recomendacao(porc):
 
 
 def gerar_pdf_relatorio(nome_prop, solo, clima, regiao, objetivo, cultura, compatibilidade, nivel, observacao, ponto_positivo, cuidado):
+    from datetime import datetime
+    import random
+
     buffer = BytesIO()
 
     doc = SimpleDocTemplate(
@@ -403,7 +406,7 @@ def gerar_pdf_relatorio(nome_prop, solo, clima, regiao, objetivo, cultura, compa
         fontSize=26,
         textColor=colors.HexColor("#11A17E"),
         alignment=1,
-        spaceAfter=8
+        spaceAfter=6
     )
 
     subtitulo = ParagraphStyle(
@@ -433,10 +436,22 @@ def gerar_pdf_relatorio(nome_prop, solo, clima, regiao, objetivo, cultura, compa
 
     elementos = []
 
-    elementos.append(Paragraph("AgroSmart PRO", titulo))
-    elementos.append(Paragraph("Relatório profissional de recomendação agrícola", subtitulo))
-    elementos.append(Spacer(1, 14))
+    # 🔥 TÍTULO COM BRANDING
+    elementos.append(Paragraph(
+        "AgroSmart PRO • Sistema Inteligente de Recomendação Agrícola",
+        titulo
+    ))
 
+    # 📅 DATA + CÓDIGO
+    data_atual = datetime.now().strftime('%d/%m/%Y')
+    codigo = f"AGRO-{random.randint(1000,9999)}"
+
+    elementos.append(Paragraph(f"Data da análise: {data_atual}", texto))
+    elementos.append(Paragraph(f"Código do relatório: {codigo}", texto))
+
+    elementos.append(Spacer(1, 12))
+
+    # 📊 RESUMO PRINCIPAL
     resumo = Table([
         ["Melhor cultura", cultura.upper()],
         ["Compatibilidade", f"{compatibilidade:.0f}%"],
@@ -456,6 +471,7 @@ def gerar_pdf_relatorio(nome_prop, solo, clima, regiao, objetivo, cultura, compa
     elementos.append(resumo)
     elementos.append(Spacer(1, 18))
 
+    # 📥 DADOS DA ANÁLISE
     dados_tabela = [
         ["Propriedade", nome_prop if nome_prop else "Não informado"],
         ["Solo", solo],
@@ -480,6 +496,7 @@ def gerar_pdf_relatorio(nome_prop, solo, clima, regiao, objetivo, cultura, compa
     elementos.append(tabela)
     elementos.append(Spacer(1, 16))
 
+    # 🧠 CONTEÚDO
     elementos.append(Paragraph("Observação técnica", subtitulo))
     elementos.append(Paragraph(observacao, texto))
 
