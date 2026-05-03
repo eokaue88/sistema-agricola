@@ -502,21 +502,21 @@ Este sistema possui finalidade educativa e não substitui uma análise agronômi
     Observação técnica: {observacoes.get(cultura_melhor, "Essa cultura pode exigir uma análise mais detalhada.")}
     """)
 
-    if st.button("📘 Ver metodologia do sistema"):
+    with st.expander("📘 Ver metodologia do sistema"):
         st.info(f"""
-        O sistema compara os dados informados com o banco de culturas.
+    O sistema compara os dados informados com o banco de culturas.
 
-        Cada critério possui um peso:
-        - Solo: {pesos["solo"]} pontos
-        - Clima: {pesos["clima"]} pontos
-        - Região: {pesos["regiao"]} ponto
-        - Objetivo: {pesos["objetivo"]} pontos
+    Cada critério possui um peso:
+    - Solo: {pesos["solo"]} pontos
+    - Clima: {pesos["clima"]} pontos
+    - Região: {pesos["regiao"]} ponto
+    - Objetivo: {pesos["objetivo"]} pontos
 
-        A pontuação final é convertida em porcentagem de compatibilidade.
+    A pontuação final é convertida em porcentagem de compatibilidade.
 
-        Fórmula usada:
-        compatibilidade = (pontuação obtida / pontuação máxima) × 100
-        """)
+    Fórmula usada:
+    compatibilidade = (pontuação obtida / pontuação máxima) × 100
+    """)
 
     st.markdown("### ✅ Pontos positivos e cuidados")
 
