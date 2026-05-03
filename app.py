@@ -368,6 +368,10 @@ st.caption("⚠️ Este sistema possui finalidade educativa e não substitui uma
 
 if "resultados" not in st.session_state:
     st.session_state.resultados = []
+
+if "mostrar_tabela" not in st.session_state:
+    st.session_state.mostrar_tabela = False
+
 if st.button("🚀 Gerar recomendação"):
 
     resultados = []
@@ -375,13 +379,11 @@ if st.button("🚀 Gerar recomendação"):
     for item in dados:
         pontuacao = 0
 
-        # SOLO
         if item["solo"] == solo:
             pontuacao += pesos["solo"]
         elif solo == "misto" or item["solo"] == "misto":
             pontuacao += pesos["solo"] * 0.5
 
-        # CLIMA
         if item["clima"] == clima:
             pontuacao += pesos["clima"]
         elif (clima == "tropical" and item["clima"] == "quente") or (clima == "quente" and item["clima"] == "tropical"):
@@ -389,11 +391,9 @@ if st.button("🚀 Gerar recomendação"):
         elif (clima == "ameno" and item["clima"] in ["frio", "umido"]) or (item["clima"] == "ameno" and clima in ["frio", "umido"]):
             pontuacao += pesos["clima"] * 0.4
 
-        # REGIÃO
         if item["regiao"] == regiao:
             pontuacao += pesos["regiao"]
 
-        # OBJETIVO
         if item["objetivo"] == objetivo:
             pontuacao += pesos["objetivo"]
 
@@ -427,6 +427,11 @@ if st.button("🚀 Gerar recomendação"):
         <h2>{melhor[1]:.0f}%</h2>
     </div>
     """, unsafe_allow_html=True)
+
+    st.markdown("## 🥇 Top 3 recomendações")
+
+    for i, (cultura, porc, _) in enumerate(resultados[:3]):
+        st.write(f"{i+1}º → {cultura.upper()} ({porc:.0f}%)")
 
     if melhor[1] < 50:
         st.warning("⚠️ Nenhuma cultura teve compatibilidade alta. Revise os dados informados ou amplie a base de culturas.")
@@ -482,6 +487,9 @@ Este sistema possui finalidade educativa e não substitui uma análise agronômi
     **Nível:** {nivel}
     """)
 
+    st.write("📍 Análise baseada em padrões agrícolas brasileiros.")
+    st.write("📊 Dados simulados com base em condições ideais de cultivo.")
+
     st.download_button(
         label="📥 Baixar relatório da análise",
         data=relatorio,
@@ -507,19 +515,19 @@ Este sistema possui finalidade educativa e não substitui uma análise agronômi
 
     with st.expander("📘 Ver metodologia do sistema"):
         st.info(f"""
-    O sistema compara os dados informados com o banco de culturas.
+        O sistema compara os dados informados com o banco de culturas.
 
-    Cada critério possui um peso:
-    - Solo: {pesos["solo"]} pontos
-    - Clima: {pesos["clima"]} pontos
-    - Região: {pesos["regiao"]} ponto
-    - Objetivo: {pesos["objetivo"]} pontos
+        Cada critério possui um peso:
+        - Solo: {pesos["solo"]} pontos
+        - Clima: {pesos["clima"]} pontos
+        - Região: {pesos["regiao"]} ponto
+        - Objetivo: {pesos["objetivo"]} pontos
 
-    A pontuação final é convertida em porcentagem de compatibilidade.
+        A pontuação final é convertida em porcentagem de compatibilidade.
 
-    Fórmula usada:
-    compatibilidade = (pontuação obtida / pontuação máxima) × 100
-    """)
+        Fórmula usada:
+        compatibilidade = (pontuação obtida / pontuação máxima) × 100
+        """)
 
     st.markdown("### ✅ Pontos positivos e cuidados")
 
@@ -562,13 +570,7 @@ Este sistema possui finalidade educativa e não substitui uma análise agronômi
 
             st.progress(int(porc))
 
-    # ==============================
-# CONTROLE DE EXIBIÇÃO DA TABELA
-# ==============================
 if st.session_state.resultados:
-    if "mostrar_tabela" not in st.session_state:
-        st.session_state.mostrar_tabela = False
-
     if st.button("📋 Ver tabela completa"):
         st.session_state.mostrar_tabela = not st.session_state.mostrar_tabela
 
