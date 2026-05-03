@@ -571,10 +571,9 @@ Este sistema possui finalidade educativa e não substitui uma análise agronômi
             st.progress(int(porc))
 
 if st.session_state.resultados:
-    if st.button("📋 Ver tabela completa"):
-        st.session_state.mostrar_tabela = not st.session_state.mostrar_tabela
+    mostrar_tabela = st.toggle("📋 Ver tabela completa", value=False)
 
-    if st.session_state.mostrar_tabela:
+    if mostrar_tabela:
         tabela = pd.DataFrame(
             st.session_state.resultados,
             columns=["Cultura", "Compatibilidade", "Objetivo"]
