@@ -196,8 +196,6 @@ if "historico" not in st.session_state:
 if st.sidebar.button("🗑️ Limpar histórico"):
     st.session_state.historico = []
 
-if st.sidebar.button("🔄 Nova análise"):
-    st.rerun()
 dados = [
     {"solo": "argiloso", "clima": "quente", "regiao": "centro-oeste", "objetivo": "grãos", "cultura": "soja"},
     {"solo": "argiloso", "clima": "quente", "regiao": "centro-oeste", "objetivo": "grãos", "cultura": "milho"},
@@ -595,3 +593,9 @@ if st.session_state.historico:
             f"📍 **{h['regiao']}** | 🎯 **{h['objetivo']}** → "
             f"🌱 **{h['resultado'].upper()}** ({h['compatibilidade']:.0f}%) - **{h['nivel']}**"
         )
+
+    # 👇 BOTÃO AQUI DENTRO (INDENTADO)
+    if st.button("🔄 Nova análise"):
+        st.session_state.resultados = []
+        st.session_state.mostrar_tabela = False
+        st.rerun()
