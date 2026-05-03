@@ -188,7 +188,7 @@ components.html(f"""
 
 st.sidebar.markdown("## 🌱 AgroSmart PRO")
 st.sidebar.info("Sistema inteligente de recomendação agrícola")
-modo_celular = st.sidebar.checkbox("📱 Modo celular")
+
 
 if "historico" not in st.session_state:
     st.session_state.historico = []
@@ -543,7 +543,7 @@ Este sistema possui finalidade educativa e não substitui uma análise agronômi
 
     st.markdown("## 🌾 Ranking de culturas recomendadas")
 
-    qtd_colunas = 2 if modo_celular else 3
+    qtd_colunas = 3
     cols = st.columns(qtd_colunas)
 
     for i, (cultura, porc, obj) in enumerate(resultados[:6]):
