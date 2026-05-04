@@ -634,8 +634,7 @@ if st.button("🚀 Gerar recomendação", use_container_width=True):
     """, unsafe_allow_html=True)
 
     # 🔗 BOTÃO FUNCIONAL
-        st.link_button("▶️ Ver como plantar", link, use_container_width=True)
-
+    st.link_button("▶️ Ver como plantar", link, use_container_width=True)
     st.markdown("## 🥇 Top 3 recomendações")
 
     top_cols = st.columns(3)
