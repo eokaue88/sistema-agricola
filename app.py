@@ -572,8 +572,6 @@ if pagina == "⛰️ Serra da Ibiapaba - CE":
 
     st.markdown("### 💡 Observação")
     st.warning("Essas informações são educativas e podem variar conforme solo, altitude, manejo e disponibilidade de água.")
-
-    st.stop()
     st.markdown("### 🏙️ Principais cidades da região")
 
     cidades = ["Ubajara", "Tianguá", "São Benedito", "Ibiapina", "Guaraciaba do Norte", "Viçosa do Ceará"]
@@ -641,7 +639,8 @@ if pagina == "⛰️ Serra da Ibiapaba - CE":
     - Produção de hortaliças  
     - Fruticultura  
     - Cultivo de café  
-    """)       
+    """) 
+    st.stop()      
 st.subheader("📥 Dados da propriedade")
 
 nome_prop = st.text_input("🏡 Nome da propriedade")
