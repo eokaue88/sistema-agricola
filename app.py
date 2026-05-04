@@ -635,15 +635,15 @@ if st.button("🚀 Gerar recomendação", use_container_width=True):
     </div>
     """, unsafe_allow_html=True)
 
-    # 🔗 BOTÃO FUNCIONAL
-if link:
-    st.link_button(
-        f"▶️ Aprender a cultivar {cultura_melhor.capitalize()}",
-        link,
-        use_container_width=True
-    )
-else:
-    st.warning("⚠️ Conteúdo ainda não disponível para essa cultura.")
+     # 🔗 BOTÃO FUNCIONAL
+    if link:
+        st.link_button(
+            f"▶️ Aprender a cultivar {cultura_melhor.capitalize()}",
+            link,
+            use_container_width=True
+        )
+    else:
+        st.warning("⚠️ Conteúdo ainda não disponível para essa cultura.")
     st.caption("Conteúdo educativo externo com técnicas de plantio e manejo.")
     st.markdown("## 🥇 Top 3 recomendações")
 
