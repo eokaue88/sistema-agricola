@@ -642,9 +642,10 @@ if st.button("🚀 Gerar recomendação", use_container_width=True):
             font-weight:600;
         ">
             ▶️ Ver como plantar
-        </a>
     </div>
     """, unsafe_allow_html=True)
+
+        st.link_button("▶️ Ver como plantar", link, use_container_width=True)
     st.markdown("## 🥇 Top 3 recomendações")
 
     top_cols = st.columns(3)
