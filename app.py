@@ -308,7 +308,9 @@ links_culturas = {
     "tomate": "https://www.youtube.com/results?search_query=como+plantar+tomate",
     "banana": "https://www.youtube.com/results?search_query=como+plantar+banana",
     "manga": "https://www.youtube.com/results?search_query=como+plantar+manga",
-    "laranja": "https://www.youtube.com/results?search_query=como+plantar+laranja"
+    "laranja": "https://www.youtube.com/results?search_query=como+plantar+laranja",
+    "algodao": "https://www.youtube.com/results?search_query=como+plantar+algodao"
+    
 }
 observacoes = {
     "soja": "Indicada para regiões quentes e solos férteis, sendo muito comum no Centro-Oeste brasileiro.",
