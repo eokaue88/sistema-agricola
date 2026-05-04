@@ -621,7 +621,7 @@ if st.button("🚀 Gerar recomendação", use_container_width=True):
         "nivel": nivel
     })
 
-    # 🎯 CARD PRINCIPAL
+       # 🎯 CARD PRINCIPAL
     link = links_culturas.get(cultura_melhor, "#")
 
     st.markdown(f"""
@@ -630,22 +630,11 @@ if st.button("🚀 Gerar recomendação", use_container_width=True):
         <h3>{icone_melhor} {cultura_melhor.upper()}</h3>
         <p>{nivel}</p>
         <h2>{melhor[1]:.0f}%</h2>
-
-        <a href="{link}" target="_blank" style="
-            display:inline-block;
-            margin-top:10px;
-            padding:8px 12px;
-            background:#ffffff;
-            color:#064c3e;
-            border-radius:8px;
-            text-decoration:none;
-            font-weight:600;
-        ">
-            ▶️ Ver como plantar
     </div>
     """, unsafe_allow_html=True)
 
-        st.link_button("▶️ Ver como plantar", link, use_container_width=True)
+    # 🔗 BOTÃO FUNCIONAL
+    st.link_button("▶️ Ver como plantar", link, use_container_width=True)
     st.markdown("## 🥇 Top 3 recomendações")
 
     top_cols = st.columns(3)
