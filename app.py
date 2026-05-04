@@ -634,6 +634,12 @@ if st.button("🚀 Gerar recomendação", use_container_width=True):
         <h2>{melhor[1]:.0f}%</h2>
     </div>
     """, unsafe_allow_html=True)
+    if melhor[1] >= 80:
+        st.success("🌟 Excelente escolha! Alta compatibilidade com sua propriedade.")
+    elif melhor[1] >= 50:
+        st.info("👍 Boa opção, mas pode exigir ajustes no manejo.")
+    else:
+        st.warning("⚠️ Baixa compatibilidade. Considere revisar os dados informados.")
 
      # 🔗 BOTÃO FUNCIONAL
     if link:
