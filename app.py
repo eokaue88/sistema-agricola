@@ -537,7 +537,7 @@ with col_est2:
 with col_est3:
     st.metric("📜 Histórico", len(st.session_state.historico))
 
-st.info("Informe os dados da propriedade e clique em gerar recomendação para receber a melhor cultura indicada pelo sistema.")
+st.info("Preencha os dados da propriedade para receber uma recomendação agrícola personalizada.")
 
 col1, col2, col3, col4 = st.columns(4)
 
