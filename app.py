@@ -573,7 +573,75 @@ if pagina == "⛰️ Serra da Ibiapaba - CE":
     st.markdown("### 💡 Observação")
     st.warning("Essas informações são educativas e podem variar conforme solo, altitude, manejo e disponibilidade de água.")
 
-    st.stop()    
+    st.stop()
+    st.markdown("### 🏙️ Principais cidades da região")
+
+    cidades = ["Ubajara", "Tianguá", "São Benedito", "Ibiapina", "Guaraciaba do Norte", "Viçosa do Ceará"]
+
+    cols_cidades = st.columns(3)
+    for i, cidade in enumerate(cidades):
+        with cols_cidades[i % 3]:
+            st.markdown(f"""
+            <div class="top-card">
+                <h3>📍 {cidade}</h3>
+                <p>Região da Ibiapaba</p>
+            </div>
+            """, unsafe_allow_html=True)
+
+
+    st.markdown("### 🌾 Culturas com maior destaque na região")
+
+    culturas_ib = [
+        ("🍌 Banana", "Alta produção e adaptação ao clima"),
+        ("☕ Café", "Clima ameno favorece qualidade"),
+        ("🍅 Tomate", "Boa produtividade com manejo"),
+        ("🌶️ Pimenta", "Alto valor comercial"),
+        ("🥬 Hortaliças", "Forte agricultura familiar"),
+        ("🥭 Manga", "Boa adaptação ao clima tropical")
+    ]
+
+    cols_cult = st.columns(3)
+    for i, (cultura, desc) in enumerate(culturas_ib):
+        with cols_cult[i % 3]:
+            st.markdown(f"""
+            <div class="card-agro">
+                <h3>{cultura}</h3>
+                <p>{desc}</p>
+            </div>
+            """, unsafe_allow_html=True)
+
+
+    st.markdown("### ⚠️ Cuidados na região")
+
+    col_c1, col_c2 = st.columns(2)
+
+    with col_c1:
+        st.warning("""
+        - 🌧️ Chuvas irregulares  
+        - 🌱 Necessidade de manejo do solo  
+        - 🐛 Controle de pragas  
+        """)
+
+    with col_c2:
+        st.info("""
+        - 💧 Uso eficiente de irrigação  
+        - ⛰️ Terreno com declividade  
+        - 📊 Planejamento agrícola  
+        """)
+
+
+    st.markdown("### 🌄 Potencial da região")
+
+    st.success("""
+    A Serra da Ibiapaba possui grande potencial agrícola devido ao clima mais ameno,
+    altitude elevada e diversidade de culturas adaptadas.
+
+    A região é forte em:
+    - Agricultura familiar  
+    - Produção de hortaliças  
+    - Fruticultura  
+    - Cultivo de café  
+    """)       
 st.subheader("📥 Dados da propriedade")
 
 nome_prop = st.text_input("🏡 Nome da propriedade")
