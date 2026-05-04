@@ -234,6 +234,10 @@ st.caption("Versão 1.0")
 
 st.sidebar.markdown("## 🌱 AgroSmart PRO")
 st.sidebar.info("Sistema inteligente de recomendação agrícola")
+pagina = st.sidebar.radio(
+    "📌 Navegação",
+    ["🌾 Recomendação agrícola", "⛰️ Serra da Ibiapaba - CE"]
+)
 
 if "historico" not in st.session_state:
     st.session_state.historico = []
@@ -535,7 +539,41 @@ def gerar_pdf_relatorio(nome_prop, solo, clima, regiao, objetivo, cultura, compa
     doc.build(elementos)
     buffer.seek(0)
     return buffer
-    
+if pagina == "⛰️ Serra da Ibiapaba - CE":
+    st.markdown("## ⛰️ Serra da Ibiapaba - Ceará")
+    st.info("Área dedicada às características agrícolas e regionais da Serra da Ibiapaba.")
+
+    st.markdown("""
+    A Serra da Ibiapaba é uma região importante do Ceará, conhecida pelo clima mais ameno,
+    relevo serrano e potencial para agricultura, fruticultura, hortaliças e produção familiar.
+    """)
+
+    col_a, col_b, col_c = st.columns(3)
+
+    with col_a:
+        st.metric("🌡️ Clima", "Mais ameno")
+
+    with col_b:
+        st.metric("🌱 Potencial", "Fruticultura")
+
+    with col_c:
+        st.metric("📍 Região", "Ceará")
+
+    st.markdown("### 🌾 Culturas com bom potencial na região")
+
+    st.markdown("""
+    - Banana  
+    - Café  
+    - Hortaliças  
+    - Tomate  
+    - Pimenta  
+    - Frutas tropicais  
+    """)
+
+    st.markdown("### 💡 Observação")
+    st.warning("Essas informações são educativas e podem variar conforme solo, altitude, manejo e disponibilidade de água.")
+
+    st.stop()    
 st.subheader("📥 Dados da propriedade")
 
 nome_prop = st.text_input("🏡 Nome da propriedade")
