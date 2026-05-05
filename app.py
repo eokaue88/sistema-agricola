@@ -544,9 +544,9 @@ if pagina == "⛰️ Serra da Ibiapaba - CE":
     st.info("Área dedicada às características agrícolas e regionais da Serra da Ibiapaba.")
     st.markdown("### 🗺️ Localização da Serra da Ibiapaba")
 
-st.image("mapa_ibiapaba.png", use_container_width=True)
+    st.image("mapa_ibiapaba.png", use_container_width=True)
 
-st.caption("Mapa ilustrativo da região da Serra da Ibiapaba no Ceará.")
+    st.caption("Mapa ilustrativo da região da Serra da Ibiapaba no Ceará.")
 
     st.markdown("""
     A Serra da Ibiapaba é uma região importante do Ceará, conhecida pelo clima mais ameno,
