@@ -542,10 +542,23 @@ def gerar_pdf_relatorio(nome_prop, solo, clima, regiao, objetivo, cultura, compa
 if pagina == "⛰️ Serra da Ibiapaba - CE":
     st.markdown("## ⛰️ Serra da Ibiapaba - Ceará")
     st.info("Área dedicada às características agrícolas e regionais da Serra da Ibiapaba.")
-    if st.button("🗺️ Ver mapa da Serra da Ibiapaba"):
-        st.image("mapa_ibiapaba.png", use_container_width=True)
-    st.caption("Mapa ilustrativo da região da Serra da Ibiapaba no Ceará.")
+    if "mostrar_mapa_ibiapaba" not in st.session_state:
+        st.session_state.mostrar_mapa_ibiapaba = False
 
+    if st.button("🗺️ Mostrar/Ocultar mapa da Serra da Ibiapaba"):
+        st.session_state.mostrar_mapa_ibiapaba = not st.session_state.mostrar_mapa_ibiapaba
+
+    if st.session_state.mostrar_mapa_ibiapaba:
+        st.markdown("### 🗺️ Mapa interativo da Serra da Ibiapaba")
+
+        mapa_ibiapaba = pd.DataFrame({
+            "lat": [-3.8544, -3.7296, -4.0486, -3.9244, -4.1592, -3.5667],
+            "lon": [-40.9200, -40.9919, -40.8650, -40.8917, -40.7475, -41.0917]
+        })
+
+        st.map(mapa_ibiapaba, zoom=8, height=350)
+
+        st.caption("Você pode mover o mapa e usar o zoom para explorar a região.")
     st.markdown("""
     A Serra da Ibiapaba é uma região importante do Ceará, conhecida pelo clima mais ameno,
     relevo serrano e potencial para agricultura, fruticultura, hortaliças e produção familiar.
