@@ -542,8 +542,8 @@ def gerar_pdf_relatorio(nome_prop, solo, clima, regiao, objetivo, cultura, compa
 if pagina == "⛰️ Serra da Ibiapaba - CE":
     st.markdown("## ⛰️ Serra da Ibiapaba - Ceará")
     st.info("Área dedicada às características agrícolas e regionais da Serra da Ibiapaba.")
-if st.button("🗺️ Ver mapa da Serra da Ibiapaba"):
-    st.image("mapa_ibiapaba.png", use_container_width=True)
+    if st.button("🗺️ Ver mapa da Serra da Ibiapaba"):
+        st.image("mapa_ibiapaba.png", use_container_width=True)
     st.caption("Mapa ilustrativo da região da Serra da Ibiapaba no Ceará.")
 
     st.markdown("""
