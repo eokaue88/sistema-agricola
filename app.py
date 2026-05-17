@@ -785,16 +785,16 @@ if st.button("🚀 Gerar recomendação", use_container_width=True):
     import time
 
     with st.spinner("🧠 Analisando solo informado..."):
-        time.sleep(0.5)
+        time.sleep(1.5)
 
     with st.spinner("🌦️ Verificando clima e região..."):
-        time.sleep(0.5)
+        time.sleep(1.5)
 
     with st.spinner("📊 Calculando compatibilidade das culturas..."):
         time.sleep(0.5)
 
     with st.spinner("🌱 Gerando recomendação final..."):
-        time.sleep(0.5)
+        time.sleep(1.5)
 
     st.success("✅ Análise concluída com sucesso!")
 
