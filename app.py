@@ -1100,6 +1100,53 @@ if st.session_state.resultados:
 
 if st.session_state.historico:
     st.divider()
+
+    st.markdown("## 🧠 AgroSmart Insights")
+
+    cultura_top = resultados[0][0]
+
+    insights1, insights2, insights3, insights4 = st.columns(4)
+
+    with insights1:
+        st.markdown(f"""
+        <div class="top-card">
+            <h3>🌾 Cultura líder</h3>
+            <h2>{cultura_top.upper()}</h2>
+            <p>Maior compatibilidade</p>
+        </div>
+        """, unsafe_allow_html=True)
+
+    with insights2:
+        st.markdown(f"""
+        <div class="top-card">
+            <h3>🌦️ Clima atual</h3>
+            <h2>{clima.upper()}</h2>
+            <p>Condição analisada</p>
+        </div>
+        """, unsafe_allow_html=True)
+
+    with insights3:
+        st.markdown(f"""
+        <div class="top-card">
+            <h3>🌍 Solo</h3>
+            <h2>{solo.upper()}</h2>
+            <p>Tipo selecionado</p>
+        </div>
+        """, unsafe_allow_html=True)
+
+    with insights4:
+        st.markdown(f"""
+        <div class="top-card">
+            <h3>📊 Análises</h3>
+            <h2>{len(st.session_state.historico)}</h2>
+            <p>Total realizado</p>
+        </div>
+        """, unsafe_allow_html=True)
+
+    st.info(f"""
+    📈 O sistema identificou que a cultura {cultura_top.upper()} possui o melhor desempenho
+    para as condições informadas atualmente.
+    """)
     st.markdown("## 📜 Histórico de análises")
 
     for h in st.session_state.historico[-5:][::-1]:
