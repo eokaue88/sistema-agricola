@@ -807,21 +807,18 @@ if st.button("🚀 Gerar recomendação", use_container_width=True):
     st.caption("Conteúdo educativo externo com técnicas de plantio e manejo.")
     st.markdown("### 🤖 Inteligência Artificial AgroSmart")
 
-    if st.button("🧠 Gerar análise com IA"):
-        with st.spinner("A IA está analisando os dados..."):
+    with st.spinner("A IA está analisando os dados..."):
+        analise_ia = gerar_analise_ia(
+            cultura_melhor,
+            melhor[1],
+            solo,
+            clima,
+            regiao,
+            objetivo
+        )
 
-            analise_ia = gerar_analise_ia(
-                cultura_melhor,
-                melhor[1],
-                solo,
-                clima,
-                regiao,
-                objetivo
-            )
-
-            st.success("✅ Análise gerada com sucesso!")
-
-            st.info(analise_ia)
+    st.success("✅ Análise gerada com sucesso!")
+    st.info(analise_ia)
     st.markdown("## 🥇 Top 3 recomendações")
 
     top_cols = st.columns(3)
