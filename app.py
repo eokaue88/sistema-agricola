@@ -236,9 +236,8 @@ st.sidebar.markdown("## 🌱 AgroSmart PRO")
 st.sidebar.info("Sistema inteligente de recomendação agrícola")
 pagina = st.sidebar.radio(
     "📌 Navegação",
-    ["🌾 Recomendação agrícola", "⛰️ Serra da Ibiapaba - CE"]
+    ["🌾 Recomendação agrícola", "⛰️ Serra da Ibiapaba - CE", "🎤 Modo apresentação"]
 )
-
 if "historico" not in st.session_state:
     st.session_state.historico = []
 
@@ -655,6 +654,59 @@ if pagina == "⛰️ Serra da Ibiapaba - CE":
     - Cultivo de café  
     """) 
     st.stop()      
+if pagina == "🎤 Modo apresentação":
+    st.markdown("## 🎤 Apresentação do AgroSmart PRO")
+
+    st.success("""
+    O AgroSmart PRO é um sistema inteligente de recomendação agrícola criado para auxiliar
+    produtores, estudantes e interessados no agronegócio a identificar culturas mais adequadas
+    com base em solo, clima, região e objetivo produtivo.
+    """)
+
+    st.markdown("### 🚀 Diferenciais do projeto")
+
+    col1, col2, col3 = st.columns(3)
+
+    with col1:
+        st.markdown("""
+        <div class="top-card">
+            <h3>🌱 Agronegócio</h3>
+            <p>Focado em culturas agrícolas brasileiras.</p>
+        </div>
+        """, unsafe_allow_html=True)
+
+    with col2:
+        st.markdown("""
+        <div class="top-card">
+            <h3>📊 Sistema inteligente</h3>
+            <p>Calcula compatibilidade por critérios técnicos.</p>
+        </div>
+        """, unsafe_allow_html=True)
+
+    with col3:
+        st.markdown("""
+        <div class="top-card">
+            <h3>⛰️ Regionalização</h3>
+            <p>Inclui conteúdo sobre a Serra da Ibiapaba.</p>
+        </div>
+        """, unsafe_allow_html=True)
+
+    st.markdown("### 🧠 Como funciona")
+
+    st.info("""
+    O usuário informa dados da propriedade, como tipo de solo, clima, região e objetivo.
+    O sistema compara essas informações com um banco de culturas e gera uma recomendação
+    com porcentagem de compatibilidade, relatório e explicações técnicas.
+    """)
+
+    st.markdown("### 🎯 Objetivo")
+
+    st.warning("""
+    Democratizar o acesso à informação agrícola e apoiar decisões mais conscientes no campo,
+    principalmente em contextos educativos e de agricultura familiar.
+    """)
+
+    st.stop()
 st.subheader("📥 Dados da propriedade")
 
 nome_prop = st.text_input("🏡 Nome da propriedade")
