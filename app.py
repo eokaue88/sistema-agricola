@@ -707,6 +707,45 @@ if pagina == "🎤 Modo apresentação":
     """)
 
     st.stop()
+st.markdown("## 📊 Dashboard AgroSmart PRO")
+
+dash1, dash2, dash3, dash4 = st.columns(4)
+
+with dash1:
+    st.markdown("""
+    <div class="top-card">
+        <h3>🌾 Culturas</h3>
+        <h2>20+</h2>
+        <p>Banco agrícola</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+with dash2:
+    st.markdown("""
+    <div class="top-card">
+        <h3>📍 Regiões</h3>
+        <h2>5</h2>
+        <p>Brasil</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+with dash3:
+    st.markdown("""
+    <div class="top-card">
+        <h3>⚙️ Critérios</h3>
+        <h2>4</h2>
+        <p>Analisados</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+with dash4:
+    st.markdown("""
+    <div class="top-card">
+        <h3>📈 Sistema</h3>
+        <h2>PRO</h2>
+        <p>Inteligente</p>
+    </div>
+    """, unsafe_allow_html=True)
 st.subheader("📥 Dados da propriedade")
 
 nome_prop = st.text_input("🏡 Nome da propriedade")
