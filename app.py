@@ -7,7 +7,6 @@ from reportlab.lib.pagesizes import A4
 from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
-from openai import OpenAI
 
 st.set_page_config(
     page_title="AgroSmart PRO",
@@ -400,40 +399,6 @@ def classificar_recomendacao(porc):
         return "Recomendação média"
     else:
         return "Baixa recomendação"
-def gerar_analise_ia(cultura, compatibilidade, solo, clima, regiao, objetivo):
-    try:
-        client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
-
-        prompt = f"""
-        Você é uma inteligência artificial agrícola do sistema AgroSmart PRO.
-
-        Gere uma análise técnica curta, moderna e fácil de entender.
-
-        Dados:
-        Cultura: {cultura}
-        Compatibilidade: {compatibilidade:.0f}%
-        Solo: {solo}
-        Clima: {clima}
-        Região: {regiao}
-        Objetivo: {objetivo}
-
-        Explique:
-        - por que essa cultura foi indicada
-        - vantagens
-        - cuidados
-        - recomendação final
-        """
-
-        resposta = client.responses.create(
-            model="gpt-4.1-mini",
-            input=prompt
-        )
-
-        return resposta.output_text
-
-    except Exception as e:
-        return f"Erro na IA: {e}"
-
 def gerar_pdf_relatorio(nome_prop, solo, clima, regiao, objetivo, cultura, compatibilidade, nivel, observacao, ponto_positivo, cuidado):
     from datetime import datetime
     import random
@@ -805,20 +770,6 @@ if st.button("🚀 Gerar recomendação", use_container_width=True):
     else:
         st.warning("⚠️ Conteúdo ainda não disponível para essa cultura.")
     st.caption("Conteúdo educativo externo com técnicas de plantio e manejo.")
-    st.markdown("### 🤖 Inteligência Artificial AgroSmart")
-
-    with st.spinner("A IA está analisando os dados..."):
-        analise_ia = gerar_analise_ia(
-            cultura_melhor,
-            melhor[1],
-            solo,
-            clima,
-            regiao,
-            objetivo
-        )
-
-    st.success("✅ Análise gerada com sucesso!")
-    st.info(analise_ia)
     st.markdown("## 🥇 Top 3 recomendações")
 
     top_cols = st.columns(3)
