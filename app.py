@@ -2,6 +2,7 @@ import streamlit as st
 import base64
 import streamlit.components.v1 as components
 import pandas as pd
+import plotly.express as px
 from io import BytesIO
 from reportlab.lib.pagesizes import A4
 from reportlab.lib import colors
@@ -1020,6 +1021,39 @@ Este sistema possui finalidade educativa e não substitui uma análise agronômi
 
     st.divider()
 
+    st.markdown("## 📊 Gráfico de compatibilidade")
+
+    grafico_df = pd.DataFrame(
+        resultados[:6],
+        columns=["Cultura", "Compatibilidade", "Objetivo"]
+    )
+
+    fig = px.bar(
+        grafico_df,
+        x="Cultura",
+        y="Compatibilidade",
+        color="Compatibilidade",
+        text="Compatibilidade",
+        template="plotly_dark"
+    )
+
+    fig.update_traces(
+        texttemplate='%{text:.0f}%',
+        textposition='outside'
+    )
+
+    fig.update_layout(
+        height=500,
+        paper_bgcolor='rgba(0,0,0,0)',
+        plot_bgcolor='rgba(0,0,0,0)',
+        font=dict(
+            family="Oxanium",
+            size=14,
+            color="white"
+        )
+    )
+
+    st.plotly_chart(fig, use_container_width=True)
     st.markdown("## 🌾 Ranking de culturas recomendadas")
 
     qtd_colunas = 3
