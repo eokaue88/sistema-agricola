@@ -233,7 +233,7 @@ components.html(f"""
 st.caption("Versão 1.0")
 
 st.sidebar.markdown("## 🌱 AgroSmart PRO")
-st.sidebar.info("Sistema inteligente de recomendação agrícola")
+st.sidebar.info("Uma plataforma moderna de apoio ao agronegócio, unindo tecnologia, educação e inovação rural.")
 pagina = st.sidebar.radio(
     "📌 Navegação",
     ["🌾 Recomendação agrícola", "⛰️ Serra da Ibiapaba - CE", "🎤 Modo apresentação"]
