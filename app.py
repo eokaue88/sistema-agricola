@@ -782,9 +782,18 @@ st.caption("⚠️ Este sistema possui finalidade educativa e não substitui uma
 if st.button("🚀 Gerar recomendação", use_container_width=True):
 
     # 🔄 Loading
-    with st.spinner("Analisando dados da propriedade... 🌱"):
-        import time
-        time.sleep(1.2)
+   with st.spinner("🧠 Analisando solo informado..."):
+    import time
+    time.sleep(0.5)
+
+with st.spinner("🌦️ Verificando clima e região..."):
+    time.sleep(0.5)
+
+with st.spinner("📊 Calculando compatibilidade das culturas..."):
+    time.sleep(0.5)
+
+with st.spinner("🌱 Gerando recomendação final..."):
+    time.sleep(0.5)
 
     st.success("✅ Análise concluída com sucesso!")
 
