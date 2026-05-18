@@ -559,6 +559,47 @@ def gerar_pdf_relatorio(nome_prop, solo, clima, regiao, objetivo, cultura, compa
     return buffer
 if pagina == "⛰️ Serra da Ibiapaba - CE":
     st.markdown("## ⛰️ Serra da Ibiapaba - Ceará")
+    temp, umidade, clima_atual, vento = obter_clima()
+
+    st.markdown("## 🌦️ Clima em tempo real")
+
+    clima1, clima2, clima3, clima4 = st.columns(4)
+
+    with clima1:
+        st.markdown(f"""
+        <div class="top-card">
+            <h3>🌡️ Temperatura</h3>
+            <h2>{temp if temp else '--'}°C</h2>
+            <p>Serra da Ibiapaba</p>
+        </div>
+        """, unsafe_allow_html=True)
+
+    with clima2:
+        st.markdown(f"""
+        <div class="top-card">
+            <h3>💧 Umidade</h3>
+            <h2>{umidade if umidade else '--'}%</h2>
+            <p>Condição atual</p>
+        </div>
+        """, unsafe_allow_html=True)
+
+    with clima3:
+        st.markdown(f"""
+        <div class="top-card">
+            <h3>☁️ Clima</h3>
+            <h2>{clima_atual if clima_atual else '--'}</h2>
+            <p>Tempo atual</p>
+        </div>
+        """, unsafe_allow_html=True)
+
+    with clima4:
+        st.markdown(f"""
+        <div class="top-card">
+            <h3>🌬️ Vento</h3>
+            <h2>{vento if vento else '--'} km/h</h2>
+            <p>Velocidade</p>
+        </div>
+        """, unsafe_allow_html=True)
     st.info("Área dedicada às características agrícolas e regionais da Serra da Ibiapaba.")
     if "mostrar_mapa_ibiapaba" not in st.session_state:
         st.session_state.mostrar_mapa_ibiapaba = False
@@ -765,43 +806,6 @@ with dash4:
         <h3>📈 Sistema</h3>
         <h2>PRO</h2>
         <p>Inteligente</p>
-    </div>
-    """, unsafe_allow_html=True)
-temp, umidade, clima_atual, vento = obter_clima()
-
-st.markdown("## 🌦️ Clima em tempo real — Serra da Ibiapaba")
-
-cl1, cl2, cl3, cl4 = st.columns(4)
-
-with cl1:
-    st.markdown(f"""
-    <div class="top-card">
-        <h3>🌡️ Temperatura</h3>
-        <h2>{temp if temp else '--'}°C</h2>
-    </div>
-    """, unsafe_allow_html=True)
-
-with cl2:
-    st.markdown(f"""
-    <div class="top-card">
-        <h3>💧 Umidade</h3>
-        <h2>{umidade if umidade else '--'}%</h2>
-    </div>
-    """, unsafe_allow_html=True)
-
-with cl3:
-    st.markdown(f"""
-    <div class="top-card">
-        <h3>☁️ Clima</h3>
-        <h2>{clima_atual if clima_atual else '--'}</h2>
-    </div>
-    """, unsafe_allow_html=True)
-
-with cl4:
-    st.markdown(f"""
-    <div class="top-card">
-        <h3>🌬️ Vento</h3>
-        <h2>{vento if vento else '--'} km/h</h2>
     </div>
     """, unsafe_allow_html=True)
 st.subheader("📥 Dados da propriedade")
