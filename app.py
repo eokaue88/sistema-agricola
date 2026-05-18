@@ -166,6 +166,65 @@ section[data-testid="stSidebar"] h2 {
         transform: translateY(0);
     }
 }
+@media (max-width: 768px) {
+    .block-container {
+        padding-top: 1rem;
+        padding-left: 0.8rem;
+        padding-right: 0.8rem;
+    }
+
+    .card-agro {
+        padding: 16px;
+        border-radius: 16px;
+        min-height: auto;
+        margin-bottom: 12px;
+    }
+
+    .card-agro h3 {
+        font-size: 19px;
+    }
+
+    .card-agro h2 {
+        font-size: 26px;
+    }
+
+    .top-card {
+        padding: 14px;
+        border-radius: 14px;
+        min-height: auto;
+        margin-bottom: 12px;
+    }
+
+    .top-card h3 {
+        font-size: 17px;
+    }
+
+    .top-card h2 {
+        font-size: 24px;
+    }
+
+    .info-box {
+        padding: 14px;
+        border-radius: 14px;
+    }
+
+    h1 {
+        font-size: 28px !important;
+    }
+
+    h2 {
+        font-size: 24px !important;
+    }
+
+    h3 {
+        font-size: 20px !important;
+    }
+
+    .stButton button {
+        height: 3em;
+        font-size: 15px;
+    }
+}
 </style>
 """, unsafe_allow_html=True)
 
