@@ -238,7 +238,12 @@ st.sidebar.markdown("## 🌱 AgroSmart PRO")
 st.sidebar.info("Uma plataforma moderna de apoio ao agronegócio, unindo tecnologia, educação e inovação rural.")
 pagina = st.sidebar.radio(
     "📌 Navegação",
-    ["🌾 Recomendação agrícola", "⛰️ Serra da Ibiapaba - CE", "🎤 Modo apresentação"]
+[
+    "🌾 Recomendação agrícola",
+    "⛰️ Serra da Ibiapaba - CE",
+    "🌎 Agronegócio Brasileiro",
+    "🎤 Modo apresentação"
+]
 )
 if "historico" not in st.session_state:
     st.session_state.historico = []
@@ -716,6 +721,110 @@ if pagina == "⛰️ Serra da Ibiapaba - CE":
     - Cultivo de café  
     """) 
     st.stop()      
+if pagina == "🌎 Agronegócio Brasileiro":
+
+    st.markdown("## 🌎 Agronegócio Brasileiro")
+
+    st.success("""
+    O agronegócio é um dos setores mais importantes da economia brasileira,
+    sendo responsável pela produção de alimentos, geração de empregos,
+    exportações e desenvolvimento tecnológico no campo.
+    """)
+
+    agro1, agro2, agro3, agro4 = st.columns(4)
+
+    with agro1:
+        st.markdown("""
+        <div class="top-card">
+            <h3>🌾 Produção</h3>
+            <h2>TOP 5</h2>
+            <p>Maior produtor mundial</p>
+        </div>
+        """, unsafe_allow_html=True)
+
+    with agro2:
+        st.markdown("""
+        <div class="top-card">
+            <h3>🚢 Exportação</h3>
+            <h2>Bilhões</h2>
+            <p>Movimentados por ano</p>
+        </div>
+        """, unsafe_allow_html=True)
+
+    with agro3:
+        st.markdown("""
+        <div class="top-card">
+            <h3>👨‍🌾 Empregos</h3>
+            <h2>Milhões</h2>
+            <p>Setor agrícola</p>
+        </div>
+        """, unsafe_allow_html=True)
+
+    with agro4:
+        st.markdown("""
+        <div class="top-card">
+            <h3>🧠 Tecnologia</h3>
+            <h2>AgroTech</h2>
+            <p>Inovação no campo</p>
+        </div>
+        """, unsafe_allow_html=True)
+
+    st.markdown("## 🌱 Principais culturas do Brasil")
+
+    culturas_brasil = [
+        ("🌱 Soja", "Maior destaque agrícola brasileiro."),
+        ("🌽 Milho", "Importante para alimentação e exportação."),
+        ("☕ Café", "Brasil é líder mundial na produção."),
+        ("🍊 Laranja", "Grande destaque na exportação de suco."),
+        ("🎋 Cana-de-açúcar", "Usada para açúcar e etanol."),
+        ("🫘 Feijão", "Base da alimentação brasileira.")
+    ]
+
+    cols_agro = st.columns(3)
+
+    for i, (cult, desc) in enumerate(culturas_brasil):
+        with cols_agro[i % 3]:
+            st.markdown(f"""
+            <div class="card-agro">
+                <h3>{cult}</h3>
+                <p>{desc}</p>
+            </div>
+            """, unsafe_allow_html=True)
+
+    st.markdown("## 🌿 Sustentabilidade no campo")
+
+    st.info("""
+    A agricultura moderna também busca práticas sustentáveis, como:
+    
+    - 🌱 conservação do solo
+    - 💧 uso eficiente da água
+    - 🚜 agricultura de precisão
+    - ♻️ redução de impactos ambientais
+    - 🌎 preservação ambiental
+    """)
+
+    st.markdown("## 📊 Tecnologia no agronegócio")
+
+    st.warning("""
+    O avanço tecnológico tem transformado o agronegócio brasileiro através de:
+    
+    - drones agrícolas
+    - sensores climáticos
+    - inteligência artificial
+    - análise de dados
+    - automação no campo
+    - plataformas digitais agrícolas
+    """)
+
+    st.markdown("## 🎯 Importância do AgroSmart PRO")
+
+    st.success("""
+    O AgroSmart PRO foi criado com foco educacional e tecnológico,
+    buscando demonstrar como a tecnologia pode auxiliar na tomada
+    de decisões agrícolas e no fortalecimento do agronegócio.
+    """)
+
+    st.stop()
 if pagina == "🎤 Modo apresentação":
     st.markdown("## 🎤 Apresentação do AgroSmart PRO")
 
