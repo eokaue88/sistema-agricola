@@ -425,7 +425,7 @@ def buscar_noticias_agro():
         url = "https://gnews.io/api/v4/search"
 
         parametros = {
-            "q": "agronegócio OR agricultura OR agro tecnologia rural",
+            "q": "agronegócio",
             "lang": "pt",
             "country": "br",
             "max": 6,
@@ -435,9 +435,14 @@ def buscar_noticias_agro():
         resposta = requests.get(url, params=parametros)
         dados = resposta.json()
 
-        return dados.get("articles", [])
+        if "articles" in dados:
+            return dados["articles"]
 
-    except:
+        st.warning(f"Erro da API: {dados}")
+        return []
+
+    except Exception as e:
+        st.warning(f"Erro ao buscar notícias: {e}")
         return []
 def classificar_recomendacao(porc):
     if porc >= 80:
