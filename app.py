@@ -3,6 +3,7 @@ import base64
 import streamlit.components.v1 as components
 import pandas as pd
 import plotly.express as px
+import requests
 from io import BytesIO
 from reportlab.lib.pagesizes import A4
 from reportlab.lib import colors
@@ -392,6 +393,25 @@ pesos = {
     "objetivo": 2
 }
 
+def obter_clima():
+    try:
+        api_key = "238652edabea9ad4f5acb0efda7b07ea"
+
+        cidade = "Tiangua"
+
+        url = f"https://api.openweathermap.org/data/2.5/weather?q={cidade},BR&appid={api_key}&units=metric&lang=pt_br"
+
+        resposta = requests.get(url).json()
+
+        temperatura = resposta["main"]["temp"]
+        umidade = resposta["main"]["humidity"]
+        clima = resposta["weather"][0]["description"]
+        vento = resposta["wind"]["speed"]
+
+        return temperatura, umidade, clima, vento
+
+    except:
+        return None, None, None, None
 def classificar_recomendacao(porc):
     if porc >= 80:
         return "Alta recomendação"
@@ -745,6 +765,43 @@ with dash4:
         <h3>📈 Sistema</h3>
         <h2>PRO</h2>
         <p>Inteligente</p>
+    </div>
+    """, unsafe_allow_html=True)
+temp, umidade, clima_atual, vento = obter_clima()
+
+st.markdown("## 🌦️ Clima em tempo real — Serra da Ibiapaba")
+
+cl1, cl2, cl3, cl4 = st.columns(4)
+
+with cl1:
+    st.markdown(f"""
+    <div class="top-card">
+        <h3>🌡️ Temperatura</h3>
+        <h2>{temp if temp else '--'}°C</h2>
+    </div>
+    """, unsafe_allow_html=True)
+
+with cl2:
+    st.markdown(f"""
+    <div class="top-card">
+        <h3>💧 Umidade</h3>
+        <h2>{umidade if umidade else '--'}%</h2>
+    </div>
+    """, unsafe_allow_html=True)
+
+with cl3:
+    st.markdown(f"""
+    <div class="top-card">
+        <h3>☁️ Clima</h3>
+        <h2>{clima_atual if clima_atual else '--'}</h2>
+    </div>
+    """, unsafe_allow_html=True)
+
+with cl4:
+    st.markdown(f"""
+    <div class="top-card">
+        <h3>🌬️ Vento</h3>
+        <h2>{vento if vento else '--'} km/h</h2>
     </div>
     """, unsafe_allow_html=True)
 st.subheader("📥 Dados da propriedade")
