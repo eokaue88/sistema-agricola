@@ -242,6 +242,7 @@ pagina = st.sidebar.radio(
     "🌾 Recomendação agrícola",
     "⛰️ Serra da Ibiapaba - CE",
     "🌎 Agronegócio Brasileiro",
+    "🗞️ AgroSmart News",
     "🎤 Modo apresentação"
 ]
 )
@@ -417,6 +418,27 @@ def obter_clima():
 
     except:
         return None, None, None, None
+def buscar_noticias_agro():
+    try:
+        api_key = "cd4e1dd866888348ed3347784508d410"
+
+        url = "https://gnews.io/api/v4/search"
+
+        parametros = {
+            "q": "agronegócio OR agricultura OR agro tecnologia rural",
+            "lang": "pt",
+            "country": "br",
+            "max": 6,
+            "apikey": api_key
+        }
+
+        resposta = requests.get(url, params=parametros)
+        dados = resposta.json()
+
+        return dados.get("articles", [])
+
+    except:
+        return []
 def classificar_recomendacao(porc):
     if porc >= 80:
         return "Alta recomendação"
@@ -823,6 +845,33 @@ if pagina == "🌎 Agronegócio Brasileiro":
     buscando demonstrar como a tecnologia pode auxiliar na tomada
     de decisões agrícolas e no fortalecimento do agronegócio.
     """)
+
+    st.stop()
+if pagina == "🗞️ AgroSmart News":
+    st.markdown("## 🗞️ AgroSmart News")
+    st.info("Últimas notícias sobre agronegócio, agricultura, tecnologia rural e sustentabilidade.")
+
+    noticias = buscar_noticias_agro()
+
+    if noticias:
+        for noticia in noticias:
+            titulo = noticia.get("title", "Sem título")
+            descricao = noticia.get("description", "Sem descrição disponível.")
+            link = noticia.get("url", "#")
+            fonte = noticia.get("source", {}).get("name", "Fonte não informada")
+
+            st.markdown(f"""
+            <div class="card-agro">
+                <h3>{titulo}</h3>
+                <p>{descricao}</p>
+                <p><strong>Fonte:</strong> {fonte}</p>
+            </div>
+            """, unsafe_allow_html=True)
+
+            st.link_button("🔗 Ler notícia completa", link, use_container_width=True)
+
+    else:
+        st.warning("Não foi possível carregar notícias no momento.")
 
     st.stop()
 if pagina == "🎤 Modo apresentação":
