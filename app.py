@@ -23,7 +23,11 @@ st.markdown("""
 @import url('https://fonts.googleapis.com/css2?family=Oxanium:wght@300;400;600&display=swap');
 
 .stApp {
-    background: radial-gradient(circle at top, #23306b 0%, #171B48 45%, #090b1f 100%);
+    background:
+radial-gradient(circle at top left, rgba(24,214,166,0.15), transparent 25%),
+radial-gradient(circle at top right, rgba(17,161,126,0.12), transparent 20%),
+radial-gradient(circle at bottom, rgba(0,255,180,0.08), transparent 30%),
+linear-gradient(180deg, #11162f 0%, #0b1025 45%, #060816 100%);
 }
 
 .block-container {
