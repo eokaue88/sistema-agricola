@@ -50,7 +50,10 @@ st.markdown("""
 
 .stButton>button:hover {
     transform: scale(1.03);
-    box-shadow: 0 12px 30px rgba(17,161,126,0.6);
+    box-shadow:
+    0 0 12px rgba(17,161,126,0.25),
+    0 0 24px rgba(17,161,126,0.18),
+    0 12px 35px rgba(0,0,0,0.45);
 }
 
 .stSelectbox>div>div,
@@ -97,7 +100,10 @@ section[data-testid="stSidebar"] h2 {
 
 .card-agro:hover {
     transform: translateY(-8px) scale(1.04);
-    box-shadow: 0 20px 50px rgba(17,161,126,0.5);
+    box-shadow:
+    0 0 18px rgba(24,214,166,0.6),
+    0 0 40px rgba(24,214,166,0.35),
+    0 20px 50px rgba(17,161,126,0.5);
 }
 
 .card-top1 {
