@@ -135,8 +135,21 @@ section[data-testid="stSidebar"] h2 {
     padding: 18px;
     color: white;
     text-align: center;
-    box-shadow: 0 10px 28px rgba(0,0,0,0.35);
+    box-shadow:
+    0 0 10px rgba(17,161,126,0.18),
+    0 0 22px rgba(17,161,126,0.12),
+    0 10px 28px rgba(0,0,0,0.35);
     min-height: 130px;
+            .top-card:hover {
+    transform: translateY(-4px) scale(1.02);
+
+    box-shadow:
+    0 0 16px rgba(24,214,166,0.45),
+    0 0 36px rgba(24,214,166,0.25),
+    0 12px 30px rgba(0,0,0,0.4);
+
+    transition: 0.3s;
+}
 }
 
 .top-card h3 {
